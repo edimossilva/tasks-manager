@@ -17,7 +17,9 @@ services:
     build:
       context: "."
       dockerfile: "Dockerfile_rails"
-    image: edimossilva/task-manager
+    only:
+      - master
+      - merge_requests
     container_name: rails
     volumes:
       - ./volume/tasks-manager:/app
