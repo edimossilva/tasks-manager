@@ -4,7 +4,7 @@ stages:
   - test
 
 test:
-  stage: build
+  stage: test
   services:
     - docker:dind
   before_script:
