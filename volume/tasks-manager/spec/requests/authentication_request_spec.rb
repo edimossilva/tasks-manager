@@ -23,7 +23,7 @@ RSpec.describe 'Authentications', type: :request do
         json_response = JSON.parse(response.body)
         payload = decode_token(json_response['token'])
 
-        expect(-1).to eq(user.id)
+        expect(payload[:user_id]).to eq(user.id)
       end
     end
 
