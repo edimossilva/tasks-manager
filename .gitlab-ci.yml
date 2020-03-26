@@ -12,6 +12,6 @@ test:
     - docker-compose build
     - docker-compose up -d
     - docker-compose run rails rake db:create
-    - docker-compose exec rails rake db:migrate
+    - docker-compose exec -T rails rake db:migrate
   script:
     - docker-compose exec rails rspec
