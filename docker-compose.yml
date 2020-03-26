@@ -17,9 +17,6 @@ services:
     build:
       context: "."
       dockerfile: "Dockerfile_rails"
-    only:
-      - master
-      - merge_requests
     container_name: rails
     volumes:
       - ./volume/tasks-manager:/app

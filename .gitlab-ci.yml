@@ -10,6 +10,9 @@ variables:
 
 test:
   stage: test
+  only:
+    - master
+    - merge_requests
   services:
     - docker:dind
   before_script:
