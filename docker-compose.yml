@@ -1,8 +1,8 @@
 version: '3'
 services:
-  db_pg:
+  db:
     image: postgres
-    container_name: db_pg
+    container_name: db
     volumes:
       - ./config/postgres-data:/var/lib/postgresql/data
 
@@ -13,15 +13,15 @@ services:
       - "5432:5432"
 
 
-  rails_server:
+  rails:
     build:
       context: "."
       dockerfile: "Dockerfile_rails"
-    container_name: rails_server
+    container_name: rails
     volumes:
       - ./volume/tasks-manager:/app
     depends_on:
-      - db_pg
+      - db
     environment:
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
       RAILS_MASTER_KEY: "a667717bf0a47475b0582547379c816d"
@@ -32,7 +32,8 @@ services:
 
 # docker-compose build
 # docker-compose run rails rake db:create
-# docker-compose run rails rake db:migrate
-# docker-compose run rails rake db:seed
+# docker-compose exec rails rake db:migrate
+# docker-compose exec rails rake db:seed
+# docker-compose exec rails rspec
 # docker-compose up -d
 # localhost:3000
