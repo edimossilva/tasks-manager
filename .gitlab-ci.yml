@@ -3,6 +3,13 @@ image: docker:latest
 stages:
   - test
 
+variables:
+  # use the overlay storage driver
+  # https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#using-the-overlayfs-driver
+  DOCKER_DRIVER: overlay
+  # linked to docker-compose
+  CACHE_IMAGE: edimossilva/task-manager
+
 test:
   stage: test
   services:
