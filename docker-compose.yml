@@ -12,6 +12,7 @@ services:
     ports:
       - "5432:5432"
 
+
   rails_server:
     build:
       context: "."
@@ -30,6 +31,8 @@ services:
       - "3000:3000"
 
 # docker-compose build
+# docker-compose run rails rake db:create
+# docker-compose run rails rake db:migrate
+# docker-compose run rails rake db:seed
 # docker-compose up -d
-# docker exec -it rails bash
-# railss
+# localhost:3000
