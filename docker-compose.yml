@@ -17,8 +17,6 @@ services:
     build:
       context: "."
       dockerfile: "Dockerfile_rails"
-      cache_from:
-        - edimossilva/task-manager
     image: edimossilva/task-manager
     container_name: rails
     volumes:
