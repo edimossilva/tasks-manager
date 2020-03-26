@@ -1,0 +1,16 @@
+image: docker
+
+stages:
+  - test
+
+test:
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker-compose build
+    - docker-compose run rails rake db:create
+    - docker-compose exec rails rake db:migrate
+    - docker-compose exec rails rake db:seed
+  script:
+    - docker-compose exec rails rspec
