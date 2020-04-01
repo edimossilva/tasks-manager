@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   enum access_level: { registred: 0, admin: 1 }
 
+  has_many :task_lists, dependent: :destroy
+
   def owner?(entity)
     entity.user == self
   end

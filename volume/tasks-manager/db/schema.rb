@@ -10,10 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_03_095909) do
+ActiveRecord::Schema.define(version: 2020_04_01_051651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "task_in_lists", force: :cascade do |t|
+    t.boolean "checked"
+    t.bigint "task_list_id"
+    t.bigint "task_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_task_in_lists_on_task_id"
+    t.index ["task_list_id"], name: "index_task_in_lists_on_task_list_id"
+  end
+
+  create_table "task_lists", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "frequence_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_task_lists_on_user_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
@@ -23,4 +50,7 @@ ActiveRecord::Schema.define(version: 2020_03_03_095909) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "task_in_lists", "task_lists"
+  add_foreign_key "task_in_lists", "tasks"
+  add_foreign_key "task_lists", "users"
 end
