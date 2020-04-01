@@ -25,6 +25,14 @@ RSpec.describe 'TaskLists', type: :request do
         end
 
         it { expect(response).to have_http_status(:created) }
+
+        it 'contains fields from params' do
+          expect(json_response_data['id']).not_to be_nil
+          expect(json_response_data['name']).to eq(task_list_params[:name])
+          expect(json_response_data['description']).to eq(task_list_params[:description])
+          expect(json_response_data['frequence_type']).to eq(task_list_params[:frequence_type])
+          expect(json_response_data['user_id']).to eq(task_list_params[:user_id])
+        end
       end
     end
   end
