@@ -19,6 +19,10 @@ class TaskListsController < ApplicationController
     render_destroyed
   end
 
+  def index
+    render_ok(current_user.task_lists)
+  end
+
   def update
     task_list = TaskList.find_by!(id: search_params[:id])
 

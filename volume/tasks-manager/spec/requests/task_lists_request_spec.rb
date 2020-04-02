@@ -156,4 +156,19 @@ RSpec.describe 'TaskLists', type: :request do
       end
     end
   end
+
+  describe '#list' do
+    describe 'When user is registred' do
+      let!(:task_list_list) { create_list(:task_list, 10, user: registred_user) }
+      let!(:task_list_list2) { create_list(:task_list, 20) }
+
+      before do
+        get("/users/#{registred_user.id}/task_lists",
+            headers: registred_headers)
+      end
+
+      it { expect(response).to have_http_status(:ok) }
+      it { expect(json_response_data.length).to eq(task_list_list.length) }
+    end
+  end
 end
