@@ -65,7 +65,6 @@ RSpec.describe 'TaskLists', type: :request do
   end
 
   describe '#edit' do
-    let!(:task_list) { build(:task_list) }
     let!(:updated_name) { 'Updated name' }
 
     let!(:update_task_list_params) do
@@ -112,6 +111,45 @@ RSpec.describe 'TaskLists', type: :request do
           put("/users/#{registred_user2.id}/task_lists/#{task_list.id}",
               params: update_task_list_params,
               headers: registred_headers2)
+        end
+
+        it { expect(response).to have_http_status(:unauthorized) }
+      end
+    end
+  end
+
+  describe '#destroy' do
+    let!(:task_list) { create(:task_list, user: registred_user) }
+
+    describe 'When user is registred' do
+      describe 'And TaskList belongs to him' do
+        describe 'And it is found' do
+          before do
+            delete("/users/#{registred_user.id}/task_lists/#{task_list.id}",
+                   headers: registred_headers)
+          end
+
+          it { expect(response).to have_http_status(:no_content) }
+        end
+
+        describe 'And it is NOT found' do
+          before do
+            delete("/users/#{registred_user.id}/task_lists/-1",
+                   headers: registred_headers)
+          end
+
+          it { expect(response).to have_http_status(:not_found) }
+
+          it 'contains updated fields from params' do
+            expect(json_response_error).to eq("Couldn't find TaskList")
+          end
+        end
+      end
+
+      describe 'And TaskList belongs to another user' do
+        before do
+          delete("/users/#{registred_user2.id}/task_lists/#{task_list.id}",
+                 headers: registred_headers2)
         end
 
         it { expect(response).to have_http_status(:unauthorized) }

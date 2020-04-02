@@ -9,6 +9,16 @@ class TaskListsController < ApplicationController
     render_created(task_list)
   end
 
+  def destroy
+    task_list = TaskList.find_by!(id: search_params[:id])
+
+    authorize task_list
+
+    task_list.destroy!
+
+    render_destroyed
+  end
+
   def update
     task_list = TaskList.find_by!(id: search_params[:id])
 

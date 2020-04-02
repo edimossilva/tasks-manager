@@ -13,4 +13,8 @@ class TaskListPolicy
   def update?
     user.owner?(task_list)
   end
+
+  def destroy?
+    user.owner?(task_list)
+  end
 end
