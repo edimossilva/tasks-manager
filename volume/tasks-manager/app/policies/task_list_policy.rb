@@ -9,4 +9,12 @@ class TaskListPolicy
   def create?
     user.owner?(task_list)
   end
+
+  def update?
+    user.owner?(task_list)
+  end
+
+  def destroy?
+    user.owner?(task_list)
+  end
 end
