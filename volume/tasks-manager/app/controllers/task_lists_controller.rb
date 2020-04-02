@@ -8,10 +8,24 @@ class TaskListsController < ApplicationController
 
     render_created(task_list)
   end
+
+  def update
+    task_list = TaskList.find_by!(id: search_params[:id])
+
+    authorize task_list
+
+    task_list.update!(update_params)
+
+    render_ok(task_list)
+  end
 end
 
 private
 
 def create_params
   params.permit(:name, :description, :frequence_type, :user_id)
+end
+
+def update_params
+  params.permit(:name, :description, :frequence_type)
 end

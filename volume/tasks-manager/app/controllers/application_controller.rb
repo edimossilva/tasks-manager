@@ -31,4 +31,8 @@ class ApplicationController < ActionController::API
   def render_unprocessable_entity(exception)
     render json: { error_message: exception.message }, status: :unprocessable_entity
   end
+
+  def search_params
+    params.permit(:id)
+  end
 end
