@@ -26,6 +26,9 @@ Style/Documentation:
 Metrics/AbcSize:
   Max: 80
 
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
+
 Metrics/ClassLength:
   Max: 200
 
