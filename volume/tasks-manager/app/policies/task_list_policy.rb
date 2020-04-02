@@ -6,15 +6,7 @@ class TaskListPolicy
     @task_list = task_list
   end
 
-  def create?
-    user.owner?(task_list)
-  end
-
-  def update?
-    user.owner?(task_list)
-  end
-
-  def destroy?
+  def owner?
     user.owner?(task_list)
   end
 end

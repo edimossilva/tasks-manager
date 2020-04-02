@@ -2,7 +2,7 @@ class TaskListsController < ApplicationController
   def create
     task_list = TaskList.new(create_params)
 
-    authorize task_list
+    authorize task_list, :owner?
 
     task_list.save!
 
@@ -12,7 +12,7 @@ class TaskListsController < ApplicationController
   def destroy
     task_list = TaskList.find_by!(id: search_params[:id])
 
-    authorize task_list
+    authorize task_list, :owner?
 
     task_list.destroy!
 
@@ -23,10 +23,18 @@ class TaskListsController < ApplicationController
     render_ok(current_user.task_lists)
   end
 
+  def show
+    task_list = TaskList.find_by!(id: search_params[:id])
+
+    authorize task_list, :owner?
+
+    render_ok(task_list)
+  end
+
   def update
     task_list = TaskList.find_by!(id: search_params[:id])
 
-    authorize task_list
+    authorize task_list, :owner?
 
     task_list.update!(update_params)
 
