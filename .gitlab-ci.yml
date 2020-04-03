@@ -37,7 +37,7 @@ pages:
     - merge_requests
     - external_pull_requests
   dependencies:
-    - rspec
+    - test
   script:
     - mv volume/tasks-manager/coverage/ public/
   artifacts:
