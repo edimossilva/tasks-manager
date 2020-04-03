@@ -15,6 +15,7 @@ test:
     - master
     - merge_requests
     - external_pull_requests
+    - manual
   services:
     - docker:dind
   before_script:
@@ -36,6 +37,7 @@ code coverage:
     - master
     - merge_requests
     - external_pull_requests
+    - manual
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   script:
     - bundle exec rake merge_coverage_reports
