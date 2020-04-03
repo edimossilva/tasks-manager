@@ -24,6 +24,4 @@
    ```
 
 1. current coverage
-  ```
-    edimossilva.gitlab.io/tasks-manager
-  ```
+  [coverage](https://edimossilva.gitlab.io/tasks-manager)
