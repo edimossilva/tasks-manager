@@ -2,7 +2,6 @@ image: docker:latest
 
 stages:
   - test
-
 variables:
   # use the overlay storage driver
   # https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#using-the-overlayfs-driver
@@ -10,6 +9,7 @@ variables:
 #
 test:
   stage: test
+  coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
     - master
     - merge_requests
@@ -24,3 +24,7 @@ test:
     - docker-compose exec -T rails rake db:migrate
   script:
     - docker-compose exec -T rails rspec
+  artifacts:
+    paths:
+      - "volume/tasks-manager/coverage/"
+    name: "Pipeline $CI_PIPELINE_ID Coverage Report"
