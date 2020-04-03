@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :tasks, only: %i[create destroy update]
   resources :task_lists, only: %i[create index]
+  resources :task_in_lists, only: %i[create destroy]
 
   mount ActionCable.server => '/cable'
 end
