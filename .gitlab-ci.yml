@@ -32,7 +32,10 @@ test:
 
 code coverage:
   stage: codecov
-  when: always # Always try to generate a code coverage report
+  only:
+    - master
+    - merge_requests
+    - external_pull_requests
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   script:
     - bundle exec rake merge_coverage_reports
