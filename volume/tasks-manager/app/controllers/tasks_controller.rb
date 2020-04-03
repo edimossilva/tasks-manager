@@ -7,8 +7,18 @@ class TasksController < ApplicationController
     render_created(task)
   end
 
+  def destroy
+    task = Task.find_by!(search_params)
+
+    authorize task, :owner?
+
+    task.destroy!
+
+    render_destroyed
+  end
+
   def update
-    task = Task.find_by!(id: search_params[:id])
+    task = Task.find_by!(search_params)
 
     authorize task, :owner?
 

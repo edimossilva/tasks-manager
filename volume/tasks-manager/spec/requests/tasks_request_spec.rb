@@ -73,7 +73,7 @@ RSpec.describe 'TaskLists', type: :request do
       it { expect(response).to have_http_status(:unprocessable_entity) }
     end
 
-    describe 'When is NOT found' do
+    describe 'When task is NOT found' do
       before do
         put('/tasks/-1',
             headers: registred_headers)
@@ -82,10 +82,42 @@ RSpec.describe 'TaskLists', type: :request do
       it { expect(response).to have_http_status(:not_found) }
     end
 
-    describe 'When user is NOT owner' do
+    describe 'When user is NOT task owner' do
       before do
         put("/tasks/#{task.id}",
             headers: registred_headers2)
+      end
+
+      it { expect(response).to have_http_status(:unauthorized) }
+    end
+  end
+
+  describe '#destroy' do
+    let!(:task) { create(:task, user: registred_user) }
+    let!(:updated_name) { 'updated_name' }
+
+    describe 'When task is found' do
+      before do
+        delete("/tasks/#{task.id}",
+               headers: registred_headers)
+      end
+
+      it { expect(response).to have_http_status(:no_content) }
+    end
+
+    describe 'When task is NOT found' do
+      before do
+        delete('/tasks/-1',
+               headers: registred_headers)
+      end
+
+      it { expect(response).to have_http_status(:not_found) }
+    end
+
+    describe 'When user is NOT task owner' do
+      before do
+        delete("/tasks/#{task.id}",
+               headers: registred_headers2)
       end
 
       it { expect(response).to have_http_status(:unauthorized) }
