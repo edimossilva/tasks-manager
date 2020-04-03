@@ -13,6 +13,14 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+# coverage
+require 'simplecov'
+require 'simplecov-console'
+# SimpleCov.formatter = SimpleCov::Formatter::Console
+
+SimpleCov.start
+
 RSpec.configure do |config|
   config.define_derived_metadata(file_path: Regexp.new('/spec/services/')) do |metadata|
     metadata[:type] = :services

@@ -2,7 +2,7 @@ image: docker:latest
 
 stages:
   - test
-
+  - codecov
 variables:
   # use the overlay storage driver
   # https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#using-the-overlayfs-driver
@@ -10,6 +10,7 @@ variables:
 #
 test:
   stage: test
+  coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
     - master
     - merge_requests
@@ -24,3 +25,18 @@ test:
     - docker-compose exec -T rails rake db:migrate
   script:
     - docker-compose exec -T rails rspec
+  artifacts:
+    paths:
+      - "volume/tasks-manager/coverage/"
+    name: "Pipeline $CI_PIPELINE_ID Coverage Report"
+
+code coverage:
+  stage: codecov
+  when: always # Always try to generate a code coverage report
+  coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
+  script:
+    - bundle exec rake merge_coverage_reports
+  artifacts: # Release the final, merged coverage for review
+    paths:
+      - "coverage/"
+    name: "Pipeline $CI_PIPELINE_ID Merged Coverage"

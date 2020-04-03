@@ -11,10 +11,6 @@ require 'support/factory_bot'
 require 'support/json_response_helper'
 require 'faker'
 
-# coverage
-require 'simplecov'
-SimpleCov.start
-
 include Auth::JsonWebTokenHelper
 include JsonResponseHelper
 # Requires supporting ruby files with custom matchers and macros, etc, in
