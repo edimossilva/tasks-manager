@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     resources :task_lists
   end
 
+  resources :tasks, only: %i[create update]
+
   mount ActionCable.server => '/cable'
 end
