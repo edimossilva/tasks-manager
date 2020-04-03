@@ -1,8 +1,6 @@
 class TasksController < ApplicationController
   def create
-    task = Task.new(create_params)
-
-    task.save!
+    task = Task.create!(create_params)
 
     render_created(task)
   end
