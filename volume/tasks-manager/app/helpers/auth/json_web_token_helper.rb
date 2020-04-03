@@ -23,6 +23,7 @@ module Auth
       header = request.headers['Authorization']
       header = header.split(' ').last if header
       begin
+        # rubocop:disable Rails/HelperInstanceVariable
         @current_user = user_by_token(header)
       rescue ActiveRecord::RecordNotFound => e
         render_unauthorized(e.message)
@@ -50,6 +51,7 @@ module Auth
 
     def current_user
       @current_user
+      # rubocop:enable Rails/HelperInstanceVariable
     end
   end
 end
