@@ -2,6 +2,7 @@ image: docker:latest
 
 stages:
   - test
+  - deploy coverage
 variables:
   # use the overlay storage driver
   # https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#using-the-overlayfs-driver
@@ -28,3 +29,18 @@ test:
     paths:
       - "volume/tasks-manager/coverage/"
     name: "Pipeline $CI_PIPELINE_ID Coverage Report"
+
+pages:
+  stage: deploy coverage
+  only:
+    - master
+    - merge_requests
+    - external_pull_requests
+  dependencies:
+    - test
+  script:
+    - mv volume/tasks-manager/coverage/ public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
