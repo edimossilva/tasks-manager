@@ -2,7 +2,6 @@ image: docker:latest
 
 stages:
   - test
-  - codecov
 variables:
   # use the overlay storage driver
   # https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#using-the-overlayfs-driver
@@ -15,7 +14,6 @@ test:
     - master
     - merge_requests
     - external_pull_requests
-    - manual
   services:
     - docker:dind
   before_script:
@@ -30,18 +28,3 @@ test:
     paths:
       - "volume/tasks-manager/coverage/"
     name: "Pipeline $CI_PIPELINE_ID Coverage Report"
-
-code coverage:
-  stage: codecov
-  only:
-    - master
-    - merge_requests
-    - external_pull_requests
-    - manual
-  coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
-  script:
-    - bundle exec rake merge_coverage_reports
-  artifacts: # Release the final, merged coverage for review
-    paths:
-      - "coverage/"
-    name: "Pipeline $CI_PIPELINE_ID Merged Coverage"
