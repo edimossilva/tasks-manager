@@ -22,3 +22,8 @@
    ```
      docker-compose exec rails rspec
    ```
+
+1. current coverage
+  ```
+    edimossilva.gitlab.io/tasks-manager
+  ```
