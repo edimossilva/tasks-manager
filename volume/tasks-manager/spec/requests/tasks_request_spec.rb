@@ -19,6 +19,8 @@ RSpec.describe 'TaskLists', type: :request do
 
     describe 'When data is valid' do
       before do
+        allow_any_instance_of( Producers::ProducersHelper ).to receive(:publish_task_created).and_return(true)
+
         post('/tasks',
              params: create_task_params,
              headers: registred_headers)
