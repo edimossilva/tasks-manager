@@ -45,4 +45,10 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+
+  config.logger = Logger.new(STDOUT)
+
+  # Set log level
+  config.log_level = :ERROR
+
 end
