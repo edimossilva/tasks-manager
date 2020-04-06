@@ -1,6 +1,11 @@
 class TasksController < ApplicationController
+  include Producers::ProducersHelper
+
   def create
     task = Task.create!(create_params)
+
+    task_json = TaskSerializer.new(task).to_json
+    publish_task_created(task_json)
 
     render_created(task)
   end
