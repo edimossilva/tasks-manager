@@ -41,8 +41,8 @@ deploy:
   script:
     -  heroku container:login
     - echo $HEROKU_APP_STAGING
-    - heroku container:push web -a=$HEROKU_APP_STAGING
-    - heroku container:release web -a =$HEROKU_APP_STAGING
+    - heroku container:push web -a $HEROKU_APP_STAGING
+    - heroku container:release web -a  $HEROKU_APP_STAGING
 
 pages:
   stage: deploy coverage
