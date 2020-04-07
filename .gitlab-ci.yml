@@ -2,6 +2,7 @@ image: docker:latest
 
 stages:
   - test
+  - deploy heroku
   - deploy coverage
 variables:
   # use the overlay storage driver
@@ -29,6 +30,26 @@ test:
     paths:
       - "volume/tasks-manager/coverage/"
     name: "Pipeline $CI_PIPELINE_ID Coverage Report"
+
+deploy:
+  stage: deploy heroku
+  only:
+    - master
+    - merge_requests
+    - external_pull_requests
+  services:
+    - docker:dind
+  before_script:
+    - apk add curl nodejs bash git
+    -  curl https://cli-assets.heroku.com/install.sh | sh
+  script:
+    -  heroku container:login
+    - heroku git:remote -a $HEROKU_APP_STAGING
+    - echo $HEROKU_APP_STAGING
+    - heroku container:push web
+    - heroku container:release web
+    - heroku run rails db:migrate
+    - heroku run rails db:seed
 
 pages:
   stage: deploy coverage
