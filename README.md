@@ -29,3 +29,6 @@
 
 1. current coverage
    [coverage](https://edimossilva.gitlab.io/tasks-manager)
+
+1. current deploy
+   [deploy](https://edimo-task-manager.herokuapp.com)
