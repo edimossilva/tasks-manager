@@ -42,6 +42,7 @@ deploy:
   before_script:
     - apk add curl nodejs bash git
     -  curl https://cli-assets.heroku.com/install.sh | sh
+    - docker build .
   script:
     -  heroku container:login
     - heroku git:remote -a $HEROKU_APP_STAGING
