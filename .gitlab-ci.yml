@@ -36,13 +36,14 @@ deploy:
   services:
     - docker:dind
   before_script:
-    - apk add curl nodejs bash
+    - apk add curl nodejs bash git
     -  curl https://cli-assets.heroku.com/install.sh | sh
   script:
     -  heroku container:login
+    - heroku git:remote -a $HEROKU_APP_STAGING
     - echo $HEROKU_APP_STAGING
-    - heroku container:push web -a $HEROKU_APP_STAGING
-    - heroku container:release web -a  $HEROKU_APP_STAGING
+    - heroku container:push web
+    - heroku container:release web
 
 pages:
   stage: deploy coverage
