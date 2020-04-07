@@ -33,6 +33,8 @@ test:
 
 deploy:
   stage: deploy heroku
+  services:
+    - docker:dind
   before_script:
     - apk add curl nodejs bash
     -  curl https://cli-assets.heroku.com/install.sh | sh
