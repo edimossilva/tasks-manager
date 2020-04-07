@@ -35,3 +35,6 @@ COPY ./volume/tasks-manager/Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 
 RUN apt-get update
+
+COPY ./volume/tasks-manager/ .
+CMD ["puma"]
