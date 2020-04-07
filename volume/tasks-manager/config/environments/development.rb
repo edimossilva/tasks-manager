@@ -49,4 +49,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   # config.reload_classes_only_on_change = false
+  config.hosts << "edimossilva-task-manager.herokuapp.com"
 end

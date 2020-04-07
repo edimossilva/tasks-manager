@@ -33,3 +33,8 @@ WORKDIR /app
 COPY ./volume/tasks-manager/Gemfile /app/Gemfile
 COPY ./volume/tasks-manager/Gemfile.lock /app/Gemfile.lock
 RUN bundle install
+
+RUN apt-get update
+
+ADD ./volume/tasks-manager/ .
+CMD ["puma"]

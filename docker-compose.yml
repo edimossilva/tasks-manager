@@ -12,39 +12,40 @@ services:
     ports:
       - "5432:5432"
 
-  message_broker:
-    image: "rabbitmq:3.8-management-alpine"
-    container_name: message_broker
-    environment:
-      RABBITMQ_DEFAULT_USER: "admin"
-      RABBITMQ_DEFAULT_PASS: "admin"
-    ports:
-      - "15672:15672"
-      - "5672:5672"
+  # message_broker:
+  #   image: "rabbitmq:3.8-management-alpine"
+  #   container_name: message_broker
+  #   environment:
+  #     RABBITMQ_DEFAULT_USER: "admin"
+  #     RABBITMQ_DEFAULT_PASS: "admin"
+  #   ports:
+  #     - "15672:15672"
+  #     - "5672:5672"
 
   rails:
     build:
       context: "."
-      dockerfile: "Dockerfile_rails"
+      dockerfile: "Dockerfile"
     container_name: rails
     volumes:
       - ./volume/tasks-manager:/app
     depends_on:
       - db
-      - message_broker
+      # - message_broker
     environment:
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
       RAILS_MASTER_KEY: "a667717bf0a47475b0582547379c816d"
       RABBITMQ_DEFAULT_USER: "admin"
       RABBITMQ_DEFAULT_PASS: "admin"
+      DATABASE_URL: "postgres://db"
     tty: true
-    command: rails server -b 0
+    command: puma
     ports:
       - "3000:3000"
 # docker-compose build
-# docker-compose run rails rake db:create
+# docker-compose up -d
+# docker-compose exec rails rake db:create
 # docker-compose exec rails rake db:migrate
 # docker-compose exec rails rake db:seed
 # docker-compose exec rails rspec
-# docker-compose up -d
 # localhost:3000
