@@ -1,6 +1,9 @@
 class TasksController < ApplicationController
   include Producers::ProducersHelper
 
+  api :POST, '/tasks'
+  param :name, String, required: true
+  param :description, String
   def create
     task = Task.create!(create_params)
 
@@ -10,6 +13,8 @@ class TasksController < ApplicationController
     render_created(task)
   end
 
+  api :DELETE, '/tasks'
+  param :id, Numeric, required: true
   def destroy
     task = Task.find_by!(search_params)
 
@@ -20,6 +25,10 @@ class TasksController < ApplicationController
     render_destroyed
   end
 
+  api :PUT, '/tasks'
+  param :id, Numeric, required: true
+  param :name, String
+  param :description, String
   def update
     task = Task.find_by!(search_params)
 

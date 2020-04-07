@@ -32,3 +32,6 @@
 
 1. current deploy
    [deploy](https://edimossilva-task-manager.herokuapp.com)
+
+1. API doc
+   [api doc](https://edimossilva-task-manager.herokuapp.com/apipie)
