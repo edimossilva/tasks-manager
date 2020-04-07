@@ -40,9 +40,9 @@ deploy:
     -  curl https://cli-assets.heroku.com/install.sh | sh
   script:
     -  heroku container:login
-    - heroku git:remote -a $HEROKU_APP_STAGING
-    - heroku container:push web
-    - heroku container:release web
+    - echo $HEROKU_APP_STAGING
+    - heroku container:push web --app  $HEROKU_APP_STAGING
+    - heroku container:release web --app =$HEROKU_APP_STAGING
 
 pages:
   stage: deploy coverage
