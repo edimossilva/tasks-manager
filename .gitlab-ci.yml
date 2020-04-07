@@ -34,9 +34,9 @@ test:
 deploy:
   stage: deploy heroku
   # only:
-    - master
-    - merge_requests
-    - external_pull_requests
+    # - master
+    # - merge_requests
+    # - external_pull_requests
   services:
     - docker:dind
   before_script:
