@@ -39,7 +39,7 @@ services:
       RABBITMQ_DEFAULT_PASS: "admin"
       DATABASE_URL: "postgres://db"
     tty: true
-    # command: puma
+    command: rails s -b 0.0.0.0
     ports:
       - "3000:3000"
 # docker-compose build
