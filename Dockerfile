@@ -36,5 +36,5 @@ RUN bundle install
 
 RUN apt-get update
 
-ADD ./volume/tasks-manager/ .
+COPY ./volume/tasks-manager/ .
 CMD ["puma"]
