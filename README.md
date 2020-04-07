@@ -31,4 +31,4 @@
    [coverage](https://edimossilva.gitlab.io/tasks-manager)
 
 1. current deploy
-   [deploy](https://edimo-task-manager.herokuapp.com)
+   [deploy](https://edimossilva-task-manager.herokuapp.com)

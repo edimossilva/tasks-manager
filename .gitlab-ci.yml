@@ -51,7 +51,11 @@ deploy:
     - heroku container:release web
     - heroku run rails db:migrate
     - heroku run rails db:seed
-
+  after_script:
+    - curl -sSf "https://$HEROKU_APP_STAGING.herokuapp.com" > curl_output
+    - grep "Yay! You&rsquo;re on Rails" curl_output
+    # if echo display value different from 0 it is a error
+    - echo $?
 pages:
   stage: deploy coverage
   only:
