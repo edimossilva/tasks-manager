@@ -32,7 +32,7 @@ test:
     name: "Pipeline $CI_PIPELINE_ID Coverage Report"
 
 deploy:
-  stage: deploy
+  stage: deploy heroku
   script:
     - docker build -f Dockerfile --iidfile imageid.txt -t registry.heroku.com/edimossilva-task-manager/my-app .
     - docker login -u _ -p $HEROKU_API_KEY registry.heroku.com
