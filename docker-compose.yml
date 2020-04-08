@@ -34,10 +34,11 @@ services:
       # - message_broker
     environment:
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
-      RAILS_MASTER_KEY: "a667717bf0a47475b0582547379c816d"
+      RAILS_MASTER_KEY: "${RAILS_MASTER_KEY}"
       RABBITMQ_DEFAULT_USER: "admin"
       RABBITMQ_DEFAULT_PASS: "admin"
       DATABASE_URL: "postgres://db"
+      NEW_RELIC_KEY: "${NEW_RELIC_KEY}"
     tty: true
     command: rails s -b 0.0.0.0
     ports:
