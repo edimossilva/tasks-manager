@@ -52,7 +52,7 @@ deploy heroku:
     - heroku run rails db:seed
   after_script:
     - curl -sSf "https://$HEROKU_APP_STAGING.herokuapp.com/apipie" > curl_output
-    - curl -s "https://$HEROKU_APP_STAGING.herokuapp.com/apipie" | grep -q "half minute and a half"
+    - curl -s "https://$HEROKU_APP_STAGING.herokuapp.com/apipie" | grep -q "should fail"
 pages:
   stage: deploy
   only:
