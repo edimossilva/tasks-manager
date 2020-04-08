@@ -56,7 +56,7 @@ test deploy heroku:
   image: curlimages/curl
   stage: test deploy
   script:
-    - curl -s "https://edimossilva-task-manager.herokuapp.com/apipie" | grep -q "should fail"
+    - curl -s "https://edimossilva-task-manager.herokuapp.com/apipie" | grep -q "half minute and a half"
 
 pages:
   stage: deploy
