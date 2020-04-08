@@ -3,6 +3,7 @@ image: docker:latest
 stages:
   - test
   - deploy
+  - test deploy
 variables:
   # use the overlay storage driver
   # https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#using-the-overlayfs-driver
@@ -50,9 +51,13 @@ deploy heroku:
     - heroku container:release web
     - heroku run rails db:migrate
     - heroku run rails db:seed
-  after_script:
-    - curl -sSf "https://$HEROKU_APP_STAGING.herokuapp.com/apipie" > curl_output
-    - curl -s "https://$HEROKU_APP_STAGING.herokuapp.com/apipie" | grep -q "should fail"
+
+test deploy heroku:
+  image: curlimages/curl
+  stage: test deploy
+  script:
+    - curl -s "https://edimossilva-task-manager.herokuapp.com/apipie" | grep -q "should fail"
+
 pages:
   stage: deploy
   only:
