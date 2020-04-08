@@ -2,8 +2,7 @@ image: docker:latest
 
 stages:
   - test
-  - deploy heroku
-  - deploy coverage
+  - deploy
 variables:
   # use the overlay storage driver
   # https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#using-the-overlayfs-driver
@@ -31,8 +30,8 @@ test:
       - "volume/tasks-manager/coverage/"
     name: "Pipeline $CI_PIPELINE_ID Coverage Report"
 
-deploy:
-  stage: deploy heroku
+deploy heroku:
+  stage: deploy
   only:
     - master
     - merge_requests
@@ -57,7 +56,7 @@ deploy:
     # if echo display value different from 0 it is a error
     - echo $?
 pages:
-  stage: deploy coverage
+  stage: deploy
   only:
     - master
     - merge_requests
