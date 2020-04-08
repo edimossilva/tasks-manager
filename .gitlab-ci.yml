@@ -11,10 +11,10 @@ variables:
 test:
   stage: test
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
-  # only:
-  #   - master
-  #   - merge_requests
-  #   - external_pull_requests
+  only:
+    - master
+    - merge_requests
+    - external_pull_requests
   services:
     - docker:dind
   before_script:
@@ -32,10 +32,10 @@ test:
 
 deploy heroku:
   stage: deploy
-  # only:
-  #   - master
-  #   - merge_requests
-  #   - external_pull_requests
+  only:
+    - master
+    - merge_requests
+    - external_pull_requests
   services:
     - docker:dind
   before_script:
@@ -57,10 +57,10 @@ deploy heroku:
     - echo $?
 pages:
   stage: deploy
-  # only:
-  #   - master
-  #   - merge_requests
-  #   - external_pull_requests
+  only:
+    - master
+    - merge_requests
+    - external_pull_requests
   dependencies:
     - test
   script:
