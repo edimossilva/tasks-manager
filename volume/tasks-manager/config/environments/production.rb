@@ -76,7 +76,11 @@ Rails.application.configure do
   # if ENV['RAILS_LOG_TO_STDOUT'].present?
   logger           = ActiveSupport::Logger.new(STDOUT)
   logger.formatter = config.log_formatter
-  config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  # config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  config.logger = RemoteSyslogLogger.new('logs.papertrailapp.com', 46296)
+
+  # logs.papertrailapp.com:46296
+
   config.lograge.enabled = true
   config.lograge.custom_options = lambda do |event|
     event.payload

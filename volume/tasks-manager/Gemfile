@@ -35,6 +35,7 @@ gem 'apipie-rails'
 
 # logs
 gem 'lograge'
+gem 'remote_syslog_logger'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
