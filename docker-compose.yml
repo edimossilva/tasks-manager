@@ -38,6 +38,7 @@ services:
       RABBITMQ_DEFAULT_USER: "admin"
       RABBITMQ_DEFAULT_PASS: "admin"
       DATABASE_URL: "postgres://db"
+      NEW_RELIC_KEY: "6a0d4b18ea0f89e3cbf3e740748f70ed38b0NRAL"
     tty: true
     command: rails s -b 0.0.0.0
     ports:
