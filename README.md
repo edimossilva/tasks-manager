@@ -17,7 +17,7 @@
    ```
     - docker-compose exec -T rails rake db:create
     - docker-compose exec -T rails rake db:migrate
-    - docker-compose exec rails rake db:seed
+    - docker-compose exec -T rails rake db:seed
 
    ```
 
@@ -27,11 +27,17 @@
      docker-compose exec rails rspec
    ```
 
-1. current coverage
+1. current coverage:
    [coverage](https://edimossilva.gitlab.io/tasks-manager)
 
-1. current deploy
+1. current deploy (api root url):
    [deploy](https://edimossilva-task-manager.herokuapp.com)
 
-1. API doc
+1. API doc:
    [api doc](https://edimossilva-task-manager.herokuapp.com/apipie)
+
+1. Log monitoring:
+   [papertrail](https://www.papertrail.com/)
+
+1. Performance monitoring:
+   [new relic apm](https://newrelic.com/products/application-monitoring)
