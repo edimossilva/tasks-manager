@@ -73,11 +73,19 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV['RAILS_LOG_TO_STDOUT'].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  # if ENV['RAILS_LOG_TO_STDOUT'].present?
+  logger           = ActiveSupport::Logger.new(STDOUT)
+  logger.formatter = config.log_formatter
+  # config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  config.logger = RemoteSyslogLogger.new('logs.papertrailapp.com', 46296)
+
+  # logs.papertrailapp.com:46296
+
+  config.lograge.enabled = true
+  config.lograge.custom_options = lambda do |event|
+    event.payload
   end
+  # end
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

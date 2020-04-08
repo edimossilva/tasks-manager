@@ -7,6 +7,7 @@ class ApplicationController < ActionController::API
   rescue_from Pundit::NotAuthorizedError, with: :render_unauthorized
 
   before_action :authorize_request
+  before_action :append_info_to_payload
 
   def render_created(entity)
     render json: { data: entity }, status: :created
@@ -34,5 +35,14 @@ class ApplicationController < ActionController::API
 
   def search_params
     params.permit(:id)
+  end
+
+  def append_info_to_payload(payload = nil)
+    return unless payload
+
+    super
+    payload[:user_id] = current_user&.id || 'unregistred'
+    payload[:host] = request.host
+    payload[:source_ip] = request.remote_ip
   end
 end
