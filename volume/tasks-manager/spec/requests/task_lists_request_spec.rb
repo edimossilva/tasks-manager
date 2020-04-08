@@ -53,38 +53,25 @@ RSpec.describe 'TaskLists', type: :request do
   describe '#destroy' do
     let!(:task_list) { create(:task_list, user: registred_user) }
 
-    describe 'When user is registred' do
-      describe 'And TaskList belongs to him' do
-        describe 'And it is found' do
-          before do
-            delete("/users/#{registred_user.id}/task_lists/#{task_list.id}",
-                   headers: registred_headers)
-          end
-
-          it { expect(response).to have_http_status(:no_content) }
-        end
-
-        describe 'And it is NOT found' do
-          before do
-            delete("/users/#{registred_user.id}/task_lists/-1",
-                   headers: registred_headers)
-          end
-
-          it { expect(response).to have_http_status(:not_found) }
-
-          it 'contains updated fields from params' do
-            expect(json_response_error).to eq("Couldn't find TaskList")
-          end
-        end
+    describe 'And it is found' do
+      before do
+        delete("/task_lists/#{task_list.id}",
+                headers: registred_headers)
       end
 
-      describe 'And TaskList belongs to another user' do
-        before do
-          delete("/users/#{registred_user2.id}/task_lists/#{task_list.id}",
-                 headers: registred_headers2)
-        end
+      it { expect(response).to have_http_status(:no_content) }
+    end
 
-        it { expect(response).to have_http_status(:unauthorized) }
+    describe 'And it is NOT found' do
+      before do
+        delete("/task_lists/-1",
+                headers: registred_headers)
+      end
+
+      it { expect(response).to have_http_status(:not_found) }
+
+      it 'contains updated fields from params' do
+        expect(json_response_error).to eq("Couldn't find TaskList")
       end
     end
   end
@@ -101,44 +88,32 @@ RSpec.describe 'TaskLists', type: :request do
     describe 'When user is registred' do
       let!(:task_list) { create(:task_list, user: registred_user) }
 
-      describe 'And TaskList belongs to him' do
-        describe 'And data is valid' do
-          before do
-            put("/users/#{registred_user.id}/task_lists/#{task_list.id}",
-                params: update_task_list_params,
-                headers: registred_headers)
-          end
-
-          it { expect(response).to have_http_status(:ok) }
-
-          it 'contains updated fields from params' do
-            expect(json_response_data['name']).to eq(updated_name)
-          end
+      describe 'And data is valid' do
+        before do
+          put("/task_lists/#{task_list.id}",
+              params: update_task_list_params,
+              headers: registred_headers)
         end
 
-        describe 'And data is NOT valid' do
-          before do
-            put("/users/#{registred_user.id}/task_lists/#{task_list.id}",
-                params: { name: '' },
-                headers: registred_headers)
-          end
+        it { expect(response).to have_http_status(:ok) }
 
-          it { expect(response).to have_http_status(:unprocessable_entity) }
-
-          it 'contains updated fields from params' do
-            expect(json_response_error).to eq("Validation failed: Name can't be blank")
-          end
+        it 'contains updated fields from params' do
+          expect(json_response_data['name']).to eq(updated_name)
         end
       end
 
-      describe 'And TaskList belongs to another user' do
+      describe 'And data is NOT valid' do
         before do
-          put("/users/#{registred_user2.id}/task_lists/#{task_list.id}",
-              params: update_task_list_params,
-              headers: registred_headers2)
+          put("/task_lists/#{task_list.id}",
+              params: { name: '' },
+              headers: registred_headers)
         end
 
-        it { expect(response).to have_http_status(:unauthorized) }
+        it { expect(response).to have_http_status(:unprocessable_entity) }
+
+        it 'contains updated fields from params' do
+          expect(json_response_error).to eq("Validation failed: Name can't be blank")
+        end
       end
     end
   end
@@ -168,35 +143,24 @@ RSpec.describe 'TaskLists', type: :request do
     describe 'When user is registred' do
       let!(:task_list) { create(:task_list, user: registred_user) }
 
-      describe 'And TaskList belongs to him' do
-        before do
-          get("/users/#{registred_user.id}/task_lists/#{task_list.id}",
-              headers: registred_headers)
-        end
-
-        it { expect(response).to have_http_status(:ok) }
-
-        it 'contains fields' do
-          expect(json_response_data['id']).to eq(task_list.id)
-          expect(json_response_data['name']).to eq(task_list[:name])
-          expect(json_response_data['description']).to eq(task_list[:description])
-          expect(json_response_data['frequence_type']).to eq(task_list[:frequence_type])
-          expect(json_response_data['user_id']).to eq(registred_user.id)
-        end
+      before do
+        get("/task_lists/#{task_list.id}",
+            headers: registred_headers)
       end
 
-      describe 'And TaskList belongs to another user' do
-        before do
-          get("/users/#{registred_user2.id}/task_lists/#{task_list.id}",
-              headers: registred_headers2)
-        end
+      it { expect(response).to have_http_status(:ok) }
 
-        it { expect(response).to have_http_status(:unauthorized) }
+      it 'contains fields' do
+        expect(json_response_data['id']).to eq(task_list.id)
+        expect(json_response_data['name']).to eq(task_list[:name])
+        expect(json_response_data['description']).to eq(task_list[:description])
+        expect(json_response_data['frequence_type']).to eq(task_list[:frequence_type])
+        expect(json_response_data['user_id']).to eq(registred_user.id)
       end
 
       describe 'And TaskList is not found' do
         before do
-          get("/users/#{registred_user.id}/task_lists/-1",
+          get("/task_lists/-1",
               headers: registred_headers)
         end
 

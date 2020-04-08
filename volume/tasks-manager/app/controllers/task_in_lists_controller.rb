@@ -1,10 +1,16 @@
 class TaskInListsController < ApplicationController
+  api :POST, '/task_in_lists'
+  param :task_id, Numeric, required: true
+  param :task_list_id, Numeric, required: true
+  param :checked, [true, false], required: true
   def create
     task_in_list = TaskInList.create!(create_params)
 
     render_created(task_in_list)
   end
 
+  api :DELETE, '/task_in_lists/:id'
+  param :id, Numeric, required: true
   def destroy
     task_in_list = TaskInList.find_by!(search_params)
 
