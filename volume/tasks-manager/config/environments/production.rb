@@ -78,8 +78,7 @@ Rails.application.configure do
   logger.formatter = config.log_formatter
   # config.logger    = ActiveSupport::TaggedLogging.new(logger)
   config.logger = RemoteSyslogLogger.new('logs.papertrailapp.com', 46296)
-
-  # logs.papertrailapp.com:46296
+  config.log_level = :info
 
   config.lograge.enabled = true
   config.lograge.custom_options = lambda do |event|
