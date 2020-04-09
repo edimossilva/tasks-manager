@@ -1,8 +1,17 @@
 class TaskListsController < ApplicationController
-  api :POST, '/task_lists'
+  def_param_group :task_lists_desc do
+    property :id, Numeric
+    property :name, String
+    property :description, String
+    property :frequence_type, String
+    property :userId, Numeric
+  end
+
   param :name, String, required: true
   param :description, String
   param :frequence_type, %w[daily monthly weekly yearly], required: true
+  api :POST, '/task_lists'
+  returns :task_lists_desc, code: 201
   def create
     task_list = TaskList.create!(create_params)
 
@@ -11,6 +20,7 @@ class TaskListsController < ApplicationController
 
   api :DELETE, '/task_lists/:id'
   param :id, Numeric, required: true
+  returns code: 204
   def destroy
     task_list = TaskList.find_by!(id: search_params[:id])
 
@@ -21,13 +31,15 @@ class TaskListsController < ApplicationController
     render_destroyed
   end
 
-  api :GET, '/task_lists'
+  api :GET, '/task_lists', 'array of task_lists'
+  returns array_of: :task_lists_desc
   def index
     render_ok(current_user.task_lists)
   end
 
   api :GET, '/task_lists/:id'
   param :id, Numeric, required: true
+  returns :task_lists_desc
   def show
     task_list = TaskList.find_by!(id: search_params[:id])
 
@@ -41,6 +53,7 @@ class TaskListsController < ApplicationController
   param :name, String, required: true
   param :description, String
   param :frequence_type, %w[daily monthly weekly yearly], required: true
+  returns :task_lists_desc
   def update
     task_list = TaskList.find_by!(id: search_params[:id])
 
