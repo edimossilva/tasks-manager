@@ -12,15 +12,15 @@ services:
     ports:
       - "5432:5432"
 
-  # message_broker:
-  #   image: "rabbitmq:3.8-management-alpine"
-  #   container_name: message_broker
-  #   environment:
-  #     RABBITMQ_DEFAULT_USER: "admin"
-  #     RABBITMQ_DEFAULT_PASS: "admin"
-  #   ports:
-  #     - "15672:15672"
-  #     - "5672:5672"
+  message_broker:
+    image: "rabbitmq:3.8-management-alpine"
+    container_name: message_broker
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
 
   rails:
     build:
