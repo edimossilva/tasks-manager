@@ -8,11 +8,7 @@ module Producers
     attr_reader :connection
 
     def initialize
-      @connection = Bunny.new(
-        hostname: 'message_broker',
-        user: ENV['RABBITMQ_DEFAULT_USER'],
-        password: ENV['RABBITMQ_DEFAULT_PASS']
-      )
+      @connection = Bunny.new(ENV['CLOUDAMQP_URL'])
       @connection.start
     rescue Bunny::TCPConnectionFailedForAllHosts => e
       Rails.logger.error e.message
