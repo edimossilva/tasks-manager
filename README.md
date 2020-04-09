@@ -28,13 +28,13 @@
    ```
 
 1. current coverage:
-   [coverage](https://edimossilva.gitlab.io/tasks-manager)
+   [simplecov](https://edimossilva.gitlab.io/tasks-manager)
 
 1. current deploy (api root url):
-   [deploy](https://edimossilva-task-manager.herokuapp.com)
+   [heroku](https://edimossilva-task-manager.herokuapp.com)
 
 1. API doc:
-   [api doc](https://edimossilva-task-manager.herokuapp.com/apipie)
+   [apipie](https://edimossilva-task-manager.herokuapp.com/apipie)
 
 1. Log monitoring:
    [papertrail](https://www.papertrail.com/)
