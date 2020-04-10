@@ -9,12 +9,12 @@ default: &default
 
 development:
   <<: *default
-  database: db/development
+  database: db/auth_provider_database/development
 
 test:
   <<: *default
-  database: db/test
+  database: db/auth_provider_database/test
 
 production:
   <<: *default
-  database: db/production
+  database: db/auth_provider_database/production
