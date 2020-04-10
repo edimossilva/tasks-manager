@@ -12,6 +12,7 @@ module Auth
 
     def decode_token(token)
       decoded = JWT.decode(token, SECRET_KEY)[0]
+      # binding.pry
       HashWithIndifferentAccess.new decoded
     end
 
