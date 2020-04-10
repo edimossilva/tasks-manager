@@ -1,7 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  database: boiler_plate_database
+  database: task_manager_core
   pool: 5
   username: postgres
   password: postgres
@@ -9,12 +9,12 @@ default: &default
 
 development:
   <<: *default
-  database: db/development
+  database: db/task_manager_core/development
 
 test:
   <<: *default
-  database: db/test
+  database: db/task_manager_core/test
 
 production:
   <<: *default
-  database: db/production
+  database: db/task_manager_core/production
