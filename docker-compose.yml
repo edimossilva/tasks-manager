@@ -47,13 +47,13 @@ services:
       - ./volume/auth-provider:/app
     depends_on:
       - db
+      - message_broker
     tty: true
     command: rails s -b 0.0.0.0
     ports:
       - "3001:3000"
     env_file:
       - config/environment/shared_environment.env
-
   api_gateway:
     build:
       context: "."
@@ -70,6 +70,7 @@ services:
 
 # docker-compose build
 # docker-compose up -d
+# docker-compose exec rails rake db:create db:migrate db:seed
 # docker-compose exec rails rake db:create
 # docker-compose exec rails rake db:migrate
 # docker-compose exec rails rake db:seed
