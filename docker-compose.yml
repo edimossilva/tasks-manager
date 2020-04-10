@@ -15,10 +15,6 @@ services:
   message_broker:
     image: "rabbitmq:3.8-management-alpine"
     container_name: message_broker
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-      RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_DEFAULT_USER}
     ports:
       - "15672:15672"
       - "5672:5672"
@@ -37,14 +33,31 @@ services:
       # - message_broker
     environment:
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
-      RAILS_MASTER_KEY: "${RAILS_MASTER_KEY}"
-      CLOUDAMQP_URL: "amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@message_broker/${RABBITMQ_DEFAULT_USER}"
       DATABASE_URL: "postgres://db"
-      NEW_RELIC_KEY: "${NEW_RELIC_KEY}"
     tty: true
     command: rails s -b 0.0.0.0
     ports:
       - "3000:3000"
+    env_file:
+      - config/environment/shared_environment.env
+
+  auth_provider:
+    build:
+      context: "."
+      dockerfile: "Dockerfile_auth_provider"
+    container_name: auth_provider
+    volumes:
+      - ./volume/auth-provider:/app
+    depends_on:
+      - db
+      # - message_broker
+    environment:
+      RUBYOPT: "-W:no-deprecated -W:no-experimental"
+      DATABASE_URL: "postgres://db"
+    tty: true
+    command: rails s -b 0.0.0.0
+    ports:
+      - "3001:3000"
     env_file:
       - config/environment/shared_environment.env
 # docker-compose build

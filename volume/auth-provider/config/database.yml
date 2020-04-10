@@ -1,7 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  database: boiler_plate_database
+  database: auth_provider_database
   pool: 5
   username: postgres
   password: postgres
