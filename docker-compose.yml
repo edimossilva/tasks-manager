@@ -30,10 +30,7 @@ services:
       - ./volume/tasks-manager:/app
     depends_on:
       - db
-      # - message_broker
-    environment:
-      RUBYOPT: "-W:no-deprecated -W:no-experimental"
-      DATABASE_URL: "postgres://db"
+      - message_broker
     tty: true
     command: rails s -b 0.0.0.0
     ports:
@@ -50,16 +47,27 @@ services:
       - ./volume/auth-provider:/app
     depends_on:
       - db
-      # - message_broker
-    environment:
-      RUBYOPT: "-W:no-deprecated -W:no-experimental"
-      DATABASE_URL: "postgres://db"
     tty: true
     command: rails s -b 0.0.0.0
     ports:
       - "3001:3000"
     env_file:
       - config/environment/shared_environment.env
+
+  api_gateway:
+    build:
+      context: "."
+      dockerfile: "Dockerfile_api_gateway"
+    image: "ruby:2.7.0"
+    container_name: api_gateway
+    ports:
+      - "3002:4567"
+    command: ruby app.rb
+    env_file:
+      - config/environment/shared_environment.env
+    volumes:
+      - ./volume/api-gateway:/app
+
 # docker-compose build
 # docker-compose up -d
 # docker-compose exec rails rake db:create
