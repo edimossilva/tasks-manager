@@ -1,0 +1,16 @@
+FROM ruby:2.7.0
+
+# update apt cache and install dependencies
+# RUN apt-get update && apt-get install git curl build-essential libssl-dev libreadline-dev zlib1g-dev sqlite3 libsqlite3-dev -y
+
+# install bundler
+RUN gem install bundler
+
+# config home environment
+WORKDIR /app
+
+COPY ./volume/api-gateway/Gemfile /app/Gemfile
+COPY ./volume/api-gateway/Gemfile.lock /app/Gemfile.lock
+RUN bundle install
+
+CMD ruby app.rb
