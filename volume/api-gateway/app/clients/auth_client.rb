@@ -9,6 +9,7 @@ class AuthClient
                 :channel, :server_queue_name, :reply_queue, :exchange
 
   def initialize
+    # binding.pry
     @connection = Bunny.new(ENV['CLOUDAMQP_URL'])
     # , automatically_recover: false
     @connection.start
