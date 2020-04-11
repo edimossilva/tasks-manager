@@ -6,7 +6,7 @@ RUN apk update \
   build-base curl curl-dev git postgresql-dev \
   yaml-dev zlib-dev nodejs yarn
 
-
+RUN apk add --update tzdata
 
 # install bundler
 RUN gem install bundler
@@ -18,4 +18,3 @@ COPY ./volume/tasks-manager/Gemfile /app/Gemfile
 COPY ./volume/tasks-manager/Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 
-RUN apk add --update tzdata
