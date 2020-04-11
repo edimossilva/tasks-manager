@@ -28,10 +28,10 @@ class AuthClient
                      correlation_id: call_id,
                      reply_to: reply_queue.name)
 
-    # wait for the signal to continue the execution
-    lock.synchronize { condition.wait(lock) }
-    puts response
-    response
+    # wait for the signal or timeout to continue the execution
+    timeout = 2
+    lock.synchronize { condition.wait(lock, timeout) }
+    response || 'error'
   end
 
   def stop
