@@ -22,8 +22,9 @@ class AuthProviderServer
   end
 
   def subscribe_to_queue
-    queue.subscribe do |_delivery_info, properties, _payload|
-      result = 'login result'
+    queue.subscribe do |_delivery_info, properties, payload|
+
+      result = DoLoginService.new.call(payload)
       exchange.publish(
         result.to_s,
         routing_key: properties.reply_to,
