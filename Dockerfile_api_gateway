@@ -1,7 +1,7 @@
-FROM ruby:2.7.0
+FROM ruby:2.7.1
 
 # update apt cache and install dependencies
-# RUN apt-get update && apt-get install git curl build-essential libssl-dev libreadline-dev zlib1g-dev sqlite3 libsqlite3-dev -y
+RUN apt-get update && apt-get install git curl build-essential libssl-dev libreadline-dev zlib1g-dev sqlite3 libsqlite3-dev -y
 
 # install bundler
 RUN gem install bundler
