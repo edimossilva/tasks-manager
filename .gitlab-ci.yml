@@ -20,7 +20,7 @@ test:
     - docker:dind
   before_script:
     - apk add --no-cache docker-compose
-    - docker-compose build
+    - docker-compose build rails
     - docker-compose up -d rails
     - docker-compose exec -T rails rake db:create
     - docker-compose exec -T rails rake db:migrate
