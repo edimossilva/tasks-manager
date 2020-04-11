@@ -23,6 +23,7 @@ GEM
     rack (2.2.2)
     rack-protection (2.0.8.1)
       rack
+    require_all (3.0.0)
     ruby2_keywords (0.0.2)
     sinatra (2.0.8.1)
       mustermann (~> 1.0)
@@ -51,6 +52,7 @@ DEPENDENCIES
   pry
   pry-nav
   pry-remote
+  require_all
   sinatra
   sinatra-contrib
   thin
