@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+gem 'bunny'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'thin'
+
+gem 'pry'
+gem 'pry-nav'
+gem 'pry-remote'
