@@ -1,6 +1,6 @@
 Rails.application.configure do
   config.after_initialize do
-    sleep 3
+    sleep 10
 
     AuthProviderServer.instance.start
   end
