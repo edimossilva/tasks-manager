@@ -23,16 +23,22 @@ class DoLoginService
 
   def auth_data_json(user)
     {
-      token: encode_user(user),
-      exp: exp_time,
-      username: user.username,
-      userId: user.id
+      headers: { "status_code": 200 },
+      data: {
+        token: encode_user(user),
+        exp: exp_time,
+        username: user.username,
+        userId: user.id
+      }
     }.to_json
   end
 
   def unauthorized_json
     {
-      status: 401
+      headers: { "status_code": 401 },
+      errors: [{
+        error_message: 'unauthorized :('
+      }]
     }.to_json
   end
 end

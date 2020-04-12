@@ -1,54 +1,54 @@
 require 'rails_helper'
 
-RSpec.describe 'Authentications', type: :service do
+RSpec.describe 'DoLoginService', type: :service do
   describe '#login' do
     let!(:user) { create :user }
 
     context 'When receive matching username and password' do
-      let!(:payload) do
-        {
+      subject do
+        DoLoginService.new.call({
           username: user.username,
           password: user.password
-        }
+        }.to_json)
       end
 
-      before { post '/auth/login', params: { username: user.username, password: user.password } }
+      it { expect(json_subject_status_code).to eq(200) }
 
-      subject { DoLoginService.new.call(payload) }
-
-      it { expect(response).to have_http_status(:ok) }
-
-      it "responds with user's username" do
-        json_response = JSON.parse(response.body)
-        expect(json_response['username']).to eq(user.username)
-      end
+      it { expect(json_subject_data['username']).to eq(user.username) }
 
       it 'responds with a token related to the user id' do
-        json_response = JSON.parse(response.body)
-        payload = decode_token(json_response['token'])
+        payload = decode_token(json_subject_data['token'])
 
         expect(payload[:user_id]).to eq(user.id)
       end
     end
 
-    # context 'When receive NOT matching username and password' do
-    #   context 'when invalid username and password' do
-    #     before { post '/auth/login', params: { username: 'invalid username', password: 'invalid passowrd' } }
+    context 'When receive NOT matching username and password' do
+      context 'And invalid username and password' do
+        subject do
+          DoLoginService.new.call({
+            username: 'invalid username',
+            password: 'invalid password'
+          }.to_json)
+        end
 
-    #     it { expect(response).to have_http_status(:unauthorized) }
-    #   end
+        it { expect(json_subject_status_code).to eq(401) }
 
-    #   context 'when valid username and invalid password' do
-    #     before { post '/auth/login', params: { username: user.username, password: 'invalid passowrd' } }
+        it { expect(json_subject_errors[0]['error_message']).to eq('unauthorized :(') }
+      end
 
-    #     it { expect(response).to have_http_status(:unauthorized) }
-    #   end
+      context 'When valid username and invalid password' do
+        subject do
+          DoLoginService.new.call({
+            username: user.username,
+            password: 'invalid password'
+          }.to_json)
+        end
 
-    #   context 'when invalid username and valid password' do
-    #     before { post '/auth/login', params: { username: 'invalid username', password: user.password } }
+        it { expect(json_subject_status_code).to eq(401) }
 
-    #     it { expect(response).to have_http_status(:unauthorized) }
-    #   end
-    # end
+        it { expect(json_subject_errors[0]['error_message']).to eq('unauthorized :(') }
+      end
+    end
   end
 end
