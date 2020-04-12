@@ -1,5 +1,7 @@
 Rails.application.configure do
   config.after_initialize do
-    AuthProviderServer.instance.start('rpc_login')
+    sleep 10
+
+    AuthProviderServer.instance.start
   end
 end

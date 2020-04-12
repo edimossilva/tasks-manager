@@ -4,7 +4,7 @@ services:
     image: postgres
     container_name: db
     volumes:
-      - /data/docker/postgresql/:/var/lib/postgresql
+      - /data/docker/postgresql/data:/var/lib/postgresql/data
 
     environment:
       POSTGRES_PASSWORD: "postgres"
@@ -22,11 +22,11 @@ services:
     env_file:
       - config/environment/shared_environment.env
 
-  rails:
+  tasks_manager_core:
     build:
       context: "."
-      dockerfile: "Dockerfile_rails"
-    container_name: rails
+      dockerfile: "Dockerfile_tasks_manager_core"
+    container_name: tasks_manager_core
     volumes:
       - ./volume/tasks-manager:/app
     depends_on:
@@ -72,10 +72,7 @@ services:
 
 # docker-compose build
 # docker-compose up -d
-# docker-compose exec rails rake db:create db:migrate db:seed
-# docker-compose exec rails auth_provider db:create db:migrate db:seed
-# docker-compose exec rails rake db:create
-# docker-compose exec rails rake db:migrate
-# docker-compose exec rails rake db:seed
-# docker-compose exec rails rspec
+# docker-compose exec tasks_manager_core rake db:create db:migrate db:seed
+# docker-compose exec auth_provider rake db:create db:migrate db:seed
+# docker-compose exec tasks_manager_core rspec
 # localhost:3000

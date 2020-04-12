@@ -1,6 +1,8 @@
 class AuthenticationController < ApplicationController
   post '/auth/login' do
-    AuthClient.instance.call(login_params)
+    response = AuthClient.instance.call(login_params)
+    status response[:headers]['status_code'] || response[:headers][:status_code]
+    json JSON.parse(response[:data])
   end
 
   private

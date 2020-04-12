@@ -1,34 +1,28 @@
 require 'bunny'
 
-class AuthProviderServer
+class AuthProviderServer < BaseServer
   include Singleton
-  attr_reader :channel, :exchange, :queue, :connection
+  attr_reader :sub_queue_name
 
   def initialize
-    @connection = Bunny.new(ENV['CLOUDAMQP_URL'])
-    @connection.start
-    @channel = @connection.create_channel
+    super
+    @sub_queue_name = 'rpc_login_request'
   end
 
-  def start(queue_name)
-    @queue = channel.queue(queue_name)
-    @exchange = channel.default_exchange
-    subscribe_to_queue
+  def start
+    subscribe(handle_response)
   end
 
-  def stop
-    channel.close
-    connection.close
-  end
+  private
 
-  def subscribe_to_queue
-    queue.subscribe do |_delivery_info, properties, payload|
-
+  def handle_response
+    lambda do |_delivery_info, properties, payload|
       result = DoLoginService.new.call(payload)
       exchange.publish(
         result.to_s,
         routing_key: properties.reply_to,
-        correlation_id: properties.correlation_id
+        correlation_id: properties.correlation_id,
+        headers: { status_code: 200 }
       )
     end
   end
