@@ -15,16 +15,14 @@
 1. Setup database
 
    ```
-    - docker-compose exec -T rails rake db:create
-    - docker-compose exec -T rails rake db:migrate
-    - docker-compose exec -T rails rake db:seed
+    - docker-compose exec -T tasks_manager_core rake db:create db:migrate db:seed
 
    ```
 
 1. run tests rails
 
    ```
-     docker-compose exec rails rspec
+     docker-compose exec tasks_manager_core rspec
    ```
 
 1. current coverage:

@@ -20,12 +20,11 @@ test:
     - docker:dind
   before_script:
     - apk add --no-cache docker-compose
-    - docker-compose build rails
-    - docker-compose up -d rails
-    - docker-compose exec -T rails rake db:create
-    - docker-compose exec -T rails rake db:migrate
+    - docker-compose build tasks_manager_core
+    - docker-compose up -d tasks_manager_core
+    - docker-compose exec -T tasks_manager_core rake db:create db:migrate
   script:
-    - docker-compose exec -T rails rspec
+    - docker-compose exec -T tasks_manager_core rspec
   artifacts:
     paths:
       - "volume/tasks-manager/coverage/"
@@ -49,8 +48,7 @@ deploy heroku:
     - echo $HEROKU_APP_STAGING
     - heroku container:push web
     - heroku container:release web
-    - heroku run rails db:migrate
-    - heroku run rails db:seed
+    - heroku run rails db:migrate db:seed
 
 test deploy heroku:
   image: curlimages/curl
