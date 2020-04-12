@@ -1,66 +1,38 @@
 require 'singleton'
+require_relative 'base_client.rb'
 
-class AuthClient
+class AuthClient < BaseClient
   include Singleton
-  attr_accessor :call_id, :response, :lock, :condition, :connection,
-                :channel, :server_queue_name, :reply_queue, :exchange
+  attr_accessor :call_id, :response, :reply_queue,
+                :server_queue_name, :reply_queue_name
 
   def initialize
-    @connection = Bunny.new(ENV['CLOUDAMQP_URL'], automatically_recover: true)
-    @connection.start
-
-    @channel = connection.create_channel
-    @exchange = channel.default_exchange
+    super
     @server_queue_name = 'rpc_login_request'
-
-    setup_reply_queue
+    @reply_queue_name = 'rpc_login_response'
   end
 
   def call(data)
-    @call_id = SecureRandom.hex
+    setup_reply_queue
     exchange.publish(data,
                      routing_key: server_queue_name,
-                     correlation_id: call_id,
+                     correlation_id: correlation_id,
                      reply_to: reply_queue.name)
 
-    # wait for the signal or timeout to continue the execution
-    timeout = 2
-    # lock.synchronize { condition.wait(lock) }
-    lock.synchronize { condition.wait(lock, timeout) }
-    response || timeout_response
-  end
-
-  def stop
-    channel.close
-    connection.close
+    lock_thread
+    rpc_response
   end
 
   private
 
-  def timeout_response
-    {
-      headers: { "status_code": 408 },
-      data: { "error_message": 'timeout :(' }.to_json
-    }
-  end
-
   def setup_reply_queue
-    @lock = Mutex.new
-    @condition = ConditionVariable.new
-    that = self
-    @reply_queue = channel.queue('rpc_login_response', exclusive: false)
+    @reply_queue = channel.queue(@reply_queue_name, exclusive: false)
 
     reply_queue.subscribe do |_delivery_info, properties, payload|
-      # binding.pry
+      if self_reference.same_correlation_id?(properties)
+        self_reference.response = format_response(properties, payload)
 
-      if properties[:correlation_id] == that.call_id
-        that.response = {
-          headers: properties[:headers],
-          data: payload
-        }
-
-        # sends the signal to continue the execution of #call
-        that.lock.synchronize { that.condition.signal }
+        self_reference.release_thread
       end
     end
   end
