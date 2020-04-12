@@ -1,5 +1,6 @@
 class BaseClient
-  attr_accessor :connection, :channel, :exchange, :lock, :condition
+  attr_accessor :connection, :channel, :exchange,
+                :lock, :condition, :response
 
   def initialize
     @connection = AmqpConnection.instance.connection
@@ -24,7 +25,7 @@ class BaseClient
     }
   end
 
-  def lock_thread
+  def lock_thread_or_timeout
     timeout = 1
     lock.synchronize { condition.wait(lock, timeout) }
   end
@@ -33,12 +34,8 @@ class BaseClient
     lock.synchronize { self_reference.condition.signal }
   end
 
-  def rpc_response
-    response || timeout_response
-  end
-
-  def same_correlation_id?(properties)
-    properties[:correlation_id] == correlation_id
+  def reply_queue
+    channel.queue(reply_queue_name, exclusive: false)
   end
 
   def self_reference
@@ -47,6 +44,13 @@ class BaseClient
 
   def stop
     channel.close
+  end
+
+  def publish(data)
+    exchange.publish(data,
+                     routing_key: server_queue_name,
+                     correlation_id: correlation_id,
+                     reply_to: reply_queue_name)
   end
 
   def timeout_response

@@ -3,8 +3,7 @@ require_relative 'base_client.rb'
 
 class AuthClient < BaseClient
   include Singleton
-  attr_accessor :call_id, :response, :reply_queue,
-                :server_queue_name, :reply_queue_name
+  attr_accessor :server_queue_name, :reply_queue_name
 
   def initialize
     super
@@ -13,23 +12,20 @@ class AuthClient < BaseClient
   end
 
   def call(data)
-    setup_reply_queue
-    exchange.publish(data,
-                     routing_key: server_queue_name,
-                     correlation_id: correlation_id,
-                     reply_to: reply_queue.name)
+    reply_queue.subscribe(&handle_response)
 
-    lock_thread
-    rpc_response
+    publish(data)
+
+    lock_thread_or_timeout
+
+    response || timeout_response
   end
 
   private
 
-  def setup_reply_queue
-    @reply_queue = channel.queue(@reply_queue_name, exclusive: false)
-
-    reply_queue.subscribe do |_delivery_info, properties, payload|
-      if self_reference.same_correlation_id?(properties)
+  def handle_response
+    lambda do |_delivery_info, properties, payload|
+      if properties[:correlation_id] == correlation_id
         self_reference.response = format_response(properties, payload)
 
         self_reference.release_thread
