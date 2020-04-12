@@ -3,16 +3,16 @@ require_relative 'base_client.rb'
 
 class AuthClient < BaseClient
   include Singleton
-  attr_accessor :server_queue_name, :reply_queue_name
+  attr_accessor :pub_queue_name, :sub_queue_name
 
   def initialize
     super
-    @server_queue_name = 'rpc_login_request'
-    @reply_queue_name = 'rpc_login_response'
+    @pub_queue_name = 'rpc_login_request'
+    @sub_queue_name = 'rpc_login_response'
   end
 
   def call(data)
-    reply_queue.subscribe(&handle_response)
+    subscribe(handle_response)
 
     publish(data)
 

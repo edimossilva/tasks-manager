@@ -34,8 +34,9 @@ class BaseClient
     lock.synchronize { self_reference.condition.signal }
   end
 
-  def reply_queue
-    channel.queue(reply_queue_name, exclusive: false)
+  def subscribe(handle_response)
+    sub_queue = channel.queue(sub_queue_name)
+    sub_queue.subscribe(&handle_response)
   end
 
   def self_reference
@@ -48,9 +49,9 @@ class BaseClient
 
   def publish(data)
     exchange.publish(data,
-                     routing_key: server_queue_name,
+                     routing_key: pub_queue_name,
                      correlation_id: correlation_id,
-                     reply_to: reply_queue_name)
+                     reply_to: sub_queue_name)
   end
 
   def timeout_response
