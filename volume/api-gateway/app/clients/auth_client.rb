@@ -1,7 +1,4 @@
-require 'bunny'
-require 'securerandom'
 require 'singleton'
-require 'pry'
 
 class AuthClient
   include Singleton
@@ -9,14 +6,12 @@ class AuthClient
                 :channel, :server_queue_name, :reply_queue, :exchange
 
   def initialize
-    # binding.pry
-    @connection = Bunny.new(ENV['CLOUDAMQP_URL'])
-    # , automatically_recover: false
+    @connection = Bunny.new(ENV['CLOUDAMQP_URL'], automatically_recover: true)
     @connection.start
 
     @channel = connection.create_channel
     @exchange = channel.default_exchange
-    @server_queue_name = 'rpc_login'
+    @server_queue_name = 'rpc_login_request'
 
     setup_reply_queue
   end
@@ -30,8 +25,9 @@ class AuthClient
 
     # wait for the signal or timeout to continue the execution
     timeout = 2
+    # lock.synchronize { condition.wait(lock) }
     lock.synchronize { condition.wait(lock, timeout) }
-    response || 'error'
+    response || timeout_response
   end
 
   def stop
@@ -41,15 +37,27 @@ class AuthClient
 
   private
 
+  def timeout_response
+    {
+      headers: { "status_code": 408 },
+      data: { "error_message": 'timeout :(' }.to_json
+    }
+  end
+
   def setup_reply_queue
     @lock = Mutex.new
     @condition = ConditionVariable.new
     that = self
-    @reply_queue = channel.queue('', exclusive: true)
+    @reply_queue = channel.queue('rpc_login_response', exclusive: false)
 
     reply_queue.subscribe do |_delivery_info, properties, payload|
+      # binding.pry
+
       if properties[:correlation_id] == that.call_id
-        that.response = payload
+        that.response = {
+          headers: properties[:headers],
+          data: payload
+        }
 
         # sends the signal to continue the execution of #call
         that.lock.synchronize { that.condition.signal }
