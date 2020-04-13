@@ -83,7 +83,7 @@ pages:
     - merge_requests
     - external_pull_requests
   dependencies:
-    - test
+    - test tasks_manager_core
   script:
     - mv volume/tasks-manager/coverage/ public/
   artifacts:
