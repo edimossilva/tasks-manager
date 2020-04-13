@@ -7,15 +7,15 @@ module JsonResponseHelper
     JSON.parse(response.body)['error_message']
   end
 
-  def json_subject_data
-    JSON.parse(subject)['data']
+  def subject_data
+    subject[:data]
   end
 
-  def json_subject_errors
-    JSON.parse(subject)['errors']
+  def subject_errors
+    subject[:errors]
   end
 
-  def json_subject_status_code
-    JSON.parse(subject)['headers']['status_code']
+  def subject_status_code
+    subject[:headers][:status_code]
   end
 end
