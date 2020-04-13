@@ -18,9 +18,8 @@ class AuthProviderServer < BaseServer
   def handle_response
     lambda do |_delivery_info, properties, request_payload|
       result = DoLoginService.new.call(request_payload)
-      response_payload = result.except(:headers).to_json
-      exchange.publish(
-        response_payload,
+      publish(
+        payload: result[:payload].to_json,
         routing_key: properties.reply_to,
         correlation_id: properties.correlation_id,
         headers: result[:headers]

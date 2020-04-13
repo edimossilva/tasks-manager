@@ -8,11 +8,11 @@ module JsonResponseHelper
   end
 
   def subject_data
-    subject[:data]
+    subject[:payload][:data]
   end
 
   def subject_errors
-    subject[:errors]
+    subject[:payload][:errors]
   end
 
   def subject_status_code

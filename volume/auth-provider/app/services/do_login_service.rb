@@ -5,7 +5,12 @@ class DoLoginService
     payload_json = JSON.parse(payload)
     username = payload_json['username']
     password = payload_json['password']
+    authenticate(username, password)
+  end
 
+  private
+
+  def authenticate(username, password)
     user = User.find_by(username: username)
     if user&.authenticate(password)
       auth_data(user)
@@ -13,8 +18,6 @@ class DoLoginService
       unauthorized_data
     end
   end
-
-  private
 
   def exp_time
     time = Time.zone.now + 24.hours.to_i
@@ -24,11 +27,13 @@ class DoLoginService
   def auth_data(user)
     {
       headers: { "status_code": 200 },
-      data: {
-        token: encode_user(user),
-        exp: exp_time,
-        username: user.username,
-        userId: user.id
+      payload: {
+        data: {
+          token: encode_user(user),
+          exp: exp_time,
+          username: user.username,
+          userId: user.id
+        }
       }
     }
   end
@@ -36,9 +41,11 @@ class DoLoginService
   def unauthorized_data
     {
       headers: { "status_code": 401 },
-      errors: [{
-        error_message: 'unauthorized :('
-      }]
+      payload: {
+        errors: [{
+          error_message: 'unauthorized :('
+        }]
+      }
     }
   end
 end
