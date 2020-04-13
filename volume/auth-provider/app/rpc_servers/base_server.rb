@@ -34,6 +34,8 @@ class BaseServer
        !payload.is_a?(String)
       raise StandardError, "Invalid payload value:#{payload}"
     end
+
+    true
   end
 
   def validate_headers!(headers)
@@ -42,5 +44,7 @@ class BaseServer
        !headers.key?(:status_code)
       raise StandardError, "Invalid headers value:#{headers}"
     end
+
+    true
   end
 end
