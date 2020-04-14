@@ -29,10 +29,8 @@ services:
     container_name: tasks_manager_core
     volumes:
       - ./volume/tasks-manager:/app
-      - ./bundle_path:/bundle
     depends_on:
       - db
-      - message_broker
     tty: true
     command: rails s -b 0.0.0.0
     ports:
@@ -47,10 +45,8 @@ services:
     container_name: auth_provider
     volumes:
       - ./volume/auth-provider:/app
-      - ./bundle_path:/bundle
     depends_on:
       - db
-      - message_broker
     tty: true
     command: sh -c "sleep 5; rails s -b 0.0.0.0"
     ports:
@@ -71,7 +67,6 @@ services:
       - config/environment/shared_environment.env
     volumes:
       - ./volume/api-gateway:/app
-      - ./bundle_path:/bundle
 
 
 # docker-compose build
