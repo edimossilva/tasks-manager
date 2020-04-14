@@ -1,7 +1,5 @@
 Rails.application.configure do
-  config.after_initialize do
-    sleep 10
-
-    AuthProviderServer.instance.start
-  end
+  AuthProviderServer.instance.start if ENV['RAILS_ENV'] == 'development' || ENV['RAILS_ENV'] == 'production'
+rescue StandardError => e
+  Rails.logger.error e
 end

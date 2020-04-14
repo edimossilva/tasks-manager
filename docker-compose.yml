@@ -5,6 +5,7 @@ services:
     container_name: db
     volumes:
       - /data/docker/postgresql/data:/var/lib/postgresql/data
+      - /data/docker/postgresql/data/pgdata
 
     environment:
       POSTGRES_PASSWORD: "postgres"
@@ -31,7 +32,6 @@ services:
       - ./volume/tasks-manager:/app
     depends_on:
       - db
-      - message_broker
     tty: true
     command: rails s -b 0.0.0.0
     ports:
@@ -48,7 +48,6 @@ services:
       - ./volume/auth-provider:/app
     depends_on:
       - db
-      - message_broker
     tty: true
     command: rails s -b 0.0.0.0
     ports:
@@ -69,6 +68,7 @@ services:
       - config/environment/shared_environment.env
     volumes:
       - ./volume/api-gateway:/app
+
 
 # docker-compose build
 # docker-compose up -d
