@@ -20,11 +20,9 @@ test tasks_manager_core auth_provider:
     - docker:dind
   before_script:
     - apk add --no-cache docker-compose
-    - docker-compose build tasks_manager_core
-    - docker-compose up -d tasks_manager_core
+    - docker-compose build
+    - docker-compose up
     - docker-compose exec -T tasks_manager_core rake db:create db:migrate
-    - docker-compose build auth_provider
-    - docker-compose up -d auth_provider
     - docker-compose exec -T auth_provider rake db:create db:migrate
   script:
     - docker-compose exec -T tasks_manager_core rspec
