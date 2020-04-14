@@ -9,6 +9,10 @@ RSpec.configure do |config|
     metadata[:type] = :services
   end
 
+  config.define_derived_metadata(file_path: Regexp.new('/spec/rpc_servers/')) do |metadata|
+    metadata[:type] = :rpc_servers
+  end
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
