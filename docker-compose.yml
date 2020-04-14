@@ -29,7 +29,7 @@ services:
     container_name: tasks_manager_core
     volumes:
       - ./volume/tasks-manager:/app
-      - bundle_path:/bundle
+      - ./bundle_path:/bundle
     depends_on:
       - db
       - message_broker
@@ -47,7 +47,7 @@ services:
     container_name: auth_provider
     volumes:
       - ./volume/auth-provider:/app
-      - bundle_path:/bundle
+      - ./bundle_path:/bundle
     depends_on:
       - db
       - message_broker
@@ -71,7 +71,7 @@ services:
       - config/environment/shared_environment.env
     volumes:
       - ./volume/api-gateway:/app
-      - bundle_path:/bundle
+      - ./bundle_path:/bundle
 
 
 # docker-compose build
