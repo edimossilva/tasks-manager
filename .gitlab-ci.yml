@@ -32,6 +32,8 @@ test tasks_manager_core auth_provider:
   artifacts:
     paths:
       - "volume/tasks-manager/coverage/"
+      - "volume/auth-provider/coverage/"
+
     name: "Pipeline $CI_PIPELINE_ID Coverage Report"
 
 deploy heroku:
@@ -74,7 +76,8 @@ pages:
     - test tasks_manager_core auth_provider
   script:
     - mv volume/tasks-manager/coverage/ public/
+    - mv volume/auth-provider/coverage/ public/
   artifacts:
     paths:
       - public
-    expire_in: 30 days
+    expire_in: 100 days
