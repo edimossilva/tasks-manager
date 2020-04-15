@@ -73,10 +73,9 @@ test api_gateway:
     - docker-compose exec -T api_gateway rspec
   after_script:
     - cp volume/api-gateway/coverage/index.html volume/api-gateway/coverage/api_gateway_coverage.html
-
   artifacts:
     paths:
-      - "volume/auth-provider/coverage/"
+      - "volume/api-gateway/coverage/"
     name: "Pipeline $CI_PIPELINE_ID Coverage Report"
 
 deploy heroku:
