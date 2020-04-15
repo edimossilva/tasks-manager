@@ -2,14 +2,14 @@ class TaskListsController < ApplicationController
   def_param_group :task_lists_desc do
     property :id, Numeric
     property :name, String
-    property :description, String
-    property :frequence_type, String
+    property :description, String, required: false
+    property :frequenceType, String
     property :userId, Numeric
   end
 
   param :name, String, required: true
   param :description, String
-  param :frequence_type, %w[daily monthly weekly yearly], required: true
+  param :frequenceType, %w[daily monthly weekly yearly], required: true
   api :POST, '/task_lists'
   returns :task_lists_desc, code: 201
   def create

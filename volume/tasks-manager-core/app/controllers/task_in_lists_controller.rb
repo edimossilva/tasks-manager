@@ -1,13 +1,13 @@
 class TaskInListsController < ApplicationController
   def_param_group :task_in_lists_desc do
     property :id, Numeric
-    property :task_id, Numeric
-    property :task_list_id, Numeric
+    property :taskId, Numeric
+    property :taskListId, Numeric
   end
 
   api :POST, '/task_in_lists'
-  param :task_id, Numeric, required: true
-  param :task_list_id, Numeric, required: true
+  param :taskId, Numeric, required: true
+  param :taskListId, Numeric, required: true
   param :checked, [true, false], required: true
   returns :task_in_lists_desc, code: 201
   def create

@@ -25,11 +25,11 @@ services:
 
   tasks_manager_core:
     build:
-      context: "."
+      context: "./volume/tasks-manager-core"
       dockerfile: "Dockerfile_tasks_manager_core"
     container_name: tasks_manager_core
     volumes:
-      - ./volume/tasks-manager:/app
+      - ./volume/tasks-manager-core:/app
     depends_on:
       - db
     tty: true
@@ -41,7 +41,7 @@ services:
 
   auth_provider:
     build:
-      context: "."
+      context: "./volume/auth-provider"
       dockerfile: "Dockerfile_auth_provider"
     container_name: auth_provider
     volumes:
@@ -57,7 +57,7 @@ services:
 
   api_gateway:
     build:
-      context: "."
+      context: "./volume/api-gateway"
       dockerfile: "Dockerfile_api_gateway"
     image: "ruby:2.7.0"
     container_name: api_gateway

@@ -14,7 +14,6 @@ RUN gem install bundler
 # config home environment
 WORKDIR /app
 
-COPY ./volume/tasks-manager/Gemfile /app/Gemfile
-COPY ./volume/tasks-manager/Gemfile.lock /app/Gemfile.lock
+COPY ./Gemfile /app/Gemfile
+COPY ./Gemfile.lock /app/Gemfile.lock
 RUN bundle install
-

@@ -5,8 +5,8 @@ RUN gem install shotgun
 
 WORKDIR /app
 
-COPY ./volume/api-gateway/Gemfile /app/Gemfile
-COPY ./volume/api-gateway/Gemfile.lock /app/Gemfile.lock
+COPY ./Gemfile /app/Gemfile
+COPY ./Gemfile.lock /app/Gemfile.lock
 
 RUN bundle install
 

@@ -26,10 +26,10 @@ test tasks_manager_core:
   script:
     - docker-compose exec -T tasks_manager_core rspec
   after_script:
-    - mv volume/tasks-manager/coverage/index.html volume/tasks-manager/coverage/tasks_manager_core_coverage.html
+    - mv volume/tasks-manager-core/coverage/index.html volume/tasks-manager-core/coverage/tasks_manager_core_coverage.html
   artifacts:
     paths:
-      - "volume/tasks-manager/coverage/"
+      - "volume/tasks-manager-core/coverage/"
     name: "Pipeline $CI_PIPELINE_ID Coverage Report"
 
 test auth_provider:
@@ -49,7 +49,31 @@ test auth_provider:
   script:
     - docker-compose exec -T auth_provider rspec
   after_script:
-    - mv volume/auth-provider/coverage/index.html volume/auth-provider/coverage/auth_provider_coverage.html
+    - cp volume/auth-provider/coverage/index.html volume/auth-provider/coverage/auth_provider_coverage.html
+
+  artifacts:
+    paths:
+      - "volume/auth-provider/coverage/"
+    name: "Pipeline $CI_PIPELINE_ID Coverage Report"
+
+test auth_provider:
+  stage: test
+  coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
+  only:
+    - master
+    - merge_requests
+    - external_pull_requests
+  services:
+    - docker:dind
+  before_script:
+    - apk add --no-cache docker-compose
+    - docker-compose build auth_provider
+    - docker-compose up -d auth_provider
+    - docker-compose exec -T auth_provider rake db:create db:migrate
+  script:
+    - docker-compose exec -T auth_provider rspec
+  after_script:
+    - cp volume/auth-provider/coverage/index.html volume/auth-provider/coverage/auth_provider_coverage.html
 
   artifacts:
     paths:
@@ -69,12 +93,12 @@ deploy heroku:
     -  curl https://cli-assets.heroku.com/install.sh | sh
     - docker build .
   script:
+    - docker build -f Dockerfile -t registry.heroku.com/edimossilva-task-manager/tasks-manager-core .
+    - docker login -u _ -p $HEROKU_API_KEY registry.heroku.com
+    - docker push registry.heroku.com/edimossilva-task-manager/tasks-manager-core
     -  heroku container:login
-    - heroku git:remote -a $HEROKU_APP_STAGING
-    - echo $HEROKU_APP_STAGING
-    - heroku container:push web
-    - heroku container:release web
-    - heroku run rails db:migrate db:seed
+    - heroku run rails db:migrate db:seed --app=$HEROKU_APP_STAGING
+
 
 test deploy heroku:
   image: curlimages/curl
@@ -96,13 +120,9 @@ pages:
     - test tasks_manager_core
     - test auth_provider
   script:
-    - ls public
-    - mv volume/tasks-manager/coverage/* public
-    - ls public
+    - mv volume/tasks-manager-core/coverage/* public
     - mv volume/auth-provider/coverage/auth_provider_coverage.html public
-    - ls public
     - cp pages/index.html public/index.html
-    - ls public
   artifacts:
     paths:
       - public

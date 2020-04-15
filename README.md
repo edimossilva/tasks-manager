@@ -26,7 +26,7 @@
    ```
 
 1. current coverage
-   1. [simplecov tasks-manager](https://edimossilva.gitlab.io/tasks-manager/tasks_manager_core_coverage)
+   1. [simplecov tasks-manager-core](https://edimossilva.gitlab.io/tasks-manager/tasks_manager_core_coverage)
 
    1. [simplecov auth-provider](https://edimossilva.gitlab.io/tasks-manager/auth_provider_coverage)
 
