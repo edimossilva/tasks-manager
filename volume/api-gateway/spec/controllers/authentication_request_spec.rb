@@ -1,6 +1,8 @@
 require_relative '../spec_helper.rb'
 # require_relative '../../app/controllers/authentication_controller.rb'
 # run ApplicationController
+set :show_exceptions, false
+
 module RSpecMixin
   include Rack::Test::Methods
   def app
@@ -45,6 +47,7 @@ describe 'AuthenticationController' do
   context 'When parameters are sent' do
     context 'and parameters are valids' do
       before do
+        allow_any_instance_of(AuthClient).to receive(:initialize).and_return(true)
         allow_any_instance_of(AuthClient).to receive(:call).and_return(success_login_payload)
       end
       let(:body) { { username: 'username', password: 'passwors' }.to_json }
