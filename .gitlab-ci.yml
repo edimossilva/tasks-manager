@@ -68,9 +68,8 @@ test api_gateway:
   before_script:
     - apk add --no-cache docker-compose
     - docker-compose build api_gateway
-    - docker-compose up -d api_gateway
   script:
-    - docker-compose exec -T api_gateway rspec
+    - docker-compose run -T api_gateway rspec
   after_script:
     - cp volume/api-gateway/coverage/index.html volume/api-gateway/coverage/api_gateway_coverage.html
   artifacts:
