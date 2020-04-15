@@ -15,7 +15,7 @@
 1. Setup database
 
    ```
-    - docker-compose exec -T tasks_manager_core rake db:create db:migrate db:seed
+     docker-compose exec -T tasks_manager_core rake db:create db:migrate db:seed
 
    ```
 
@@ -29,6 +29,8 @@
    1. [simplecov tasks-manager-core](https://edimossilva.gitlab.io/tasks-manager/tasks_manager_core_coverage)
 
    1. [simplecov auth-provider](https://edimossilva.gitlab.io/tasks-manager/auth_provider_coverage)
+
+   1. [simplecov api-gateway](https://edimossilva.gitlab.io/tasks-manager/api_gateway_coverage)
 
 1. current deploy (api root url):
    [heroku](https://edimossilva-task-manager.herokuapp.com)

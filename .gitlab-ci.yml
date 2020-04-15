@@ -9,7 +9,7 @@ variables:
   # https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#using-the-overlayfs-driver
   DOCKER_DRIVER: overlay2
 #
-test tasks_manager_core:
+tasks_manager_core test:
   stage: test
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
@@ -32,7 +32,7 @@ test tasks_manager_core:
       - "volume/tasks-manager-core/coverage/"
     name: "Pipeline $CI_PIPELINE_ID Coverage Report"
 
-test auth_provider:
+auth_provider test:
   stage: test
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
@@ -56,7 +56,7 @@ test auth_provider:
       - "volume/auth-provider/coverage/"
     name: "Pipeline $CI_PIPELINE_ID Coverage Report"
 
-test auth_provider:
+api_gateway test:
   stage: test
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
@@ -67,17 +67,14 @@ test auth_provider:
     - docker:dind
   before_script:
     - apk add --no-cache docker-compose
-    - docker-compose build auth_provider
-    - docker-compose up -d auth_provider
-    - docker-compose exec -T auth_provider rake db:create db:migrate
+    - docker-compose build api_gateway
   script:
-    - docker-compose exec -T auth_provider rspec
+    - docker-compose run -T api_gateway rspec
   after_script:
-    - cp volume/auth-provider/coverage/index.html volume/auth-provider/coverage/auth_provider_coverage.html
-
+    - cp volume/api-gateway/coverage/index.html volume/api-gateway/coverage/api_gateway_coverage.html
   artifacts:
     paths:
-      - "volume/auth-provider/coverage/"
+      - "volume/api-gateway/coverage/"
     name: "Pipeline $CI_PIPELINE_ID Coverage Report"
 
 deploy heroku:
@@ -99,7 +96,6 @@ deploy heroku:
     -  heroku container:login
     - heroku run rails db:migrate db:seed --app=$HEROKU_APP_STAGING
 
-
 test deploy heroku:
   image: curlimages/curl
   only:
@@ -117,11 +113,13 @@ pages:
     - merge_requests
     - external_pull_requests
   dependencies:
-    - test tasks_manager_core
-    - test auth_provider
+    - tasks_manager_core test
+    - auth_provider test
+    - api_gateway test
   script:
     - mv volume/tasks-manager-core/coverage/* public
     - mv volume/auth-provider/coverage/auth_provider_coverage.html public
+    - mv volume/api-gateway/coverage/api_gateway_coverage.html public
     - cp pages/index.html public/index.html
   artifacts:
     paths:
