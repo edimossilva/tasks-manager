@@ -115,7 +115,7 @@ pages:
   dependencies:
     - tasks_manager_core test
     - auth_provider test
-    - api_gateway_provider test
+    - api_gateway test
   script:
     - mv volume/tasks-manager-core/coverage/* public
     - mv volume/auth-provider/coverage/auth_provider_coverage.html public
