@@ -49,7 +49,7 @@ test auth_provider:
   script:
     - docker-compose exec -T auth_provider rspec
   after_script:
-    - mv volume/auth-provider/coverage/index.html volume/auth-provider/coverage/auth_provider_coverage.html
+    - cp volume/auth-provider/coverage/index.html volume/auth-provider/coverage/auth_provider_coverage.html
 
   artifacts:
     paths:
@@ -73,7 +73,7 @@ test auth_provider:
   script:
     - docker-compose exec -T auth_provider rspec
   after_script:
-    - mv volume/auth-provider/coverage/index.html volume/auth-provider/coverage/auth_provider_coverage.html
+    - cp volume/auth-provider/coverage/index.html volume/auth-provider/coverage/auth_provider_coverage.html
 
   artifacts:
     paths:
