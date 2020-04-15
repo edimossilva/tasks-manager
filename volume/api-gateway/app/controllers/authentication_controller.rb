@@ -1,6 +1,8 @@
 class AuthenticationController < ApplicationController
   post '/auth/login' do
-    response = AuthClient.instance.call(login_params)
+    return render_unprocessable_entity(login_params) if invalid_params?
+
+    response = AuthClient.instance.call(login_params.to_json)
     status response[:headers]['status_code'] || response[:headers][:status_code]
     json JSON.parse(response[:data])
   end
@@ -9,6 +11,12 @@ class AuthenticationController < ApplicationController
 
   def login_params
     { username: body_params['username'],
-      password: body_params['password'] }.to_json
+      password: body_params['password'] }
+  end
+
+  def invalid_params?
+    login_params.values.any? do |value|
+      value&.empty? || value.nil?
+    end
   end
 end

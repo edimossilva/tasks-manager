@@ -15,7 +15,7 @@
 1. Setup database
 
    ```
-    - docker-compose exec -T tasks_manager_core rake db:create db:migrate db:seed
+     docker-compose exec -T tasks_manager_core rake db:create db:migrate db:seed
 
    ```
 
