@@ -5,6 +5,7 @@ services:
     container_name: db
     volumes:
       - /data/docker/postgresql/data:/var/lib/postgresql/data
+      - /data/docker/postgresql/data/pgdata
 
     environment:
       POSTGRES_PASSWORD: "postgres"
@@ -24,14 +25,13 @@ services:
 
   tasks_manager_core:
     build:
-      context: "."
+      context: "./volume/tasks-manager-core"
       dockerfile: "Dockerfile_tasks_manager_core"
     container_name: tasks_manager_core
     volumes:
-      - ./volume/tasks-manager:/app
+      - ./volume/tasks-manager-core:/app
     depends_on:
       - db
-      - message_broker
     tty: true
     command: rails s -b 0.0.0.0
     ports:
@@ -41,14 +41,13 @@ services:
 
   auth_provider:
     build:
-      context: "."
+      context: "./volume/auth-provider"
       dockerfile: "Dockerfile_auth_provider"
     container_name: auth_provider
     volumes:
       - ./volume/auth-provider:/app
     depends_on:
       - db
-      - message_broker
     tty: true
     command: rails s -b 0.0.0.0
     ports:
@@ -58,7 +57,7 @@ services:
 
   api_gateway:
     build:
-      context: "."
+      context: "./volume/api-gateway"
       dockerfile: "Dockerfile_api_gateway"
     image: "ruby:2.7.0"
     container_name: api_gateway
@@ -69,6 +68,7 @@ services:
       - config/environment/shared_environment.env
     volumes:
       - ./volume/api-gateway:/app
+
 
 # docker-compose build
 # docker-compose up -d

@@ -16,13 +16,13 @@ class AuthProviderServer < BaseServer
   private
 
   def handle_response
-    lambda do |_delivery_info, properties, payload|
-      result = DoLoginService.new.call(payload)
-      exchange.publish(
-        result.to_s,
+    lambda do |_delivery_info, properties, request_payload|
+      result = DoLoginService.new.call(request_payload)
+      publish(
+        payload: result[:payload].to_json,
         routing_key: properties.reply_to,
         correlation_id: properties.correlation_id,
-        headers: { status_code: 200 }
+        headers: result[:headers]
       )
     end
   end

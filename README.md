@@ -25,8 +25,10 @@
      docker-compose exec tasks_manager_core rspec
    ```
 
-1. current coverage:
-   [simplecov](https://edimossilva.gitlab.io/tasks-manager)
+1. current coverage
+   1. [simplecov tasks-manager-core](https://edimossilva.gitlab.io/tasks-manager/tasks_manager_core_coverage)
+
+   1. [simplecov auth-provider](https://edimossilva.gitlab.io/tasks-manager/auth_provider_coverage)
 
 1. current deploy (api root url):
    [heroku](https://edimossilva-task-manager.herokuapp.com)

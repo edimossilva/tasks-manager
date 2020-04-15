@@ -14,6 +14,7 @@ RUN gem install bundler
 # config home environment
 WORKDIR /app
 
-COPY ./volume/auth-provider/Gemfile /app/Gemfile
-COPY ./volume/auth-provider/Gemfile.lock /app/Gemfile.lock
+COPY ./Gemfile /app/Gemfile
+COPY ./Gemfile.lock /app/Gemfile.lock
 RUN bundle install
+

@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   def_param_group :task_desc do
     property :id, Numeric
     property :name, String
-    property :description, String
+    property :description, String, required: false
     property :userId, Numeric
   end
 
