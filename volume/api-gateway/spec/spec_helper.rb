@@ -1,11 +1,12 @@
 # spec/spec_helper.rb
+require 'simplecov'
+require 'simplecov-console'
+SimpleCov.start
 require 'rack/test'
 require 'rspec'
 require_relative '../config/environment'
 
 ENV['RACK_ENV'] = 'test'
-
-# require File.expand_path '../../auh.rb', __dir__
 
 module RSpecMixin
   include ParamsHelper
