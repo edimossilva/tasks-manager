@@ -30,6 +30,8 @@
 
    1. [simplecov auth-provider](https://edimossilva.gitlab.io/tasks-manager/auth_provider_coverage)
 
+   1. [simplecov api-gateway](https://edimossilva.gitlab.io/tasks-manager/api_gateway_coverage)
+
 1. current deploy (api root url):
    [heroku](https://edimossilva-task-manager.herokuapp.com)
 
