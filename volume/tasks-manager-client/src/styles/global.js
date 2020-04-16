@@ -9,7 +9,11 @@ export default createGlobalStyle`
 
   html, body, #root {
     background: #3fc5f0;
+    font-size: 14px Roboto, sans-serif;
     min-height: 100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
   }
 
   #root {
