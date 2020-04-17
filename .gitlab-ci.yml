@@ -14,7 +14,6 @@ tasks_manager_core test:
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
     - master
-    - merge_requests
     - external_pull_requests
   services:
     - docker:dind
@@ -37,7 +36,6 @@ auth_provider test:
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
     - master
-    - merge_requests
     - external_pull_requests
   services:
     - docker:dind
@@ -61,7 +59,6 @@ api_gateway test:
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
     - master
-    - merge_requests
     - external_pull_requests
   services:
     - docker:dind
@@ -81,7 +78,6 @@ deploy heroku:
   stage: deploy
   only:
     - master
-    - merge_requests
     - external_pull_requests
   services:
     - docker:dind
@@ -100,7 +96,6 @@ test deploy heroku:
   image: curlimages/curl
   only:
     - master
-    - merge_requests
     - external_pull_requests
   stage: test deploy
   script:
@@ -110,7 +105,6 @@ pages:
   stage: deploy
   only:
     - master
-    - merge_requests
     - external_pull_requests
   dependencies:
     - tasks_manager_core test
