@@ -2,7 +2,7 @@ class AuthenticationController < ApplicationController
   post '/auth/login' do
     return render_unprocessable_entity(login_params) if invalid_params?
 
-    response = AuthClient.instance.call(login_params.to_json)
+    response = AuthServiceHelper.login(login_params.to_json)
     status response[:headers]['status_code'] || response[:headers][:status_code]
     json JSON.parse(response[:data])
   end

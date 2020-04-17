@@ -1,14 +1,10 @@
-require 'singleton'
 require_relative 'base_client.rb'
 
-class AuthClient < BaseClient
-  include Singleton
+class RpcClient < BaseClient
   attr_accessor :pub_queue_name, :sub_queue_name
 
   def initialize
     super
-    @pub_queue_name = 'rpc_login_request'
-    @sub_queue_name = 'rpc_login_response'
   end
 
   def call(data)

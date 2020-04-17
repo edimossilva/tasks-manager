@@ -13,13 +13,6 @@ class ApplicationController < Sinatra::Base
                    end
   end
 
-  get '/' do
-    data = { username: 'registered_user1',
-             password: '111' }
-    result = AuthClient.instance.call(data.to_json)
-    result.to_s
-  end
-
   protected
 
   def render_unprocessable_entity(params)
