@@ -6,3 +6,5 @@
 /config/postgres-data
 volume/auth-provider/coverage/.resultset.json
 volume/auth-provider/coverage/index.html
+volume/tasks-manager-client/build
+volume/tasks-manager-client/node_modules
