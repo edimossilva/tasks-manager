@@ -1,11 +1,15 @@
 class BaseClient
   attr_accessor :connection, :channel, :exchange,
-                :lock, :condition, :response
+                :lock, :condition, :response,
+                :pub_queue, :sub_queue
 
   def initialize
     @connection = AmqpConnection.instance.connection
     @channel = connection.create_channel
     @exchange = channel.default_exchange
+
+    @pub_queue = channel.queue(pub_queue_name)
+    @sub_queue = channel.queue(sub_queue_name)
 
     @lock = Mutex.new
     @condition = ConditionVariable.new
@@ -35,7 +39,6 @@ class BaseClient
   end
 
   def subscribe(handle_response)
-    sub_queue = channel.queue(sub_queue_name)
     sub_queue.subscribe(&handle_response)
   end
 

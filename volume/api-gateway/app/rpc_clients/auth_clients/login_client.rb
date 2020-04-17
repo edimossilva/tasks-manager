@@ -6,9 +6,9 @@ module AuthClients
     include Singleton
 
     def initialize
-      super
       @pub_queue_name = 'rpc_login_request'
       @sub_queue_name = 'rpc_login_response'
+      super
     end
   end
 end
