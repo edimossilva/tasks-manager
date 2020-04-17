@@ -45,7 +45,7 @@ class TaskListsController < ApplicationController
 
     authorize task_list, :owner?
 
-    render_ok(task_list)
+    render_ok(TaskListWithTaskInListSerializer.new(task_list))
   end
 
   api :PUT, '/task_lists'

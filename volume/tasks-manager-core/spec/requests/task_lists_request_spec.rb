@@ -19,7 +19,7 @@ RSpec.describe 'TaskLists', type: :request do
 
     describe 'When data is valid' do
       before do
-        post("/task_lists",
+        post('/task_lists',
              params: create_task_list_params,
              headers: registred_headers)
       end
@@ -37,7 +37,7 @@ RSpec.describe 'TaskLists', type: :request do
 
     describe 'When data is NOT valid' do
       before do
-        post("/task_lists",
+        post('/task_lists',
              params: {},
              headers: registred_headers)
       end
@@ -56,7 +56,7 @@ RSpec.describe 'TaskLists', type: :request do
     describe 'And it is found' do
       before do
         delete("/task_lists/#{task_list.id}",
-                headers: registred_headers)
+               headers: registred_headers)
       end
 
       it { expect(response).to have_http_status(:no_content) }
@@ -64,8 +64,8 @@ RSpec.describe 'TaskLists', type: :request do
 
     describe 'And it is NOT found' do
       before do
-        delete("/task_lists/-1",
-                headers: registred_headers)
+        delete('/task_lists/-1',
+               headers: registred_headers)
       end
 
       it { expect(response).to have_http_status(:not_found) }
@@ -123,7 +123,7 @@ RSpec.describe 'TaskLists', type: :request do
     let!(:task_list_list2) { create_list(:task_list, 20) }
 
     before do
-      get("/task_lists",
+      get('/task_lists',
           headers: registred_headers)
     end
 
@@ -141,26 +141,51 @@ RSpec.describe 'TaskLists', type: :request do
     end
 
     describe 'When user is registred' do
-      let!(:task_list) { create(:task_list, user: registred_user) }
+      let!(:task_list) { create(:task_list, :with_tasks, quantity: 3, user: registred_user) }
 
-      before do
-        get("/task_lists/#{task_list.id}",
-            headers: registred_headers)
-      end
+      describe 'And TaskList is Found' do
+        before do
+          get("/task_lists/#{task_list.id}",
+              headers: registred_headers)
+        end
 
-      it { expect(response).to have_http_status(:ok) }
+        it { expect(response).to have_http_status(:ok) }
 
-      it 'contains fields' do
-        expect(json_response_data['id']).to eq(task_list.id)
-        expect(json_response_data['name']).to eq(task_list[:name])
-        expect(json_response_data['description']).to eq(task_list[:description])
-        expect(json_response_data['frequence_type']).to eq(task_list[:frequence_type])
-        expect(json_response_data['user_id']).to eq(registred_user.id)
+        it 'contains fields' do
+          expect(json_response_data['id']).to eq(task_list.id)
+          expect(json_response_data['name']).to eq(task_list[:name])
+          expect(json_response_data['description']).to eq(task_list[:description])
+          expect(json_response_data['frequence_type']).to eq(task_list[:frequence_type])
+          expect(json_response_data['user_id']).to eq(registred_user.id)
+        end
+
+        it 'contains task_in_lists' do
+          expect(json_response_data['task_in_lists']).to_not be_nil
+          expect(json_response_data['task_in_lists'].count).to eq(3)
+        end
+
+        it 'task_in_list is properly formatted' do
+          json_task_in_list = json_response_data['task_in_lists'].first
+          task_in_list = task_list.task_in_lists.first
+
+          expect(json_task_in_list['id']).to eq(task_in_list.id)
+          expect(json_task_in_list['checked']).to eq(task_in_list.checked)
+        end
+
+        it 'task_in_list.task is properly formatted' do
+          json_task = json_response_data['task_in_lists'].first['task']
+          task = task_list.task_in_lists.first.task
+
+          expect(json_task['id']).to eq(task.id)
+          expect(json_task['name']).to eq(task.name)
+          expect(json_task['description']).to eq(task.description)
+          expect(json_task['user_id']).to eq(task.user_id)
+        end
       end
 
       describe 'And TaskList is not found' do
         before do
-          get("/task_lists/-1",
+          get('/task_lists/-1',
               headers: registred_headers)
         end
 
