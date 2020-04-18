@@ -60,7 +60,7 @@ class BaseClient
   def timeout_response
     {
       headers: { "status_code": 408 },
-      data: { "error_message": 'timeout :(' }.to_json
+      data: { "error_message": "#{pub_queue_name} timeout :(" }.to_json
     }
   end
 end

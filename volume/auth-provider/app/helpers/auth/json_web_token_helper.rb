@@ -12,6 +12,9 @@ module Auth
     def decode_token(token)
       decoded = JWT.decode(token, SECRET_KEY)[0]
       HashWithIndifferentAccess.new decoded
+    rescue JWT::DecodeError => e
+      Rails.logger.info e
+      nil
     end
 
     def header_for_user(user)
@@ -45,7 +48,7 @@ module Auth
     def user_by_token(token)
       decoded = decode_token(token)
 
-      User.find(decoded[:user_id])
+      User.find(decoded[:user_id]) if decoded
     end
 
     def current_user

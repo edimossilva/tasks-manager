@@ -26,17 +26,18 @@
    ```
 
 1. current coverage
-   1. [simplecov tasks-manager-core](https://edimossilva.gitlab.io/tasks-manager/tasks_manager_core_coverage)
 
-   1. [simplecov auth-provider](https://edimossilva.gitlab.io/tasks-manager/auth_provider_coverage)
+   1. [simplecov tasks-manager-core(Rails)](https://edimossilva.gitlab.io/tasks-manager/tasks_manager_core_coverage)
 
-   1. [simplecov api-gateway](https://edimossilva.gitlab.io/tasks-manager/api_gateway_coverage)
+   1. [simplecov auth-provider(Rails)](https://edimossilva.gitlab.io/tasks-manager/auth_provider_coverage)
 
-1. current deploy (api root url):
-   [heroku](https://edimossilva-task-manager.herokuapp.com)
+   1. [simplecov api-gateway(Sinatra)](https://edimossilva.gitlab.io/tasks-manager/api_gateway_coverage)
 
 1. API doc:
    [apipie](https://edimossilva-task-manager.herokuapp.com/apipie)
+
+1. Message Broker:
+   [RabbitMq](https://edimossilva-task-manager.herokuapp.com/apipie)
 
 1. Log monitoring:
    [papertrail](https://www.papertrail.com/)

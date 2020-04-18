@@ -7,21 +7,9 @@ class FindUserServer < BaseServer
     @sub_queue_name = 'rpc_find_user_request'
   end
 
-  def start
-    subscribe(handle_response)
-  end
-
   private
 
-  def handle_response
-    lambda do |_delivery_info, properties, request_payload|
-      result = FindUserService.new.call(request_payload)
-      publish(
-        payload: result[:payload].to_json,
-        routing_key: properties.reply_to,
-        correlation_id: properties.correlation_id,
-        headers: result[:headers]
-      )
-    end
+  def action(request_payload)
+    FindUserService.new.call(request_payload)
   end
 end

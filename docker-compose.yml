@@ -68,8 +68,6 @@ services:
       - config/environment/shared_environment.env
     volumes:
       - ./volume/api-gateway:/app
-
-
 # docker-compose build
 # docker-compose up -d
 # docker-compose exec tasks_manager_core rake db:create db:migrate db:seed

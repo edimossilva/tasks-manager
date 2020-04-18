@@ -11,27 +11,12 @@ class BaseServer
     Rails.logger.error e
   end
 
+  def start
+    subscribe(handle_response)
+  end
+
   def stop
     channel.close
-  end
-
-  def subscribe(handle_response)
-    raise StandardError, 'channel is nil' if channel.nil?
-
-    sub_queue = channel.queue(sub_queue_name)
-    sub_queue.subscribe(&handle_response)
-  end
-
-  def publish(payload:, routing_key:, correlation_id:, headers:)
-    validate_payload!(payload)
-    validate_headers!(headers)
-
-    exchange.publish(
-      payload,
-      routing_key: routing_key,
-      correlation_id: correlation_id,
-      headers: headers
-    )
   end
 
   def validate_payload!(payload)
@@ -52,5 +37,38 @@ class BaseServer
     end
 
     true
+  end
+
+  private
+
+  def handle_response
+    lambda do |_delivery_info, properties, request_payload|
+      result = action(request_payload)
+      publish(
+        payload: result[:payload].to_json,
+        routing_key: properties.reply_to,
+        correlation_id: properties.correlation_id,
+        headers: result[:headers]
+      )
+    end
+  end
+
+  def subscribe(handle_response)
+    raise StandardError, 'channel is nil' if channel.nil?
+
+    sub_queue = channel.queue(sub_queue_name)
+    sub_queue.subscribe(&handle_response)
+  end
+
+  def publish(payload:, routing_key:, correlation_id:, headers:)
+    validate_payload!(payload)
+    validate_headers!(headers)
+
+    exchange.publish(
+      payload,
+      routing_key: routing_key,
+      correlation_id: correlation_id,
+      headers: headers
+    )
   end
 end

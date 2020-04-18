@@ -1,9 +1,9 @@
-class FindUserService
-  include Auth::JsonWebTokenHelper
-
+class FindUserService < BaseService
   def call(payload)
     payload_json = JSON.parse(payload)
+
     token = payload_json['token']
+
     find_user(token)
   end
 
@@ -20,23 +20,12 @@ class FindUserService
 
   def user_data(user)
     {
-      headers: { "status_code": 200 },
+      headers: status_code_ok,
       payload: {
         data: {
           username: user.username,
           userId: user.id
         }
-      }
-    }
-  end
-
-  def unauthorized_data
-    {
-      headers: { "status_code": 401 },
-      payload: {
-        errors: [{
-          error_message: 'unauthorized :('
-        }]
       }
     }
   end
