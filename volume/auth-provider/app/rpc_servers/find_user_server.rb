@@ -1,4 +1,4 @@
-class AuthProviderServer < BaseServer
+class FindUserServer < BaseServer
   include Singleton
   attr_reader :sub_queue_name
 

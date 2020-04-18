@@ -10,7 +10,8 @@ class FindUserService
   private
 
   def find_user(token)
-    user = Auth::JsonWebTokenHelper.user_by_token(token)
+    # binding.pry
+    user = user_by_token(token)
     if user
       user_data(user)
     else

@@ -1,5 +1,3 @@
-require 'singleton'
-
 class AmqpConnection
   include Singleton
 
