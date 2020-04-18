@@ -10,7 +10,6 @@ class FindUserService
   private
 
   def find_user(token)
-    # binding.pry
     user = user_by_token(token)
     if user
       user_data(user)

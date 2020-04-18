@@ -15,8 +15,17 @@ class ApplicationController < Sinatra::Base
 
   protected
 
+  def auth_header_token
+    env['HTTP_AUTHORIZATION']
+  end
+
   def render_unprocessable_entity(params)
     status 415
     json({ data: params })
+  end
+
+  def render_unauthorized
+    status 401
+    json({ data: 'unauthorized :(' })
   end
 end

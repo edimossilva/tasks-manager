@@ -12,12 +12,7 @@ module Subscribers
 
     def handle_response
       lambda do |_delivery_info, properties, request_payload|
-        CreateTaskListService.new.call(request_payload)
-        result = {
-          payload: 'mockresult',
-          headers: { status_code: '202' }
-        }
-        # binding.pry
+        result = CreateTaskListService.new.call(request_payload)
         publish(
           payload: result[:payload].to_json,
           routing_key: properties.reply_to,

@@ -44,6 +44,7 @@ module Auth
 
     def user_by_token(token)
       decoded = decode_token(token)
+
       User.find(decoded[:user_id])
     end
 

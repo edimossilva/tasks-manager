@@ -1,43 +1,45 @@
 class CreateTaskListService
   include Auth::JsonWebTokenHelper
 
-  def call(payload)
-    payload_json = JSON.parse(payload)
-    name = payload_json['name']
-    description = payload_json['description']
-    frequence_type = payload_json['frequenceType']
-    puts "#{name}, #{description}, #{frequence_type}"
+  def call(payload_json)
+    @payload = JSON.parse(payload_json)
+
+    @task_list = TaskList.new(create_task_params)
+    if @task_list.save
+      task_list_data
+    else
+      unprocessable_entity
+    end
   end
 
   private
 
-  def exp_time
-    time = Time.zone.now + 24.hours.to_i
-    time.strftime('%m-%d-%Y %H:%M')
-  end
-
-  def auth_data(user)
+  def task_list_data
     {
       headers: { "status_code": 200 },
       payload: {
-        data: {
-          token: encode_user(user),
-          exp: exp_time,
-          username: user.username,
-          userId: user.id
-        }
+        data: TaskListSerializer.new(@task_list).attributes
       }
     }
   end
 
-  def unauthorized_data
+  def unprocessable_entity
     {
-      headers: { "status_code": 401 },
+      headers: { "status_code": 422 },
       payload: {
         errors: [{
-          error_message: 'unauthorized :('
+          error_message: 'unprocessable entity :('
         }]
       }
+    }
+  end
+
+  def create_task_params
+    {
+      user_id: @payload['user_id'],
+      name: @payload['name'],
+      description: @payload['description'],
+      frequence_type: @payload['frequence_type']
     }
   end
 end
