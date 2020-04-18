@@ -1,5 +1,3 @@
-require 'bunny'
-
 class AuthProviderServer < BaseServer
   include Singleton
   attr_reader :sub_queue_name

@@ -11,7 +11,7 @@ class TaskListController < ApplicationController
     {
       name: body_params['name'],
       description: body_params['description'],
-      frequence_type: body_params['frequenceType']
+      frequenceType: body_params['frequenceType']
     }
   end
 end

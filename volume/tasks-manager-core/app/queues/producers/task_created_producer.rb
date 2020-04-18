@@ -6,8 +6,8 @@ module Producers
     attr_reader :channel, :queue
 
     def initialize
-      @channel = Connection.instance.create_channel
-      @queue = @channel.queue('task_created_queue')
+      @channel = AmqpConnection.instance.create_channel
+      @queue = channel.queue('task_created_queue')
     rescue Bunny::Exception => e
       Rails.logger.error e.message
       Rails.logger.info e.backtrace.join "\n"
