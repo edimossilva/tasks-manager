@@ -1,7 +1,9 @@
 # spec/spec_helper.rb
 require 'simplecov'
 require 'simplecov-console'
-SimpleCov.start
+SimpleCov.start do
+  track_files '{app,lib}/**/*.rb'
+end
 require 'rack/test'
 require 'rspec'
 require_relative '../config/environment'

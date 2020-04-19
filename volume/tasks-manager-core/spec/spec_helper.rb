@@ -2,7 +2,9 @@
 require 'simplecov'
 require 'simplecov-console'
 
-SimpleCov.start
+SimpleCov.start do
+  track_files '{app,lib}/**/*.rb'
+end
 
 RSpec.configure do |config|
   config.define_derived_metadata(file_path: Regexp.new('/spec/services/')) do |metadata|
