@@ -2,7 +2,7 @@ require 'singleton'
 require_relative '../rpc_client.rb'
 
 module CoreClients
-  class CreateTaskListClient < RpcClient
+  class GetTaskListsClient < RpcClient
     include Singleton
 
     def initialize
