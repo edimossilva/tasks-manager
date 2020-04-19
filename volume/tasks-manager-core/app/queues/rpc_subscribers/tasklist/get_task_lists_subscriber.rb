@@ -1,5 +1,5 @@
-module Subscribers::Tasklist
-  class GetTaskListsSubscriber < Subscribers::BaseSubscriber
+module RpcSubscribers::Tasklist
+  class GetTaskListsSubscriber < RpcSubscribers::BaseRpcSubscriber
     include Singleton
 
     def initialize

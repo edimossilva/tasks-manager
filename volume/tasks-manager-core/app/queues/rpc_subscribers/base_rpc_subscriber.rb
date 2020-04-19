@@ -1,5 +1,5 @@
-module Subscribers
-  class BaseSubscriber
+module RpcSubscribers
+  class BaseRpcSubscriber
     attr_accessor :connection, :channel, :exchange, :sub_queue_name
 
     def initialize

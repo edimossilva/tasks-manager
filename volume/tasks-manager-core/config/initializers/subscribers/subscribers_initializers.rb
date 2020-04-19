@@ -1,6 +1,6 @@
 Rails.application.configure do
-  Subscribers::Tasklist::CreateTaskListSubscriber.instance.start
-  Subscribers::Tasklist::GetTaskListsSubscriber.instance.start
+  RpcSubscribers::Tasklist::CreateTaskListSubscriber.instance.start
+  RpcSubscribers::Tasklist::GetTaskListsSubscriber.instance.start
 rescue StandardError => e
   Rails.logger.error e
 end
