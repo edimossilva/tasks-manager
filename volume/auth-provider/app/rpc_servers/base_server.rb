@@ -19,6 +19,8 @@ class BaseServer
     channel.close
   end
 
+  private
+
   def validate_payload!(payload)
     if payload.blank? ||
        payload.nil? ||
@@ -38,8 +40,6 @@ class BaseServer
 
     true
   end
-
-  private
 
   def handle_response
     lambda do |_delivery_info, properties, request_payload|

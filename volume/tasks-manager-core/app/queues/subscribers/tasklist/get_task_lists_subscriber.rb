@@ -1,7 +1,6 @@
 module Subscribers::Tasklist
   class GetTaskListsSubscriber < Subscribers::BaseSubscriber
     include Singleton
-    attr_reader :sub_queue_name
 
     def initialize
       super
@@ -10,16 +9,8 @@ module Subscribers::Tasklist
 
     private
 
-    def handle_response
-      lambda do |_delivery_info, properties, request_payload|
-        result = GetTaskListsService.new.call(request_payload)
-        publish(
-          payload: result[:payload].to_json,
-          routing_key: properties.reply_to,
-          correlation_id: properties.correlation_id,
-          headers: result[:headers]
-        )
-      end
+    def action(request_payload)
+      GetTaskListsService.new.call(request_payload)
     end
   end
 end
