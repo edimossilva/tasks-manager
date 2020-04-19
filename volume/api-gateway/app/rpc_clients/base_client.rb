@@ -59,8 +59,8 @@ class BaseClient
 
   def timeout_response
     {
-      headers: { "status_code": 408 },
-      data: { "error_message": "#{pub_queue_name} timeout :(" }.to_json
+      headers: { status_code: 503 },
+      data: { error_message: "#{pub_queue_name} service Unavailable =(" }.to_json
     }
   end
 end

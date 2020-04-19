@@ -5,7 +5,7 @@ class BaseService
 
   def unauthorized_data
     {
-      headers: { "status_code": 401 },
+      headers: { status_code: 401 },
       payload: {
         errors: [{
           error_message: 'unauthorized :('
