@@ -1,6 +1,4 @@
 class TasksController < ApplicationController
-  include Producers::ProducersHelper
-
   def_param_group :task_desc do
     property :id, Numeric
     property :name, String
@@ -14,9 +12,6 @@ class TasksController < ApplicationController
   returns :task_desc, code: 201
   def create
     task = Task.create!(create_params)
-
-    task_json = TaskSerializer.new(task).to_json
-    publish_task_created(task_json)
 
     render_created(task)
   end

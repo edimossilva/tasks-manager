@@ -1,7 +1,7 @@
 require 'singleton'
 
-module Producers
-  class TaskCreatedProducer
+module Publishers
+  class TaskCreatedPublisher
     include Singleton
     attr_reader :channel, :queue
 

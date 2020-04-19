@@ -1,5 +1,5 @@
-module Subscribers
-  class CreateTaskListSubscriber < BaseSubscriber
+module Subscribers::Tasklist
+  class CreateTaskListSubscriber < Subscribers::BaseSubscriber
     include Singleton
     attr_reader :sub_queue_name
 
