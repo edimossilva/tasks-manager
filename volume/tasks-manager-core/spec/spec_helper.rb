@@ -4,6 +4,7 @@ require 'simplecov-console'
 
 SimpleCov.start do
   track_files '{app,lib}/**/*.rb'
+  add_filter 'spec/'
 end
 
 RSpec.configure do |config|
