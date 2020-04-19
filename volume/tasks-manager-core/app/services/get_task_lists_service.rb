@@ -4,6 +4,8 @@ class GetTaskListsService
   def call(payload_json)
     @payload = JSON.parse(payload_json)
 
+    return unauthorized unless find_tasks_params[:user_id].is_a? Numeric
+
     @task_lists = TaskList.where(find_tasks_params)
 
     task_list_data
@@ -24,12 +26,12 @@ class GetTaskListsService
     }
   end
 
-  def unprocessable_entity
+  def unauthorized
     {
-      headers: { "status_code": 422 },
+      headers: { "status_code": 401 },
       payload: {
         errors: [{
-          error_message: 'unprocessable entity :('
+          error_message: 'unauthorized =z'
         }]
       }
     }
