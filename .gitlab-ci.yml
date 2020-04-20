@@ -24,12 +24,10 @@ tasks_manager_core test:
     - docker-compose exec -T tasks_manager_core rake db:create db:migrate
   script:
     - docker-compose exec -T tasks_manager_core rspec
-  after_script:
-    - mv volume/tasks-manager-core/coverage/index.html volume/tasks-manager-core/coverage/tasks_manager_core_coverage.html
   artifacts:
     paths:
       - "volume/tasks-manager-core/coverage/"
-    name: "Pipeline $CI_PIPELINE_ID Coverage Report"
+    name: "Pipeline tasks_manager_core $CI_PIPELINE_ID Coverage Report"
 
 auth_provider test:
   stage: test
@@ -50,7 +48,7 @@ auth_provider test:
   artifacts:
     paths:
       - "volume/auth-provider/coverage/"
-    name: "Pipeline $CI_PIPELINE_ID Coverage Report"
+    name: "Pipeline auth_provider $CI_PIPELINE_ID Coverage Report"
 
 api_gateway test:
   stage: test
@@ -68,7 +66,7 @@ api_gateway test:
   artifacts:
     paths:
       - "volume/api-gateway/coverage/"
-    name: "Pipeline $CI_PIPELINE_ID Coverage Report"
+    name: "Pipeline api_gateway $CI_PIPELINE_ID Coverage Report"
 
 deploy heroku:
   stage: deploy
@@ -109,7 +107,7 @@ pages:
   script:
     - ls public
     - mv volume/tasks-manager-core/coverage/* public
-    - ls public
+    - cp volume/index.html public/tasks_manager_core_coverage.html
     - cp volume/auth-provider/coverage/index.html public/auth_provider_coverage.html
     - cp volume/api-gateway/coverage/index.html public/api_gateway_coverage.html
     - cp pages/index.html public/index.html
