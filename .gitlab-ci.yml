@@ -107,7 +107,7 @@ pages:
   script:
     - ls public
     - mv volume/tasks-manager-core/coverage/* public
-    - cp volume/index.html public/tasks_manager_core_coverage.html
+    - cp public/index.html public/tasks_manager_core_coverage.html
     - cp volume/auth-provider/coverage/index.html public/auth_provider_coverage.html
     - cp volume/api-gateway/coverage/index.html public/api_gateway_coverage.html
     - cp pages/index.html public/index.html
