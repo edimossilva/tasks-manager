@@ -1,5 +1,5 @@
 module RpcSubscribers::Tasklist
-  class GetTaskListsSubscriber < RpcSubscribers::BaseRpcSubscriber
+  class GetTaskListsSubscriber < RabbitmqPubSub::BaseSubscriber
     include Singleton
 
     def initialize
