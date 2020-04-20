@@ -4,7 +4,7 @@ class AuthProviderSubscriber < RabbitmqPubSub::BaseSubscriber
 
   def initialize
     super
-    @sub_queue_name = 'rpc_login_request'
+    @sub_queue_name = 'rpc_AU_login_request'
   end
 
   private

@@ -4,7 +4,7 @@ module RpcSubscribers::Tasklist
 
     def initialize
       super
-      @sub_queue_name = 'rpc_get_task_lists_request'
+      @sub_queue_name = 'rpc_TMC_get_task_lists_request'
     end
 
     private
