@@ -47,8 +47,8 @@ describe 'AuthenticationController' do
   context 'When parameters are sent' do
     context 'and parameters are valids' do
       before do
-        allow_any_instance_of(AuthClient).to receive(:initialize).and_return(true)
-        allow_any_instance_of(AuthClient).to receive(:call).and_return(success_login_payload)
+        allow_any_instance_of(AuthClients::LoginClient).to receive(:initialize).and_return(true)
+        allow_any_instance_of(AuthClients::LoginClient).to receive(:call).and_return(success_login_payload)
       end
       let(:body) { { username: 'username', password: 'passwors' }.to_json }
       let(:response) { post(login_url, body) }
@@ -64,7 +64,7 @@ describe 'AuthenticationController' do
 
     context 'and parameters are NOT valids' do
       before do
-        allow_any_instance_of(AuthClient).to receive(:call).and_return(unauthorized_login_payload)
+        allow_any_instance_of(AuthClients::LoginClient).to receive(:call).and_return(unauthorized_login_payload)
       end
       let(:body) { { username: 'username', password: 'passwors' }.to_json }
       let(:response) { post(login_url, body) }

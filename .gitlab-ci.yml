@@ -14,7 +14,6 @@ tasks_manager_core test:
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
     - master
-    - merge_requests
     - external_pull_requests
   services:
     - docker:dind
@@ -25,19 +24,16 @@ tasks_manager_core test:
     - docker-compose exec -T tasks_manager_core rake db:create db:migrate
   script:
     - docker-compose exec -T tasks_manager_core rspec
-  after_script:
-    - mv volume/tasks-manager-core/coverage/index.html volume/tasks-manager-core/coverage/tasks_manager_core_coverage.html
   artifacts:
     paths:
       - "volume/tasks-manager-core/coverage/"
-    name: "Pipeline $CI_PIPELINE_ID Coverage Report"
+    name: "Pipeline tasks_manager_core $CI_PIPELINE_ID Coverage Report"
 
 auth_provider test:
   stage: test
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
     - master
-    - merge_requests
     - external_pull_requests
   services:
     - docker:dind
@@ -48,20 +44,17 @@ auth_provider test:
     - docker-compose exec -T auth_provider rake db:create db:migrate
   script:
     - docker-compose exec -T auth_provider rspec
-  after_script:
-    - cp volume/auth-provider/coverage/index.html volume/auth-provider/coverage/auth_provider_coverage.html
 
   artifacts:
     paths:
       - "volume/auth-provider/coverage/"
-    name: "Pipeline $CI_PIPELINE_ID Coverage Report"
+    name: "Pipeline auth_provider $CI_PIPELINE_ID Coverage Report"
 
 api_gateway test:
   stage: test
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
     - master
-    - merge_requests
     - external_pull_requests
   services:
     - docker:dind
@@ -70,18 +63,15 @@ api_gateway test:
     - docker-compose build api_gateway
   script:
     - docker-compose run -T api_gateway rspec
-  after_script:
-    - cp volume/api-gateway/coverage/index.html volume/api-gateway/coverage/api_gateway_coverage.html
   artifacts:
     paths:
       - "volume/api-gateway/coverage/"
-    name: "Pipeline $CI_PIPELINE_ID Coverage Report"
+    name: "Pipeline api_gateway $CI_PIPELINE_ID Coverage Report"
 
 deploy heroku:
   stage: deploy
   only:
     - master
-    - merge_requests
     - external_pull_requests
   services:
     - docker:dind
@@ -100,7 +90,6 @@ test deploy heroku:
   image: curlimages/curl
   only:
     - master
-    - merge_requests
     - external_pull_requests
   stage: test deploy
   script:
@@ -110,16 +99,17 @@ pages:
   stage: deploy
   only:
     - master
-    - merge_requests
     - external_pull_requests
   dependencies:
     - tasks_manager_core test
     - auth_provider test
     - api_gateway test
   script:
+    - ls public
     - mv volume/tasks-manager-core/coverage/* public
-    - mv volume/auth-provider/coverage/auth_provider_coverage.html public
-    - mv volume/api-gateway/coverage/api_gateway_coverage.html public
+    - cp public/index.html public/tasks_manager_core_coverage.html
+    - cp volume/auth-provider/coverage/index.html public/auth_provider_coverage.html
+    - cp volume/api-gateway/coverage/index.html public/api_gateway_coverage.html
     - cp pages/index.html public/index.html
   artifacts:
     paths:

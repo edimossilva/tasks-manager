@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/edimossilva/rabbitmq_pub_sub
+  revision: f8b3904987852033c70bd73cb9cc2c3fb93079e1
+  specs:
+    rabbitmq_pub_sub (0.1.0)
+      bunny
+
+GIT
   remote: https://github.com/faker-ruby/faker.git
   revision: 7c3956fc3e6441d3b043f4b4a06fb4f6ebcbfc5f
   branch: master
@@ -268,6 +275,7 @@ DEPENDENCIES
   pry-remote
   puma (~> 3.11)
   pundit
+  rabbitmq_pub_sub!
   rack-cors
   rails (~> 6.0.0)
   remote_syslog_logger

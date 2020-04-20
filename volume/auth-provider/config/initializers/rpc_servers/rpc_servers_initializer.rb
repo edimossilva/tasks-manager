@@ -1,5 +1,8 @@
 Rails.application.configure do
-  AuthProviderServer.instance.start if ENV['RAILS_ENV'] == 'development' || ENV['RAILS_ENV'] == 'production'
+  if ENV['RAILS_ENV'] == 'development' || ENV['RAILS_ENV'] == 'production'
+    AuthProviderSubscriber.instance.start
+    FindUserSubscriber.instance.start
+  end
 rescue StandardError => e
   Rails.logger.error e
 end

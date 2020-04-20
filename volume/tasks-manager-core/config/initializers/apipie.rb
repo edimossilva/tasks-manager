@@ -1,8 +1,8 @@
 Apipie.configure do |config|
-  config.app_name                = "Task Manager"
-  config.api_base_url            = ""
-  config.doc_base_url            = "/apipie"
-  config.app_info                = "half minute and a half"
+  config.app_name                = 'Task Manager'
+  config.api_base_url            = 'https://edimossilva-task-manager.herokuapp.com/'
+  config.doc_base_url            = '/apipie'
+  config.app_info                = 'half minute and a half'
   # where is your API defined?
   config.translate = false
   config.validate_value = false

@@ -1,10 +1,10 @@
-class DoLoginService
-  include Auth::JsonWebTokenHelper
-
+class DoLoginService < BaseService
   def call(payload)
     payload_json = JSON.parse(payload)
+
     username = payload_json['username']
     password = payload_json['password']
+
     authenticate(username, password)
   end
 
@@ -19,14 +19,9 @@ class DoLoginService
     end
   end
 
-  def exp_time
-    time = Time.zone.now + 24.hours.to_i
-    time.strftime('%m-%d-%Y %H:%M')
-  end
-
   def auth_data(user)
     {
-      headers: { "status_code": 200 },
+      headers: status_code_ok,
       payload: {
         data: {
           token: encode_user(user),
@@ -38,14 +33,8 @@ class DoLoginService
     }
   end
 
-  def unauthorized_data
-    {
-      headers: { "status_code": 401 },
-      payload: {
-        errors: [{
-          error_message: 'unauthorized :('
-        }]
-      }
-    }
+  def exp_time
+    time = Time.zone.now + 24.hours.to_i
+    time.strftime('%m-%d-%Y %H:%M')
   end
 end

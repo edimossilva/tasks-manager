@@ -1,6 +1,13 @@
 GIT
+  remote: https://github.com/edimossilva/rabbitmq_pub_sub
+  revision: f8b3904987852033c70bd73cb9cc2c3fb93079e1
+  specs:
+    rabbitmq_pub_sub (0.1.0)
+      bunny
+
+GIT
   remote: https://github.com/faker-ruby/faker.git
-  revision: 7c3956fc3e6441d3b043f4b4a06fb4f6ebcbfc5f
+  revision: 6c3a7c55a9d7e48791db4b575dd9ce03f6e92098
   branch: master
   specs:
     faker (2.11.0)
@@ -71,8 +78,6 @@ GEM
       zeitwerk (~> 2.2)
     amq-protocol (2.3.1)
     ansi (1.5.0)
-    apipie-rails (0.5.17)
-      rails (>= 4.1)
     ast (2.4.0)
     bcrypt (3.1.13)
     bootsnap (1.4.6)
@@ -80,7 +85,7 @@ GEM
     builder (3.2.4)
     bunny (2.15.0)
       amq-protocol (~> 2.3, >= 2.3.1)
-    byebug (11.1.1)
+    byebug (11.1.2)
     case_transform (0.2)
       activesupport
     coderay (1.1.2)
@@ -123,7 +128,7 @@ GEM
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     parallel (1.19.1)
-    parser (2.7.1.0)
+    parser (2.7.1.1)
       ast (~> 2.4.0)
     pg (1.2.3)
     pry (0.12.2)
@@ -192,7 +197,7 @@ GEM
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
     rspec-support (3.9.2)
-    rubocop (0.81.0)
+    rubocop (0.82.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.7.0.1)
@@ -241,7 +246,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  apipie-rails
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   bunny
@@ -256,6 +260,7 @@ DEPENDENCIES
   pry-remote
   puma (~> 4.1)
   pundit
+  rabbitmq_pub_sub!
   rack-cors
   rails (~> 6.0.2, >= 6.0.2.1)
   rspec-rails (~> 4.0.0.beta)

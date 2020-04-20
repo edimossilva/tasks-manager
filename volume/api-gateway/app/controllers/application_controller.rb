@@ -13,17 +13,24 @@ class ApplicationController < Sinatra::Base
                    end
   end
 
-  get '/' do
-    data = { username: 'registered_user1',
-             password: '111' }
-    result = AuthClient.instance.call(data.to_json)
-    result.to_s
-  end
-
   protected
+
+  def auth_header_token
+    env['HTTP_AUTHORIZATION']
+  end
 
   def render_unprocessable_entity(params)
     status 415
     json({ data: params })
+  end
+
+  def render_unauthorized
+    status 401
+    json({ data: 'unauthorized :(' })
+  end
+
+  def render_error(response)
+    status response[:headers][:status_code] || response[:headers]['status_code']
+    json JSON.parse(response[:data])
   end
 end
