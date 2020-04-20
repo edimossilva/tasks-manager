@@ -36,5 +36,13 @@ module AuthProvider
     config.generators do |g|
       g.test_framework :rspec, fixture: false
     end
+
+    config.after_initialize do
+      AuthProviderSubscriber.instance.start
+      FindUserSubscriber.instance.start
+      Rails.logger.info 'Subscribers started :)'
+    rescue StandardError => e
+      Rails.logger.error e
+    end
   end
 end

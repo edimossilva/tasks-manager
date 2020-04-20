@@ -25,6 +25,9 @@
      docker-compose exec tasks_manager_core rspec
    ```
 
+1. CI/CD (gitlab + heroku):
+   [pipeline](https://gitlab.com/edimossilva/tasks-manager/pipelines/latest)
+
 1. current coverage
 
    1. [simplecov tasks-manager-core(Rails)](https://edimossilva.gitlab.io/tasks-manager/tasks_manager_core_coverage)
@@ -33,11 +36,14 @@
 
    1. [simplecov api-gateway(Sinatra)](https://edimossilva.gitlab.io/tasks-manager/api_gateway_coverage)
 
+1. Custom Gems:
+   [rabbitmq_pub_sub](https://github.com/edimossilva/rabbitmq_pub_sub)
+
 1. API doc:
    [apipie](https://edimossilva-task-manager.herokuapp.com/apipie)
 
 1. Message Broker:
-   [RabbitMq](https://edimossilva-task-manager.herokuapp.com/apipie)
+   [RabbitMq](https://www.rabbitmq.com/)
 
 1. Log monitoring:
    [papertrail](https://www.papertrail.com/)
