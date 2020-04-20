@@ -1,4 +1,4 @@
-class AuthProviderServer < BaseServer
+class AuthProviderSubscriber < RabbitmqPubSub::BaseSubscriber
   include Singleton
   attr_reader :sub_queue_name
 

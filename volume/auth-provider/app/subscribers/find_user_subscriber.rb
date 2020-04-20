@@ -1,4 +1,4 @@
-class FindUserServer < BaseServer
+class FindUserSubscriber < RabbitmqPubSub::BaseSubscriber
   include Singleton
   attr_reader :sub_queue_name
 
