@@ -46,8 +46,6 @@ auth_provider test:
     - docker-compose exec -T auth_provider rake db:create db:migrate
   script:
     - docker-compose exec -T auth_provider rspec
-  after_script:
-    - cp volume/auth-provider/coverage/index.html volume/auth-provider/coverage/auth_provider_coverage.html
 
   artifacts:
     paths:
@@ -67,8 +65,6 @@ api_gateway test:
     - docker-compose build api_gateway
   script:
     - docker-compose run -T api_gateway rspec
-  after_script:
-    - cp volume/api-gateway/coverage/index.html volume/api-gateway/coverage/api_gateway_coverage.html
   artifacts:
     paths:
       - "volume/api-gateway/coverage/"
@@ -111,9 +107,11 @@ pages:
     - auth_provider test
     - api_gateway test
   script:
+    - ls public
     - mv volume/tasks-manager-core/coverage/* public
-    - mv volume/auth-provider/coverage/auth_provider_coverage.html public
-    - mv volume/api-gateway/coverage/api_gateway_coverage.html public
+    - ls public
+    - cp volume/auth-provider/coverage/index.html public/auth_provider_coverage.html
+    - cp volume/api-gateway/coverage/index.html public/api_gateway_coverage.html
     - cp pages/index.html public/index.html
   artifacts:
     paths:
