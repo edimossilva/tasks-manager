@@ -3,6 +3,8 @@ FROM ruby:alpine3.11
 RUN gem install bundler
 RUN gem install shotgun
 
+RUN apk add git
+
 WORKDIR /app
 
 COPY ./Gemfile /app/Gemfile

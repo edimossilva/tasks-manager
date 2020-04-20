@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/edimossilva/rabbitmq_pub_sub
+  revision: 684afc22545ce0fe09180515e54892a6256cfc7a
+  specs:
+    rabbitmq_pub_sub (0.1.0)
+      bunny
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -75,6 +82,7 @@ DEPENDENCIES
   pry
   pry-nav
   pry-remote
+  rabbitmq_pub_sub!
   rack-test
   require_all
   rspec

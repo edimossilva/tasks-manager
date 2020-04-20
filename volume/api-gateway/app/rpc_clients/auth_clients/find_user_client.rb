@@ -1,8 +1,7 @@
 require 'singleton'
-require_relative '../rpc_client.rb'
 
 module AuthClients
-  class FindUserClient < RpcClient
+  class FindUserClient < RabbitmqPubSub::RpcPublisher
     include Singleton
 
     def initialize

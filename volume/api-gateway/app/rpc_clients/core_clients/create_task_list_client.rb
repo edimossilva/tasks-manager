@@ -1,8 +1,7 @@
 require 'singleton'
-require_relative '../rpc_client.rb'
 
 module CoreClients
-  class CreateTaskListClient < RpcClient
+  class CreateTaskListClient < RabbitmqPubSub::RpcPublisher
     include Singleton
 
     def initialize

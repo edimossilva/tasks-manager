@@ -7,8 +7,8 @@ gem 'sinatra-contrib'
 gem 'pry'
 gem 'pry-nav'
 gem 'pry-remote'
+gem 'rabbitmq_pub_sub', git: 'https://github.com/edimossilva/rabbitmq_pub_sub'
 gem 'require_all'
-
 group :test do
   gem 'rack-test'
   gem 'rspec'
