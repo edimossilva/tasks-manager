@@ -37,5 +37,14 @@ module BlogBackend
     config.generators do |g|
       g.test_framework :rspec, fixture: false
     end
+
+    config.after_initialize do
+      Rails.application.configure do
+        RpcSubscribers::Tasklist::CreateTaskListSubscriber.instance.start
+        RpcSubscribers::Tasklist::GetTaskListsSubscriber.instance.start
+      rescue StandardError => e
+        Rails.logger.error e
+      end
+    end
   end
 end
