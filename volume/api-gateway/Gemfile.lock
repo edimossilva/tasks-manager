@@ -33,6 +33,7 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    redis (4.1.3)
     require_all (3.0.0)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
@@ -84,6 +85,7 @@ DEPENDENCIES
   pry-remote
   rabbitmq_pub_sub!
   rack-test
+  redis
   require_all
   rspec
   simplecov

@@ -6,6 +6,8 @@ require 'pry'
 require 'bunny'
 require 'securerandom'
 require 'rabbitmq_pub_sub'
+require 'forwardable'
+
 Bundler.require(:default, ENV['SINATRA_ENV'])
 
 require_all 'app'

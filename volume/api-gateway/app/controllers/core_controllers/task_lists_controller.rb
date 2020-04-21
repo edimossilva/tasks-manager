@@ -20,7 +20,6 @@ class TaskListController < ApplicationController
     render_unauthorized if auth_header_token.nil?
 
     auth_response = AuthServiceHelper.find_user_by_token(auth_header_token)
-
     status_code = auth_response[:headers][:status_code] || auth_response[:headers]['status_code']
     return render_error(auth_response) if status_code != 200
 
