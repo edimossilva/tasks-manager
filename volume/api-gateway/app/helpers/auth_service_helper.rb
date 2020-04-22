@@ -3,16 +3,19 @@ module AuthServiceHelper
 
   def login(params)
     response = AuthClients::LoginClient.instance.call(params)
-    RedisCli.instance.cache_user(response) if response[:headers]['status_code'] == 200
+    response_dto = ResponseDto.new(response)
 
-    response
+    RedisCli.instance.cache_user(response_dto) if response_dto.success?
+
+    response_dto
   end
 
   def find_user(params)
     cached_user = RedisCli.instance.find_cached_user(params)
-    return cached_user if cached_user
+    return ResponseDto.new(cached_user) if cached_user
 
-    AuthClients::FindUserClient.instance.call(params)
+    response = AuthClients::FindUserClient.instance.call(params)
+    ResponseDto.new(response)
   end
 
   def find_user_by_token(token)

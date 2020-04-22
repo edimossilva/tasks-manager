@@ -2,10 +2,12 @@ module CoreServiceHelper
   module_function
 
   def create_task_list(params)
-    CoreClients::CreateTaskListClient.instance.call(params)
+    response = CoreClients::CreateTaskListClient.instance.call(params)
+    ResponseDto.new(response)
   end
 
   def get_task_lists(params)
-    CoreClients::GetTaskListsClient.instance.call(params)
+    response = CoreClients::GetTaskListsClient.instance.call(params)
+    ResponseDto.new(response)
   end
 end

@@ -11,11 +11,10 @@ class RedisCli
     redis.get(key)
   end
 
-  def cache_user(response)
-    response_hash = JSON.parse(response[:data])
-    token = response_hash['data']['token']
-    redis.set(token, response.to_json)
-    response
+  def cache_user(response_dto)
+    token = response_dto.data['token']
+    redis.set(token, response_dto.response.to_json)
+    response_dto
   end
 
   def find_cached_user(params)

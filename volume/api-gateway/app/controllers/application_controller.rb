@@ -30,7 +30,7 @@ class ApplicationController < Sinatra::Base
   end
 
   def render_error(response)
-    status response[:headers][:status_code] || response[:headers]['status_code']
-    json JSON.parse(response[:data])
+    status response.status_code
+    json response.data
   end
 end
