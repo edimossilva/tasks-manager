@@ -4,14 +4,13 @@ class TaskListController < ApplicationController
 
     auth_response_dto = AuthServiceHelper.find_user_by_token(auth_header_token)
 
-    return render_error(auth_response_dto) if auth_response_dto.error?
+    return render_response(auth_response_dto) if auth_response_dto.error?
 
     @user_id = auth_response_dto.data['userId']
 
     response_dto = CoreServiceHelper.create_task_list(create_params.to_json)
 
-    status response_dto.status_code
-    json response_dto.data
+    render_response(response_dto)
   end
 
   get '/task_lists' do
@@ -19,14 +18,13 @@ class TaskListController < ApplicationController
 
     auth_response_dto = AuthServiceHelper.find_user_by_token(auth_header_token)
 
-    return render_error(auth_response_dto) if auth_response_dto.error?
+    return render_response(auth_response_dto) if auth_response_dto.error?
 
     @user_id = auth_response_dto.data['userId']
 
     response_dto = CoreServiceHelper.get_task_lists(index_params.to_json)
 
-    status response_dto.status_code
-    json response_dto.data
+    render_response(response_dto)
   end
 
   private

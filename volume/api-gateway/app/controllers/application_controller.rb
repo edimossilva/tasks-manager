@@ -29,8 +29,8 @@ class ApplicationController < Sinatra::Base
     json({ data: 'unauthorized :(' })
   end
 
-  def render_error(response)
-    status response.status_code
-    json response.data
+  def render_response(response_dto)
+    status response_dto.status_code
+    json response_dto.data
   end
 end

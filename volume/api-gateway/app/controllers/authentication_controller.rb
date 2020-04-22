@@ -4,8 +4,7 @@ class AuthenticationController < ApplicationController
 
     response_dto = AuthServiceHelper.login(login_params.to_json)
 
-    status response_dto.status_code
-    json response_dto.data
+    render_response(response_dto)
   end
 
   private
