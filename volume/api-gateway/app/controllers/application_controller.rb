@@ -20,7 +20,6 @@ class ApplicationController < Sinatra::Base
   end
 
   def render_unprocessable_entity(params)
-    binding.pry
     status 415
     json({ data: params })
   end
