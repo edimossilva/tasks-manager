@@ -9,6 +9,10 @@ class ResponseDto
     @data = data['data'] || data
   end
 
+  def error_message
+    data['error_message']
+  end
+
   def success?
     status_code >= 200 && status_code < 300
   end

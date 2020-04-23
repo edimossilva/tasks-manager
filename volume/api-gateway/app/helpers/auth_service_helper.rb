@@ -5,12 +5,19 @@ module AuthServiceHelper
     response = AuthClients::LoginClient.instance.call(params)
     response_dto = ResponseDto.new(response)
 
-    RedisCli.instance.cache_user(response_dto) if response_dto.success?
+    if response_dto.success?
+      RedisCli.instance.cache_user(response_dto)
+    else
+      MyLogger.error response_dto.error_message
+    end
 
     response_dto
-  rescue Bunny::TCPConnectionFailedForAllHosts => e
-    MyLogger.error e.message
-    ResponsesDto.server_unavailable(e)
+    # rescue Bunny::TCPConnectionFailedForAllHosts => e
+    #   MyLogger.error e.message
+    #   ResponsesDto.server_unavailable(e)
+    # rescue Redis::CannotConnectError => e
+    #   MyLogger.error e.message
+    #   ResponsesDto.server_unavailable(e)
   end
 
   def find_user(params)

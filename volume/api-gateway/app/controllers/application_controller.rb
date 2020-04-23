@@ -1,6 +1,10 @@
 class ApplicationController < Sinatra::Base
   disable :show_exceptions
 
+  set :raise_errors, true
+  set :dump_errors, false
+  set :show_exceptions, false
+
   attr_reader :body_params
 
   before do
