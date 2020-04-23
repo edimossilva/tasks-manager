@@ -8,7 +8,8 @@ module AuthServiceHelper
     RedisCli.instance.cache_user(response_dto) if response_dto.success?
 
     response_dto
-  rescue StandardError => e
+  rescue Bunny::TCPConnectionFailedForAllHosts => e
+    MyLogger.error e.message
     ResponsesDto.server_unavailable(e)
   end
 
