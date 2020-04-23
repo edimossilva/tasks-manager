@@ -8,6 +8,8 @@ module AuthServiceHelper
     RedisCli.instance.cache_user(response_dto) if response_dto.success?
 
     response_dto
+  rescue StandardError => e
+    ResponsesDto.server_unavailable(e)
   end
 
   def find_user(params)

@@ -29,6 +29,11 @@ class ApplicationController < Sinatra::Base
     json({ data: 'unauthorized :(' })
   end
 
+  def render_server_unavailable(message = 'service unavailabe :(')
+    status 503
+    json({ data: message })
+  end
+
   def render_response(response_dto)
     status response_dto.status_code
     json response_dto.data
