@@ -1,16 +1,13 @@
 require_relative '../spec_helper.rb'
-# require_relative '../../app/controllers/authentication_controller.rb'
-# run ApplicationController
-set :show_exceptions, false
 
 module RSpecMixin
   include Rack::Test::Methods
   def app
-    AuthenticationController.new
+    AuthenticationController
   end
 end
 
-describe 'AuthenticationController' do
+RSpec.describe 'AuthenticationController' do
   let(:login_url) { '/auth/login' }
 
   let(:success_login_data) do
@@ -30,6 +27,22 @@ describe 'AuthenticationController' do
     }.to_json
   end
 
+  let(:mb_service_unavailable_data) do
+    {
+      errors: [
+        error_message: 'Could not establish TCP connection to any of the configured hosts'
+      ]
+    }.to_json
+  end
+
+  let(:cache_service_unavailable_data) do
+    {
+      errors: [
+        error_message: 'Redis::CannotConnectError'
+      ]
+    }.to_json
+  end
+
   let(:success_login_payload) do
     {
       headers: ok_headers,
@@ -44,45 +57,76 @@ describe 'AuthenticationController' do
     }
   end
 
+  let(:body) do
+    { username: 'username', password: 'passwors' }.to_json
+  end
+
   context 'When parameters are sent' do
     context 'and parameters are valids' do
       before do
-        allow_any_instance_of(AuthClients::LoginClient).to receive(:initialize).and_return(true)
-        allow_any_instance_of(AuthClients::LoginClient).to receive(:call).and_return(success_login_payload)
-      end
-      let(:body) { { username: 'username', password: 'passwors' }.to_json }
-      let(:response) { post(login_url, body) }
+        # mock message broker
+        allow(AuthClients::LoginClient).to receive(:new).and_return({})
+        allow_any_instance_of(Hash).to receive(:call).and_return(success_login_payload)
 
-      it 'returns ok(200)' do
-        expect(response.status).to eq 200
+        # mock cache
+        allow(RedisCli).to receive(:new).and_return({})
+        allow_any_instance_of(Hash).to receive(:cache_user).and_return(true)
+
+        post(login_url, body)
       end
 
-      it 'returns login payload' do
-        expect(response.body).to eq success_login_data
-      end
+      it { expect(last_response.status).to eq 200 }
+
+      it { expect(last_response.body).to eq success_login_data }
     end
 
     context 'and parameters are NOT valids' do
       before do
-        allow_any_instance_of(AuthClients::LoginClient).to receive(:call).and_return(unauthorized_login_payload)
-      end
-      let(:body) { { username: 'username', password: 'passwors' }.to_json }
-      let(:response) { post(login_url, body) }
+        # mock message broker
+        allow(AuthClients::LoginClient).to receive(:new).and_return({})
+        allow_any_instance_of(Hash).to receive(:call).and_return(unauthorized_login_payload)
 
-      it 'returns unauthorized(401)' do
-        expect(response.status).to eq 401
+        post(login_url, body)
       end
 
-      it 'returns unauthorized payload' do
-        expect(response.body).to eq unauthorized_login_data
+      it { expect(last_response.status).to eq 401 }
+
+      it { expect(last_response.body).to eq unauthorized_login_data }
+    end
+
+    context 'and message broker is not working' do
+      before do
+        # mock message broker
+        allow(AuthClients::LoginClient).to receive(:instance).and_raise(Bunny::TCPConnectionFailedForAllHosts)
+
+        post(login_url, body)
       end
+
+      it { expect(last_response.status).to eq 503 }
+
+      it { expect(last_response.body).to eq mb_service_unavailable_data }
+    end
+
+    context 'and cache is not working' do
+      before do
+        # mock message broker
+        allow(AuthClients::LoginClient).to receive(:new).and_return({})
+        allow_any_instance_of(Hash).to receive(:call).and_return(success_login_payload)
+
+        # mock cache
+        allow(RedisCli).to receive(:instance).and_raise(Redis::CannotConnectError)
+
+        post(login_url, body)
+      end
+
+      it { expect(last_response.status).to eq 503 }
+
+      it { expect(last_response.body).to eq cache_service_unavailable_data }
     end
   end
 
   context 'When parameters are not sent' do
-    let(:response) { post '/auth/login' }
-    it 'returns unprocessable_entity(415)' do
-      expect(response.status).to eq 415
-    end
+    before { post '/auth/login' }
+    it { expect(last_response.status).to eq 415 }
   end
 end
