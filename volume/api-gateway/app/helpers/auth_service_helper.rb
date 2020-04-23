@@ -12,12 +12,6 @@ module AuthServiceHelper
     end
 
     response_dto
-  rescue Bunny::TCPConnectionFailedForAllHosts => e
-    MyLogger.error e.message
-    ResponsesDto.server_unavailable(e)
-  rescue Redis::CannotConnectError => e
-    MyLogger.error e.message
-    ResponsesDto.server_unavailable(e)
   end
 
   def find_user(params)
@@ -26,12 +20,6 @@ module AuthServiceHelper
 
     response = AuthClients::FindUserClient.instance.call(params)
     ResponseDto.new(response)
-  rescue Redis::CannotConnectError => e
-    MyLogger.error e.message
-    ResponsesDto.server_unavailable(e)
-  rescue Bunny::TCPConnectionFailedForAllHosts => e
-    MyLogger.error e.message
-    ResponsesDto.server_unavailable(e)
   end
 
   def find_user_by_token(token)

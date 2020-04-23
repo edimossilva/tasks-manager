@@ -1,6 +1,10 @@
 class ApplicationController < Sinatra::Base
   disable :show_exceptions
 
+  error Bunny::TCPConnectionFailedForAllHosts, Redis::CannotConnectError do
+    render_error
+  end
+
   set :raise_errors, true
   set :dump_errors, false
   set :show_exceptions, false
@@ -21,6 +25,12 @@ class ApplicationController < Sinatra::Base
 
   def auth_header_token
     env['HTTP_AUTHORIZATION']
+  end
+
+  def render_error
+    e = env['sinatra.error']
+    MyLogger.error e.message
+    render_response(ResponsesDto.server_unavailable(e))
   end
 
   def render_unprocessable_entity(params)

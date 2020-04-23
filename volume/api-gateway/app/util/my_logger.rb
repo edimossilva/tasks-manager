@@ -22,11 +22,11 @@ class MyLogger
   end
 
   def self.info(data)
-    MyLogger.instance.logger.info(c(:blue, data))
+    MyLogger.instance.logger.info(c(:blue, data)) if ENV['RACK_ENV'] != 'test'
   end
 
   def self.error(data)
-    MyLogger.instance.logger.error(c(:red, data))
+    MyLogger.instance.logger.error(c(:red, data)) if ENV['RACK_ENV'] != 'test'
   end
 
   def self.c(clr, text = nil)
