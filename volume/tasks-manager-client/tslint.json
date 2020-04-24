@@ -19,13 +19,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "pm",
+      "app",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "pm",
+      "app",
       "kebab-case"
     ],
     "eofline": true,
@@ -116,8 +116,7 @@
       "options": [
         "ban-keywords",
         "check-format",
-        "allow-pascal-case",
-	"allow-leading-underscore"
+        "allow-pascal-case"
       ]
     },
     "whitespace": {
