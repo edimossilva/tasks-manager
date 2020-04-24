@@ -1,36 +1,24 @@
 class TaskListController < ApplicationController
-  post '/task_lists' do
+  before do
     render_unauthorized if auth_header_token.nil?
 
-    auth_response = AuthServiceHelper.find_user_by_token(auth_header_token)
+    auth_response_dto = AuthServiceHelper.find_user_by_token(auth_header_token)
 
-    status_code = auth_response[:headers][:status_code] || auth_response[:headers]['status_code']
-    return render_error(auth_response) if status_code != 200
+    return render_response(auth_response_dto) if auth_response_dto.error?
 
-    data = JSON.parse(auth_response[:data])
-    @user_id = data['data']['userId']
+    @user_id = auth_response_dto.data['userId']
+  end
 
-    response = CoreServiceHelper.create_task_list(create_params.to_json)
+  post '/task_lists' do
+    response_dto = CoreServiceHelper.create_task_list(create_params.to_json)
 
-    status response[:headers]['status_code'] || response[:headers][:status_code]
-    json JSON.parse(response[:data])
+    render_response(response_dto)
   end
 
   get '/task_lists' do
-    render_unauthorized if auth_header_token.nil?
+    response_dto = CoreServiceHelper.get_task_lists(index_params.to_json)
 
-    auth_response = AuthServiceHelper.find_user_by_token(auth_header_token)
-
-    status_code = auth_response[:headers][:status_code] || auth_response[:headers]['status_code']
-    return render_error(auth_response) if status_code != 200
-
-    data = JSON.parse(auth_response[:data])
-    @user_id = data['data']['userId']
-
-    response = CoreServiceHelper.get_task_lists(index_params.to_json)
-
-    status response[:headers]['status_code'] || response[:headers][:status_code]
-    json JSON.parse(response[:data])
+    render_response(response_dto)
   end
 
   private
