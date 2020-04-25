@@ -7,17 +7,20 @@ export class AuthService {
   constructor() {}
 
   isLogged() {
+    return this.getToken() !== null;
+  }
+
+  getToken() {
     if (this.token) {
-      return true;
+      return this.token;
     }
 
     const userJson = localStorage.getItem('user');
     if (userJson) {
       const user = JSON.parse(userJson);
       this.token = user.token;
-      return true;
+      return this.token;
     }
-
     return null;
   }
 }
