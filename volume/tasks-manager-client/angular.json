@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tasks-manager-client"
+    }
+  },
+  "defaultProject": "tasks-manager-client",
+  "cli": {
+    "analytics": "a323a37e-a590-4c9d-a057-c67b10da1739"
+  }
 }
