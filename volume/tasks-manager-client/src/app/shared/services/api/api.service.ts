@@ -7,8 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class ApiService {
   constructor(private http: HttpClient) {}
   baseUrl = 'https://edimossilva-task-manager.herokuapp.com/';
-  loginResource = 'auth/login';
-  loginUrl = `${this.baseUrl}${this.loginResource}`;
+  loginUrl = `${this.baseUrl}auth/login`;
 
   doLogin(username: string, password: string) {
     const body = {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
+import { ApiService } from '../shared/services/api/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
