@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -6,14 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
+  constructor(private api: ApiService) {}
 
-  username: String;
-  password: String;
+  username: string;
+  password: string;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.username = 'registered_user1';
+    this.password = '111';
+  }
+
+  handleSuccess(data): void {
+    console.log(data.token);
+  }
+
+  handleFail(error: HttpErrorResponse): void {
+    console.log(error);
+  }
 
   login(): void {
-    window.alert('click');
+    this.api
+      .doLogin(this.username, this.password)
+      .subscribe(this.handleSuccess, this.handleFail);
   }
 }
