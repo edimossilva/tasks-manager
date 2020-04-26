@@ -80,13 +80,11 @@ deploy heroku:
     -  curl https://cli-assets.heroku.com/install.sh | sh
     - docker build .
   script:
-    - docker build -f Dockerfile -t registry.heroku.com/edimossilva-task-manager/tasks-manager-core .
-    - docker login -u _ -p $HEROKU_API_KEY registry.heroku.com
-    - docker push registry.heroku.com/edimossilva-task-manager/tasks-manager-core
     - heroku container:login
     - heroku git:remote -a $HEROKU_APP_STAGING
+    - heroku container:push web
     - heroku container:release web
-    - heroku run rails db:migrate db:seed --app=$HEROKU_APP_STAGING
+    - heroku run rails db:migrate db:seed --app $HEROKU_APP_STAGING
 
 test deploy heroku:
   image: curlimages/curl
