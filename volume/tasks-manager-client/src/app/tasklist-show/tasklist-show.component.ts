@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../shared/services/api/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Tasklist } from '../model/tasklist';
 
 @Component({
   selector: 'app-tasklist-show',
@@ -10,8 +11,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class TasklistShowComponent implements OnInit {
   constructor(private route: ActivatedRoute, private api: ApiService) {}
+
+  tasklist: Tasklist;
   handleSuccess(response): void {
-    console.log(response);
+    this.tasklist = response.data as Tasklist;
+    console.log(this.tasklist);
   }
 
   handleFail(error: HttpErrorResponse): void {

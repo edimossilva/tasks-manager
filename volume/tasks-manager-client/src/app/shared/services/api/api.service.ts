@@ -8,8 +8,8 @@ import { Tasklist } from 'src/app/model/tasklist';
 })
 export class ApiService {
   constructor(private http: HttpClient, private authService: AuthService) {}
-  baseUrl = 'http://localhost:3000/';
-  // baseUrl = 'https://edimossilva-task-manager.herokuapp.com/';
+  // baseUrl = 'http://localhost:3000/';
+  baseUrl = 'https://edimossilva-task-manager.herokuapp.com/';
   loginUrl = `${this.baseUrl}auth/login`;
   tasklistsUrl = `${this.baseUrl}task_lists`;
 

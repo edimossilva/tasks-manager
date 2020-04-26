@@ -1,1 +1,8 @@
 <p>tasklist-show works!</p>
+<div *ngIf="tasklist">
+  <div>
+    <label> name: {{ tasklist.name }} </label><br />
+    <label> descriprion: {{ tasklist.description }} </label><br />
+    <label> Frequence type: {{ tasklist.frequence_type }} </label>
+  </div>
+</div>
