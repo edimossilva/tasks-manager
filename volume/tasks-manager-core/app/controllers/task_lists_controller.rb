@@ -14,8 +14,9 @@ class TaskListsController < ApplicationController
   returns :task_lists_desc, code: 201
   def create
     task_list = TaskList.create!(create_params)
-
     render_created(task_list)
+  rescue StandardError => e
+    render_unprocessable_entity(e)
   end
 
   api :DELETE, '/task_lists/:id'
@@ -58,9 +59,11 @@ class TaskListsController < ApplicationController
     task_list = TaskList.find_by!(id: search_params[:id])
 
     authorize task_list, :owner?
-
-    task_list.update!(update_params)
-
+    begin
+      task_list.update!(update_params)
+    rescue StandardError => e
+      return render_unprocessable_entity(e)
+    end
     render_ok(task_list)
   end
 end
