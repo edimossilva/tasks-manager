@@ -36,16 +36,37 @@ RSpec.describe 'TaskLists', type: :request do
     end
 
     describe 'When data is NOT valid' do
-      before do
-        post('/task_lists',
-             params: {},
-             headers: registred_headers)
+      describe 'And params are empty' do
+        before do
+          post('/task_lists',
+               params: {},
+               headers: registred_headers)
+        end
+
+        it { expect(response).to have_http_status(:unprocessable_entity) }
+
+        it 'contains error response' do
+          expect(json_response_error).to eq("Validation failed: Name can't be blank, Frequence type can't be blank")
+        end
       end
 
-      it { expect(response).to have_http_status(:unprocessable_entity) }
-
-      it 'contains error response' do
-        expect(json_response_error).to eq("Validation failed: Name can't be blank, Frequence type can't be blank")
+      describe 'And frequency_type is invalid' do
+        let!(:invalid_frequency_task_list_params) do
+          {
+            name: Faker::Name.unique.name,
+            description: Faker::Lorem.sentence(word_count: 5),
+            frequence_type: 1
+          }
+        end
+        before do
+          post('/task_lists',
+               params: invalid_frequency_task_list_params,
+               headers: registred_headers)
+        end
+        it { expect(response).to have_http_status(:unprocessable_entity) }
+        it 'contains error response' do
+          expect(json_response_error).to eq("'1' is not a valid frequence_type")
+        end
       end
     end
   end
