@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password: string;
+
   ngOnInit(): void {
     this.username = 'registered_user1';
     this.password = '111';
