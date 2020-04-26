@@ -7,9 +7,10 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TasklistListComponent } from './tasklist-list/tasklist-list.component';
+import { TasklistCreateComponent } from './tasklist-create/tasklist-create.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, TasklistListComponent],
+  declarations: [AppComponent, LoginComponent, TasklistListComponent, TasklistCreateComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],

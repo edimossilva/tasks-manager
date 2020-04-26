@@ -1,0 +1,21 @@
+<p>tasklist-create works!</p>
+
+<div>
+  <label>name</label>
+  <input [(ngModel)]="tasklist.name" placeholder="name" />
+  {{ tasklist.name }}
+</div>
+
+<div>
+  <label>description</label>
+  <input [(ngModel)]="tasklist.description" placeholder="description" />
+  {{ tasklist.description }}
+</div>
+
+<div>
+  <label>frequence type</label>
+  <input [(ngModel)]="tasklist.frequence_type" placeholder="frequence type" />
+  {{ tasklist.frequence_type }}
+</div>
+
+<button (click)="createTasklist()">create</button>

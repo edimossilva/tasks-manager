@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
+import { Tasklist } from 'src/app/model/tasklist';
 
 @Injectable({
   providedIn: 'root',
@@ -33,5 +34,9 @@ export class ApiService {
     const token = this.authService.getToken();
 
     return this.http.get<any>(this.tasklistsUrl, this.getHeaders());
+  }
+
+  createTaskList(tasklist: Tasklist) {
+    return this.http.post<any>(this.tasklistsUrl, tasklist, this.getHeaders());
   }
 }
