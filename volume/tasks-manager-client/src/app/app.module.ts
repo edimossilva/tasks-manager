@@ -8,9 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TasklistListComponent } from './tasklist-list/tasklist-list.component';
 import { TasklistCreateComponent } from './tasklist-create/tasklist-create.component';
+import { TasklistShowComponent } from './tasklist-show/tasklist-show.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, TasklistListComponent, TasklistCreateComponent],
+  declarations: [AppComponent, LoginComponent, TasklistListComponent, TasklistCreateComponent, TasklistShowComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],

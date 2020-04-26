@@ -84,6 +84,7 @@ deploy heroku:
     - docker login -u _ -p $HEROKU_API_KEY registry.heroku.com
     - docker push registry.heroku.com/edimossilva-task-manager/tasks-manager-core
     -  heroku container:login
+    - heroku container:release web
     - heroku run rails db:migrate db:seed --app=$HEROKU_APP_STAGING
 
 test deploy heroku:

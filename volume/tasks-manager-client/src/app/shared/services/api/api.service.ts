@@ -8,7 +8,8 @@ import { Tasklist } from 'src/app/model/tasklist';
 })
 export class ApiService {
   constructor(private http: HttpClient, private authService: AuthService) {}
-  baseUrl = 'https://edimossilva-task-manager.herokuapp.com/';
+  baseUrl = 'http://localhost:3000/';
+  // baseUrl = 'https://edimossilva-task-manager.herokuapp.com/';
   loginUrl = `${this.baseUrl}auth/login`;
   tasklistsUrl = `${this.baseUrl}task_lists`;
 
@@ -31,9 +32,13 @@ export class ApiService {
   }
 
   getTaskLists() {
-    const token = this.authService.getToken();
-
     return this.http.get<any>(this.tasklistsUrl, this.getHeaders());
+  }
+
+  getTaskList(id: number) {
+    const url = `${this.tasklistsUrl}/${id}`;
+
+    return this.http.get<any>(url, this.getHeaders());
   }
 
   createTaskList(tasklist: Tasklist) {
