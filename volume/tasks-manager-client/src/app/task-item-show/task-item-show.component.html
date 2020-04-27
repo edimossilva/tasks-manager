@@ -1,6 +1,11 @@
-<p>task-item works!</p>
-<div>
-  <label> name: {{ taskItem.name() }} </label><br />
-  <label> description: {{ taskItem.description() }} </label><br />
-  <label> isChecked: {{ taskItem.isChecked }} </label><br />
-</div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ taskItem.name() }}</mat-card-title>
+    <mat-card-subtitle>{{ taskItem.description() }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content> isChecked: {{ taskItem.isChecked }} </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>

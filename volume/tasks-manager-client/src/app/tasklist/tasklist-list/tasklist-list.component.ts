@@ -2,7 +2,6 @@ import { Tasklist } from 'src/app/model/tasklist';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/services/api/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Tasklist } from '../../model/tasklist';
 import { TaskItem } from 'src/app/model/task_item';
 
 @Component({
