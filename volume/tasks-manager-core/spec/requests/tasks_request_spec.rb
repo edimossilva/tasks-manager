@@ -7,7 +7,7 @@ RSpec.describe 'TaskLists', type: :request do
   let!(:registred_headers2) { header_for_user(registred_user2) }
   let!(:task_list) { create(:task_list) }
 
-  describe '#create' do
+  context '#create' do
     let!(:task) { build(:task) }
 
     let!(:create_task_params) do
@@ -17,7 +17,7 @@ RSpec.describe 'TaskLists', type: :request do
       }
     end
 
-    describe 'When data is valid' do
+    context 'When data is valid' do
       before do
         post('/tasks',
              params: create_task_params,
@@ -34,7 +34,7 @@ RSpec.describe 'TaskLists', type: :request do
       end
     end
 
-    describe 'When data is NOT valid, name is empty' do
+    context 'When data is NOT valid, name is empty' do
       before do
         post('/tasks',
              params: { name: '' },
@@ -45,11 +45,11 @@ RSpec.describe 'TaskLists', type: :request do
     end
   end
 
-  describe '#update' do
+  context '#update' do
     let!(:task) { create(:task, user: registred_user) }
     let!(:updated_name) { 'updated_name' }
 
-    describe 'When data is valid' do
+    context 'When data is valid' do
       before do
         put("/tasks/#{task.id}",
             params: { name: updated_name },
@@ -63,7 +63,7 @@ RSpec.describe 'TaskLists', type: :request do
       end
     end
 
-    describe 'When data is NOT valid, name is empty' do
+    context 'When data is NOT valid, name is empty' do
       before do
         put("/tasks/#{task.id}",
             params: { name: '' },
@@ -73,7 +73,7 @@ RSpec.describe 'TaskLists', type: :request do
       it { expect(response).to have_http_status(:unprocessable_entity) }
     end
 
-    describe 'When task is NOT found' do
+    context 'When task is NOT found' do
       before do
         put('/tasks/-1',
             headers: registred_headers)
@@ -82,7 +82,7 @@ RSpec.describe 'TaskLists', type: :request do
       it { expect(response).to have_http_status(:not_found) }
     end
 
-    describe 'When user is NOT task owner' do
+    context 'When user is NOT task owner' do
       before do
         put("/tasks/#{task.id}",
             headers: registred_headers2)
@@ -92,11 +92,11 @@ RSpec.describe 'TaskLists', type: :request do
     end
   end
 
-  describe '#destroy' do
+  context '#destroy' do
     let!(:task) { create(:task, user: registred_user) }
     let!(:updated_name) { 'updated_name' }
 
-    describe 'When task is found' do
+    context 'When task is found' do
       before do
         delete("/tasks/#{task.id}",
                headers: registred_headers)
@@ -105,7 +105,7 @@ RSpec.describe 'TaskLists', type: :request do
       it { expect(response).to have_http_status(:no_content) }
     end
 
-    describe 'When task is NOT found' do
+    context 'When task is NOT found' do
       before do
         delete('/tasks/-1',
                headers: registred_headers)
@@ -114,7 +114,7 @@ RSpec.describe 'TaskLists', type: :request do
       it { expect(response).to have_http_status(:not_found) }
     end
 
-    describe 'When user is NOT task owner' do
+    context 'When user is NOT task owner' do
       before do
         delete("/tasks/#{task.id}",
                headers: registred_headers2)
