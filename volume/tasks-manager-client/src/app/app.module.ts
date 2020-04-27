@@ -10,7 +10,7 @@ import { TasklistListComponent } from './tasklist/tasklist-list/tasklist-list.co
 import { TasklistCreateComponent } from './tasklist/tasklist-create/tasklist-create.component';
 import { TasklistShowComponent } from './tasklist/tasklist-show/tasklist-show.component';
 import { AddTaskComponent } from './tasklist/add-task/add-task.component';
-import { TaskItemComponent } from './task-item/task-item.component';
+import { TaskItemShowComponent } from './task-item-show/task-item-show.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 
@@ -22,7 +22,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     TasklistCreateComponent,
     TasklistShowComponent,
     AddTaskComponent,
-    TaskItemComponent,
+    TaskItemShowComponent,
   ],
   imports: [
     BrowserModule,
