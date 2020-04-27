@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TasklistListComponent } from './tasklist/tasklist-list/tasklist-list.component';
 import { TasklistCreateComponent } from './tasklist/tasklist-create/tasklist-create.component';
 import { TasklistShowComponent } from './tasklist/tasklist-show/tasklist-show.component';
+import { AddTaskComponent } from './add-task/add-task.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { TasklistShowComponent } from './tasklist/tasklist-show/tasklist-show.co
     TasklistListComponent,
     TasklistCreateComponent,
     TasklistShowComponent,
+    AddTaskComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
   providers: [],
