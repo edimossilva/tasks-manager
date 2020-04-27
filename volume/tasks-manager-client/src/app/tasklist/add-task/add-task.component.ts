@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ApiService } from '../shared/services/api/api.service';
-import { Task } from '../model/task';
+import { ApiService } from '../../shared/services/api/api.service';
+import { Task } from '../../model/task';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
