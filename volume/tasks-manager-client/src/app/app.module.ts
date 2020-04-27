@@ -11,6 +11,7 @@ import { TasklistListComponent } from './tasklist/tasklist-list/tasklist-list.co
 import { TasklistCreateComponent } from './tasklist/tasklist-create/tasklist-create.component';
 import { TasklistShowComponent } from './tasklist/tasklist-show/tasklist-show.component';
 import { AddTaskComponent } from './tasklist/add-task/add-task.component';
+import { TaskItemComponent } from './task-item/task-item.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AddTaskComponent } from './tasklist/add-task/add-task.component';
     TasklistCreateComponent,
     TasklistShowComponent,
     AddTaskComponent,
+    TaskItemComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
   providers: [],

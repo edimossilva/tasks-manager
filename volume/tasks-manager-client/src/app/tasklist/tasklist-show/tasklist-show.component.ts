@@ -1,3 +1,4 @@
+import { TaskItem } from './../../model/task_item';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../shared/services/api/api.service';
@@ -14,7 +15,7 @@ export class TasklistShowComponent implements OnInit {
 
   tasklist: Tasklist;
   handleSuccess(response): void {
-    this.tasklist = response.data as Tasklist;
+    this.tasklist = new Tasklist(response.data);
     console.log(this.tasklist);
   }
 
