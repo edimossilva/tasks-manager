@@ -1,0 +1,14 @@
+<h1>add-task</h1>
+
+<div>
+  <label>name</label>
+  <input [(ngModel)]="task.name" placeholder="name" />
+  {{ task.name }}
+</div>
+
+<div>
+  <label>description</label>
+  <input [(ngModel)]="task.description" placeholder="description" />
+  {{ task.description }}
+</div>
+<button (click)="addTask()">create</button>

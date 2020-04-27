@@ -1,0 +1,12 @@
+<p>tasklist-show works!</p>
+<div *ngIf="tasklist">
+  <div>
+    <label> name: {{ tasklist.name }} </label><br />
+    <label> descriprion: {{ tasklist.description }} </label><br />
+    <label> Frequence type: {{ tasklist.frequenceType }} </label>
+  </div>
+  <div *ngFor="let taskItem of tasklist.taskItems">
+    <app-task-item [taskItem]="taskItem"></app-task-item>
+  </div>
+  <app-add-task [tasklistId]="tasklist.id"></app-add-task>
+</div>
