@@ -11,8 +11,10 @@ export class Tasklist {
     this.name = tasklist.name;
     this.description = tasklist.description;
     this.frequenceType = tasklist.frequence_type;
-    this.taskItems = tasklist.task_in_lists.map(
-      (taskItem: any) => new TaskItem(taskItem, this)
-    );
+    if (tasklist.task_in_lists) {
+      this.taskItems = tasklist.task_in_lists.map(
+        (taskItem: any) => new TaskItem(taskItem, this)
+      );
+    }
   }
 }

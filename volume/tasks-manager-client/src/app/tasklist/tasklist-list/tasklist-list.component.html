@@ -1,10 +1,13 @@
-<p>tasklist-list</p>
-<ul class="tasklists">
-  <li *ngFor="let tasklist of tasklists">
-    <div class="tasklist">
-      {{ tasklist.name }}
-      {{ tasklist.description }}
-      {{ tasklist.frequence_type }}
-    </div>
-  </li>
-</ul>
+<mat-expansion-panel *ngFor="let tasklist of tasklists">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ tasklist.name }} - {{ tasklist.frequenceType }}
+    </mat-panel-title>
+    <mat-panel-description>
+      {{ tasklist.description || "no description =z" }}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <p>This is the primary content of the panel.</p>
+  <app-tasklist-show [tasklistId]="tasklist.id"></app-tasklist-show>
+</mat-expansion-panel>

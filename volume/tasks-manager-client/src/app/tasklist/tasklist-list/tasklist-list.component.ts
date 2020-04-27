@@ -13,8 +13,8 @@ export class TasklistListComponent implements OnInit {
   tasklists: Tasklist[];
 
   handleSuccess(response): void {
-    this.tasklists = response.data;
-    console.log(this.tasklists[0].frequence_type);
+    this.tasklists = response.data.map((tasklist) => new Tasklist(tasklist));
+    console.log(this.tasklists[0].frequenceType);
   }
 
   handleFail(error: HttpErrorResponse): void {

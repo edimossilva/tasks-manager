@@ -1,6 +1,5 @@
-import { Tasklist } from './model/tasklist';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +12,7 @@ import { TasklistShowComponent } from './tasklist/tasklist-show/tasklist-show.co
 import { AddTaskComponent } from './tasklist/add-task/add-task.component';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AddTaskComponent,
     TaskItemComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    // MatExpansionPanel,
+    MatExpansionModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

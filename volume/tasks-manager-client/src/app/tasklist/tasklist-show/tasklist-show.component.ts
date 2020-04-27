@@ -1,5 +1,4 @@
-import { TaskItem } from './../../model/task_item';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../shared/services/api/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -14,6 +13,8 @@ export class TasklistShowComponent implements OnInit {
   constructor(private route: ActivatedRoute, private api: ApiService) {}
 
   tasklist: Tasklist;
+  @Input() tasklistId: number;
+
   handleSuccess(response): void {
     this.tasklist = new Tasklist(response.data);
     console.log(this.tasklist);
@@ -24,7 +25,7 @@ export class TasklistShowComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = this.tasklistId || +this.route.snapshot.paramMap.get('id');
     this.api
       .getTaskList(id)
       .subscribe((response) => this.handleSuccess(response), this.handleFail);
