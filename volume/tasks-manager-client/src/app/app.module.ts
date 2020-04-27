@@ -14,6 +14,7 @@ import { TaskItemShowComponent } from './task-item-show/task-item-show.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { TaskItemListComponent } from './task-item-list/task-item-list.component';
 
@@ -36,6 +37,7 @@ import { TaskItemListComponent } from './task-item-list/task-item-list.component
     BrowserAnimationsModule,
     MatCardModule,
     MatExpansionModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
