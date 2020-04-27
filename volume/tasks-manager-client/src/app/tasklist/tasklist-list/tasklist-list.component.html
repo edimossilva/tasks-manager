@@ -1,5 +1,5 @@
 <mat-expansion-panel *ngFor="let tasklist of tasklists">
-  <mat-expansion-panel-header>
+  <mat-expansion-panel-header (click)="loadTaskItems(tasklist)">
     <mat-panel-title>
       {{ tasklist.name }} - {{ tasklist.frequenceType }}
     </mat-panel-title>
@@ -8,6 +8,5 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
 
-  <p>This is the primary content of the panel.</p>
-  <app-tasklist-show [tasklistId]="tasklist.id"></app-tasklist-show>
+  <app-task-item-list [taskItems]="tasklist.taskItems"></app-task-item-list>
 </mat-expansion-panel>
