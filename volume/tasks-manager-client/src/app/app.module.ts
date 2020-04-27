@@ -12,6 +12,7 @@ import { TasklistCreateComponent } from './tasklist/tasklist-create/tasklist-cre
 import { TasklistShowComponent } from './tasklist/tasklist-show/tasklist-show.component';
 import { AddTaskComponent } from './tasklist/add-task/add-task.component';
 import { TaskItemComponent } from './task-item/task-item.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { TaskItemComponent } from './task-item/task-item.component';
     AddTaskComponent,
     TaskItemComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
