@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../shared/services/api/api.service';
+import { ApiService } from '../../shared/services/api/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Tasklist } from '../model/tasklist';
+import { Tasklist } from '../../model/tasklist';
 
 @Component({
   selector: 'app-tasklist-show',
