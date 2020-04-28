@@ -10,12 +10,17 @@ import { TasklistListComponent } from './tasklist/tasklist-list/tasklist-list.co
 import { TasklistCreateComponent } from './tasklist/tasklist-create/tasklist-create.component';
 import { TasklistShowComponent } from './tasklist/tasklist-show/tasklist-show.component';
 import { AddTaskComponent } from './tasklist/add-task/add-task.component';
-import { TaskItemShowComponent } from './task-item/task-item-show/task-item-show.component';
+import {
+  TaskItemShowComponent,
+  DialogOverviewExampleDialog,
+} from './task-item/task-item-show/task-item-show.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { TaskItemListComponent } from './task-item/task-item-list/task-item-list.component';
 
 @NgModule({
@@ -27,8 +32,11 @@ import { TaskItemListComponent } from './task-item/task-item-list/task-item-list
     TasklistShowComponent,
     AddTaskComponent,
     TaskItemShowComponent,
+    DialogOverviewExampleDialog,
     TaskItemListComponent,
   ],
+
+  entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -36,8 +44,11 @@ import { TaskItemListComponent } from './task-item/task-item-list/task-item-list
     FormsModule,
     BrowserAnimationsModule,
     MatCardModule,
-    MatExpansionModule,
     MatCheckboxModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
