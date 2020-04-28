@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ taskItem.name() }}</mat-card-title>
+    <mat-card-subtitle>{{ taskItem.description() }}</mat-card-subtitle>
+    <mat-checkbox
+      (change)="update()"
+      class="checkbox"
+      [(ngModel)]="taskItem.isChecked"
+    ></mat-checkbox>
+  </mat-card-header>
+  <mat-card-content> </mat-card-content>
+</mat-card>

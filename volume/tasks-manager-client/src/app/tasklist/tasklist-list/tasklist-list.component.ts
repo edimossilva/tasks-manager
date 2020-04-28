@@ -1,7 +1,8 @@
+import { Tasklist } from 'src/app/model/tasklist';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/services/api/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Tasklist } from '../../model/tasklist';
+import { TaskItem } from 'src/app/model/task_item';
 
 @Component({
   selector: 'app-tasklist-list',
@@ -12,9 +13,16 @@ export class TasklistListComponent implements OnInit {
   constructor(private api: ApiService) {}
   tasklists: Tasklist[];
 
-  handleSuccess(response): void {
-    this.tasklists = response.data;
-    console.log(this.tasklists[0].frequence_type);
+  handleSuccessOnTaskLists(response): void {
+    this.tasklists = response.data.map((tasklist) => new Tasklist(tasklist));
+    console.log(this.tasklists[0].frequenceType);
+  }
+
+  handleSuccessOnTaskList(tasklist, response): void {
+    const taskItems = response.data.task_in_lists.map(
+      (taskItem) => new TaskItem(taskItem, tasklist)
+    );
+    tasklist.taskItems = taskItems;
   }
 
   handleFail(error: HttpErrorResponse): void {
@@ -24,6 +32,18 @@ export class TasklistListComponent implements OnInit {
   ngOnInit(): void {
     this.api
       .getTaskLists()
-      .subscribe((response) => this.handleSuccess(response), this.handleFail);
+      .subscribe(
+        (response) => this.handleSuccessOnTaskLists(response),
+        this.handleFail
+      );
+  }
+
+  loadTaskItems(tasklist: Tasklist): void {
+    this.api
+      .getTaskList(tasklist.id)
+      .subscribe(
+        (response) => this.handleSuccessOnTaskList(tasklist, response),
+        this.handleFail
+      );
   }
 }

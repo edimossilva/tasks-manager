@@ -9,7 +9,7 @@ export class TaskItem {
 
   constructor(taskItem, tasklist: Tasklist) {
     this.id = taskItem.id;
-    this.isChecked = taskItem.is_checked || false;
+    this.isChecked = taskItem.checked || false;
     this.task = taskItem.task;
     this.tasklist = tasklist;
   }

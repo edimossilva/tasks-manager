@@ -1,6 +1,5 @@
-import { Tasklist } from './model/tasklist';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +10,13 @@ import { TasklistListComponent } from './tasklist/tasklist-list/tasklist-list.co
 import { TasklistCreateComponent } from './tasklist/tasklist-create/tasklist-create.component';
 import { TasklistShowComponent } from './tasklist/tasklist-show/tasklist-show.component';
 import { AddTaskComponent } from './tasklist/add-task/add-task.component';
-import { TaskItemComponent } from './task-item/task-item.component';
+import { TaskItemShowComponent } from './task-item-show/task-item-show.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+import { TaskItemListComponent } from './task-item-list/task-item-list.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +26,19 @@ import { TaskItemComponent } from './task-item/task-item.component';
     TasklistCreateComponent,
     TasklistShowComponent,
     AddTaskComponent,
-    TaskItemComponent,
+    TaskItemShowComponent,
+    TaskItemListComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

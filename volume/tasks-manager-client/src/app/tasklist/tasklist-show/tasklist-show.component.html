@@ -5,8 +5,8 @@
     <label> descriprion: {{ tasklist.description }} </label><br />
     <label> Frequence type: {{ tasklist.frequenceType }} </label>
   </div>
-  <div *ngFor="let taskItem of tasklist.taskItems">
-    <app-task-item [taskItem]="taskItem"></app-task-item>
-  </div>
+
+  <app-task-item-list [taskItems]="tasklist.taskItems"></app-task-item-list>
+
   <app-add-task [tasklistId]="tasklist.id"></app-add-task>
 </div>
