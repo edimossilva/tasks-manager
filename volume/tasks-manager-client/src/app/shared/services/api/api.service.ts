@@ -15,7 +15,7 @@ export class ApiService {
   loginUrl = `${this.baseUrl}auth/login`;
   tasklistsUrl = `${this.baseUrl}task_lists`;
   taskWithTaskListUrl = `${this.baseUrl}task_with_task_list`;
-  updateTaskitemUrl = `${this.baseUrl}task_in_lists`;
+  taskitemUrl = `${this.baseUrl}task_in_lists`;
 
   getHeaders() {
     const token = this.authService.getToken();
@@ -73,8 +73,15 @@ export class ApiService {
       checked: taskItem.isChecked,
     };
     return this.http.put<any>(
-      `${this.updateTaskitemUrl}/${taskItem.id}`,
+      `${this.taskitemUrl}/${taskItem.id}`,
       params,
+      this.getHeaders()
+    );
+  }
+
+  deleteTaskItem(taskItemId: number) {
+    return this.http.delete<any>(
+      `${this.taskitemUrl}/${taskItemId}`,
       this.getHeaders()
     );
   }
