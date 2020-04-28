@@ -1,3 +1,4 @@
+import { TaskItem } from './../../../model/task_item';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
@@ -14,6 +15,7 @@ export class ApiService {
   loginUrl = `${this.baseUrl}auth/login`;
   tasklistsUrl = `${this.baseUrl}task_lists`;
   taskWithTaskListUrl = `${this.baseUrl}task_with_task_list`;
+  updateTaskitemUrl = `${this.baseUrl}task_in_lists`;
 
   getHeaders() {
     const token = this.authService.getToken();
@@ -44,7 +46,12 @@ export class ApiService {
   }
 
   createTaskList(tasklist: Tasklist) {
-    return this.http.post<any>(this.tasklistsUrl, tasklist, this.getHeaders());
+    const params = {
+      name: tasklist.name,
+      description: tasklist.description,
+      frequence_type: tasklist.frequenceType,
+    };
+    return this.http.post<any>(this.tasklistsUrl, params, this.getHeaders());
   }
 
   createTaskInTaskList(task: Task, tasklistId: number) {
@@ -56,6 +63,17 @@ export class ApiService {
 
     return this.http.post<any>(
       this.taskWithTaskListUrl,
+      params,
+      this.getHeaders()
+    );
+  }
+
+  updateTaskItem(taskItem: TaskItem) {
+    const params = {
+      checked: taskItem.isChecked,
+    };
+    return this.http.put<any>(
+      `${this.updateTaskitemUrl}/${taskItem.id}`,
       params,
       this.getHeaders()
     );
