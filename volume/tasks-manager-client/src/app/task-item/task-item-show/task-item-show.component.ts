@@ -3,11 +3,7 @@ import { TaskItem } from '../../model/task_item';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ApiService } from '../../shared/services/api/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-task-item-show',
@@ -33,14 +29,11 @@ export class TaskItemShowComponent implements OnInit {
       .updateTaskItem(this.taskItem)
       .subscribe((response) => this.handleSuccess(response), this.handleFail);
   }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(TaskItemDeleteComponent, {
       width: '250px',
-      data: { name: 'this.nam', animal: 'this.animal' },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      data: this.taskItem,
     });
   }
 }
