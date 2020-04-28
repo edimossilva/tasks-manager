@@ -1,4 +1,4 @@
-import { TaskItem } from './../model/task_item';
+import { TaskItem } from '../../model/task_item';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
