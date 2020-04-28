@@ -10,10 +10,7 @@ import { TasklistListComponent } from './tasklist/tasklist-list/tasklist-list.co
 import { TasklistCreateComponent } from './tasklist/tasklist-create/tasklist-create.component';
 import { TasklistShowComponent } from './tasklist/tasklist-show/tasklist-show.component';
 import { AddTaskComponent } from './tasklist/add-task/add-task.component';
-import {
-  TaskItemShowComponent,
-  DialogOverviewExampleDialog,
-} from './task-item/task-item-show/task-item-show.component';
+import { TaskItemShowComponent } from './task-item/task-item-show/task-item-show.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
@@ -22,7 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TaskItemListComponent } from './task-item/task-item-list/task-item-list.component';
-
+import { TaskItemDeleteComponent } from './task-item/task-item-show/task-item-delete/task-item-delete.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,11 +29,11 @@ import { TaskItemListComponent } from './task-item/task-item-list/task-item-list
     TasklistShowComponent,
     AddTaskComponent,
     TaskItemShowComponent,
-    DialogOverviewExampleDialog,
+    TaskItemDeleteComponent,
     TaskItemListComponent,
   ],
 
-  entryComponents: [DialogOverviewExampleDialog],
+  entryComponents: [TaskItemDeleteComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
