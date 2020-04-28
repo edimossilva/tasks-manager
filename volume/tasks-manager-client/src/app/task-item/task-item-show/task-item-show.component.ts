@@ -1,6 +1,6 @@
 import { TaskItemDeleteComponent } from './task-item-delete/task-item-delete.component';
 import { TaskItem } from '../../model/task_item';
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApiService } from '../../shared/services/api/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,6 +16,11 @@ export class TaskItemShowComponent implements OnInit {
   constructor(private api: ApiService, public dialog: MatDialog) {}
 
   ngOnInit(): void {}
+
+  @Output('onDeleteTaskItem') onDeleteTaskItem: EventEmitter<
+    any
+  > = new EventEmitter();
+
   handleSuccess(response): void {
     console.log(response);
   }
@@ -38,6 +43,7 @@ export class TaskItemShowComponent implements OnInit {
 
     deleteDialogRef.afterClosed().subscribe((result) => {
       if (result?.delete) {
+        this.onDeleteTaskItem.emit();
         console.log('delete');
       } else if (result?.error) {
         console.log('error');

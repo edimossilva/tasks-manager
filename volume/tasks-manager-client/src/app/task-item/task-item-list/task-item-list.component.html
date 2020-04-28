@@ -1,3 +1,6 @@
 <div *ngFor="let taskItem of taskItems">
-  <app-task-item-show [taskItem]="taskItem"></app-task-item-show>
+  <app-task-item-show
+    [taskItem]="taskItem"
+    (onDeleteTaskItem)="removeTaskItem(taskItem)"
+  ></app-task-item-show>
 </div>
