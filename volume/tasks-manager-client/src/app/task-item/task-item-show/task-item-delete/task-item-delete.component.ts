@@ -21,15 +21,18 @@ export class TaskItemDeleteComponent {
 
   handleSuccess(response): void {
     console.log(response);
+    this.dialogRef.close({ delete: true });
   }
 
   handleFail(error: HttpErrorResponse): void {
-    console.log(error.error.error_message);
+    console.error(error.error.error_message);
+    this.dialogRef.close({ error: true });
   }
+
   onYesClick(): void {
-    this.api
-      .deleteTaskItem(this.data.id)
-      .subscribe(this.handleSuccess, this.handleFail);
-    this.dialogRef.close();
+    this.api.deleteTaskItem(this.data.id).subscribe(
+      (response) => this.handleSuccess(response),
+      (error) => this.handleFail(error)
+    );
   }
 }

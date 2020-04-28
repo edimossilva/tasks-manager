@@ -31,9 +31,17 @@ export class TaskItemShowComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(TaskItemDeleteComponent, {
+    const deleteDialogRef = this.dialog.open(TaskItemDeleteComponent, {
       width: '250px',
       data: this.taskItem,
+    });
+
+    deleteDialogRef.afterClosed().subscribe((result) => {
+      if (result?.delete) {
+        console.log('delete');
+      } else if (result?.error) {
+        console.log('error');
+      }
     });
   }
 }
