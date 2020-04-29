@@ -1,6 +1,8 @@
 class TaskWithTaskListController < ApplicationController
   def create
-    task = Task.new(create_params)
+    task = Task.find_by(find_task_params)
+    task = Task.new(create_params) if task.nil?
+
     task_list = TaskList.find_by!(id: params[:task_list_id])
 
     task.save!
@@ -10,6 +12,10 @@ class TaskWithTaskListController < ApplicationController
   end
 
   private
+
+  def find_task_params
+    params.permit(:name).merge(user_id: current_user.id)
+  end
 
   def create_params
     params.permit(:name, :description)
