@@ -1,5 +1,4 @@
 .task-item-create__button ::ng-deep {
-  height: 40px;
   margin-top: 16px;
 }
 .task-item-create__icon {
