@@ -46,4 +46,10 @@ export class TasklistListComponent implements OnInit {
         this.handleFail
       );
   }
+
+  trackByFn(index) {
+    if (this.tasklists) {
+      return this.tasklists[index].id;
+    }
+  }
 }

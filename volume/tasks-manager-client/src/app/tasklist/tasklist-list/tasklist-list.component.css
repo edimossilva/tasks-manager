@@ -1,0 +1,22 @@
+.tasklist-list__container {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tasklist-list__panel {
+  width: 50%;
+  height: inherit;
+}
+
+@media (max-width: 600px) {
+  .tasklist-list__container {
+    margin-top: 0px;
+  }
+
+  .tasklist-list__panel {
+    width: 100%;
+  }
+}
