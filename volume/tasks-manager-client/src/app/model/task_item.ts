@@ -21,4 +21,13 @@ export class TaskItem {
   public description(): string {
     return this.task.description;
   }
+
+  removeFromTaskList() {
+    const index = this.tasklist.taskItems.indexOf(this, 0);
+    if (index > -1) {
+      this.tasklist.taskItems.splice(index, 1);
+    } else {
+      console.error(`${this} not found`);
+    }
+  }
 }
