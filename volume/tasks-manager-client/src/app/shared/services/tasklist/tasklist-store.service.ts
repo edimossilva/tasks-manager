@@ -24,4 +24,8 @@ export class TasklistStoreService {
   removeTasklist(id: number) {
     this.tasklists = this.tasklists.filter((tasklist) => tasklist.id !== id);
   }
+
+  getTasklist(id: number): Tasklist {
+    return this.tasklists.filter((tasklist) => tasklist.id === id)[0];
+  }
 }

@@ -15,12 +15,6 @@ export class TaskItemListComponent implements OnInit {
   ngOnInit(): void {}
 
   removeTaskItem(taskItem: TaskItem): void {
-    taskItem.removeFromTaskList();
-  }
-
-  addTaskItem(taskItemJson: any): void {
-    const taskItem = new TaskItem(taskItemJson, this.tasklist);
-
-    this.tasklist.taskItems.push(taskItem);
+    this.taskitemStore.removeFromTaskList(taskItem);
   }
 }

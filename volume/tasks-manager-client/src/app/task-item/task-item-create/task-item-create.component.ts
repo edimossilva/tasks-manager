@@ -17,10 +17,6 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {}
   @Input() tasklistId: number;
 
-  @Output('onCreateTaskItem') onCreateTaskItem: EventEmitter<
-    any
-  > = new EventEmitter();
-
   handleSuccess(response): void {
     console.log(response);
   }
@@ -36,18 +32,9 @@ export class AddTaskComponent implements OnInit {
   }
 
   openCreateTaskItemDialog(): void {
-    const deleteDialogRef = this.dialog.open(TaskItemCreateDialogComponent, {
+    this.dialog.open(TaskItemCreateDialogComponent, {
       width: '250px',
       data: this.tasklistId,
-    });
-
-    deleteDialogRef.afterClosed().subscribe((result) => {
-      if (result?.error) {
-        console.error(result.error);
-      } else if (result?.task) {
-        this.onCreateTaskItem.emit(result.task);
-        console.log(result.task);
-      }
     });
   }
 }
