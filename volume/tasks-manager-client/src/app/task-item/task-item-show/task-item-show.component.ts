@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class TaskItemShowComponent implements OnInit {
   @Input() taskItem: TaskItem;
+  labelPosition: string = 'after';
 
   constructor(private api: ApiService, public dialog: MatDialog) {}
 

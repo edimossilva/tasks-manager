@@ -1,13 +1,6 @@
 .task-item-create__button ::ng-deep {
-  height: 48px;
-  width: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 8px;
-}
-.task-item-create__button ::ng-deep .mat-button-wrapper {
-  padding: 0;
+  height: 40px;
+  margin-top: 16px;
 }
 .task-item-create__icon {
   font-size: 5;

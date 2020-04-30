@@ -71,7 +71,7 @@ end
 private
 
 def create_params
-  params.require(%i[name description frequence_type])
+  params.require(%i[name frequence_type])
   params.permit(%i[name description frequence_type])
         .merge(user_id: current_user.id)
 end

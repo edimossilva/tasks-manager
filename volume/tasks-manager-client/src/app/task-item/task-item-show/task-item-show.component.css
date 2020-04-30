@@ -1,6 +1,15 @@
-.checkbox {
+.task-item-show__button_container {
   display: flex;
-  align-content: center;
-  align-items: center;
-  height: 60px;
+  width: 100%;
+  justify-content: flex-end;
+  height: 40px;
+}
+.task-item-show__button {
+  display: flex;
+}
+.mat-card-actions,
+.mat-card-subtitle,
+::ng-deep.mat-card-content {
+  display: block;
+  margin-bottom: 0px;
 }

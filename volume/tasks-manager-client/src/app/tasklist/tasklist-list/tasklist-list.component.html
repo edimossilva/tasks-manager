@@ -17,7 +17,12 @@
 
     <app-task-item-list [tasklist]="tasklist"></app-task-item-list>
     <mat-action-row>
-      <button mat-button (click)="deleteTaskList(tasklist)">
+      <button
+        mat-raised-button
+        (click)="deleteTaskList(tasklist)"
+        color="warn"
+        class="tasklist-list__delete-button"
+      >
         Delete list
       </button>
     </mat-action-row>

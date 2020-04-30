@@ -10,7 +10,10 @@
   width: 50%;
   height: inherit;
 }
-
+.tasklist-list__delete-button {
+  height: 40px;
+  margin-right: 8px;
+}
 @media (max-width: 600px) {
   .tasklist-list__container {
     margin-top: 0px;

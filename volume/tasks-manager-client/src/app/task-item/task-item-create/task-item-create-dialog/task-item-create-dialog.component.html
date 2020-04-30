@@ -1,11 +1,15 @@
-<div>
-  <label>name</label>
-  <input [(ngModel)]="task.name" placeholder="name" />
-</div>
+<mat-form-field appearance="fill">
+  <mat-label>Name</mat-label>
+  <input matInput [(ngModel)]="task.name" />
+</mat-form-field>
 
-<div>
-  <label>description</label>
-  <input [(ngModel)]="task.description" placeholder="description" />
-</div>
-<button mat-button (click)="onCancelClick()">Cancel</button>
-<button mat-button (click)="onCreateClick()">Create</button>
+<mat-form-field appearance="fill">
+  <mat-label>Description</mat-label>
+  <input matInput [(ngModel)]="task.description" />
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="onCreateClick()">
+  create
+</button>
+
+<button mat-raised-button (click)="onCancelClick()">cancel</button>
