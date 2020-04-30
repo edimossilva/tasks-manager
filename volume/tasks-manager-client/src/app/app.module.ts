@@ -20,6 +20,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TaskItemListComponent } from './task-item/task-item-list/task-item-list.component';
 import { TaskItemDeleteComponent } from './task-item/task-item-show/task-item-delete/task-item-delete.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,9 @@ import { TaskItemDeleteComponent } from './task-item/task-item-show/task-item-de
     MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
