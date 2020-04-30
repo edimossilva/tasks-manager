@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { ApiService } from 'src/app/shared/services/api/api.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TaskItem } from 'src/app/model/task_item';
 import { Task } from 'src/app/model/task';
 import { HttpErrorResponse } from '@angular/common/http';
 

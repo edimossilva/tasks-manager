@@ -11,10 +11,11 @@ import { TaskItemCreateDialogComponent } from './task-item-create-dialog/task-it
   styleUrls: ['./task-item-create.component.css'],
 })
 export class AddTaskComponent implements OnInit {
+  task: Task = new Task();
+
   constructor(private api: ApiService, public dialog: MatDialog) {}
   ngOnInit(): void {}
   @Input() tasklistId: number;
-  task: Task = new Task();
 
   @Output('onCreateTaskItem') onCreateTaskItem: EventEmitter<
     any
