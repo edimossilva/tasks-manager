@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TasklistListComponent } from './tasklist/tasklist-list/tasklist-list.component';
 import { TasklistCreateComponent } from './tasklist/tasklist-create/tasklist-create.component';
 import { TasklistShowComponent } from './tasklist/tasklist-show/tasklist-show.component';
-import { AddTaskComponent } from './task-item/add-task/add-task.component';
+import { AddTaskComponent } from './task-item/task-item-create/task-item-create.component';
 import { TaskItemShowComponent } from './task-item/task-item-show/task-item-show.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';

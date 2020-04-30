@@ -4,9 +4,9 @@ import { Task } from '../../model/task';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-add-task',
-  templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.css'],
+  selector: 'app-task-item-create',
+  templateUrl: './task-item-create.component.html',
+  styleUrls: ['./task-item-create.component.css'],
 })
 export class AddTaskComponent implements OnInit {
   constructor(private api: ApiService) {}
