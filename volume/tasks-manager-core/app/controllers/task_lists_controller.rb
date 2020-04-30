@@ -71,7 +71,8 @@ end
 private
 
 def create_params
-  params.permit(:name, :description, :frequence_type)
+  params.require(%i[name description frequence_type])
+  params.permit(%i[name description frequence_type])
         .merge(user_id: current_user.id)
 end
 

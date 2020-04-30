@@ -5,6 +5,7 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
   rescue_from Pundit::NotAuthorizedError, with: :render_unauthorized
+  rescue_from ActionController::ParameterMissing, with: :render_bad_request
 
   before_action :authorize_request
   before_action :append_info_to_payload
@@ -31,6 +32,10 @@ class ApplicationController < ActionController::API
 
   def render_unprocessable_entity(exception)
     render json: { error_message: exception.message }, status: :unprocessable_entity
+  end
+
+  def render_bad_request(exception)
+    render json: { error_message: exception.message }, status: :bad_request
   end
 
   def search_params
