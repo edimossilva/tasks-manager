@@ -22,6 +22,7 @@ import { TaskItemListComponent } from './task-item/task-item-list/task-item-list
 import { TaskItemDeleteComponent } from './task-item/task-item-show/task-item-delete/task-item-delete.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { TaskItemCreateDialogComponent } from './task-item/task-item-create/task-item-create-dialog/task-item-create-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,9 +34,10 @@ import { MatButtonModule } from '@angular/material/button';
     TaskItemShowComponent,
     TaskItemDeleteComponent,
     TaskItemListComponent,
+    TaskItemCreateDialogComponent,
   ],
 
-  entryComponents: [TaskItemDeleteComponent],
+  entryComponents: [TaskItemDeleteComponent, TaskItemCreateDialogComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
