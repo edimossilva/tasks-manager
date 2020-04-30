@@ -25,6 +25,15 @@ export class TasklistListComponent implements OnInit {
     tasklist.taskItems = taskItems;
   }
 
+  handleSuccessDeleteTaskList(tasklist: Tasklist) {
+    const index = this.tasklists.indexOf(tasklist, 0);
+    if (index > -1) {
+      this.tasklists.splice(index, 1);
+    } else {
+      console.error(`${tasklist} not found`);
+    }
+  }
+
   handleFail(error: HttpErrorResponse): void {
     console.log(error.error.error_message);
   }
@@ -43,6 +52,15 @@ export class TasklistListComponent implements OnInit {
       .getTaskList(tasklist.id)
       .subscribe(
         (response) => this.handleSuccessOnTaskList(tasklist, response),
+        this.handleFail
+      );
+  }
+
+  deleteTaskList(tasklist: Tasklist): void {
+    this.api
+      .deleteTaskList(tasklist.id)
+      .subscribe(
+        (response) => this.handleSuccessDeleteTaskList(tasklist),
         this.handleFail
       );
   }

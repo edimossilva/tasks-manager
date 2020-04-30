@@ -13,5 +13,10 @@
     </mat-expansion-panel-header>
 
     <app-task-item-list [tasklist]="tasklist"></app-task-item-list>
+    <mat-action-row>
+      <button mat-button (click)="deleteTaskList(tasklist)">
+        Delete list
+      </button>
+    </mat-action-row>
   </mat-expansion-panel>
 </div>

@@ -85,4 +85,11 @@ export class ApiService {
       this.getHeaders()
     );
   }
+
+  deleteTaskList(taskListId: number) {
+    return this.http.delete<any>(
+      `${this.tasklistsUrl}/${taskListId}`,
+      this.getHeaders()
+    );
+  }
 }
