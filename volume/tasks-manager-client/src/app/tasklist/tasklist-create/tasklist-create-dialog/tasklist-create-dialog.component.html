@@ -1,0 +1,24 @@
+<mat-form-field appearance="fill">
+  <mat-label>Name</mat-label>
+  <input matInput [(ngModel)]="tasklist.name" />
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Description</mat-label>
+  <input matInput [(ngModel)]="tasklist.description" />
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Frequence type</mat-label>
+  <mat-select [(ngModel)]="tasklist.frequenceType">
+    <mat-option value="daily">Daily</mat-option>
+    <mat-option value="monthly">Monthly</mat-option>
+    <mat-option value="yearly">Yearly</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="onCreateClick()">
+  create
+</button>
+
+<button mat-raised-button (click)="onCancelClick()">cancel</button>

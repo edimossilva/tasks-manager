@@ -1,12 +1,31 @@
-<mat-expansion-panel *ngFor="let tasklist of tasklists">
-  <mat-expansion-panel-header (click)="loadTaskItems(tasklist)">
-    <mat-panel-title>
-      {{ tasklist.name }} - {{ tasklist.frequenceType }}
-    </mat-panel-title>
-    <mat-panel-description>
-      {{ tasklist.description || "no description =z" }}
-    </mat-panel-description>
-  </mat-expansion-panel-header>
+<div class="tasklist-list__container">
+  <mat-expansion-panel
+    *ngFor="
+      let tasklist of tasklistStore.tasklists$ | async;
+      trackBy: trackByFn
+    "
+    class="tasklist-list__panel"
+  >
+    <mat-expansion-panel-header (click)="loadTaskItems(tasklist)">
+      <mat-panel-title>
+        {{ tasklist.name }} - {{ tasklist.frequenceType }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ tasklist.description || "no description =z" }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-  <app-task-item-list [tasklist]="tasklist"></app-task-item-list>
-</mat-expansion-panel>
+    <app-task-item-list [tasklist]="tasklist"></app-task-item-list>
+    <mat-action-row>
+      <button
+        mat-raised-button
+        (click)="deleteTaskList(tasklist)"
+        color="warn"
+        class="tasklist-list__delete-button"
+      >
+        Delete list
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+  <app-tasklist-create></app-tasklist-create>
+</div>

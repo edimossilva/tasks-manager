@@ -1,21 +1,8 @@
-<p>tasklist-create works!</p>
-
-<div>
-  <label>name</label>
-  <input [(ngModel)]="tasklist.name" placeholder="name" />
-  {{ tasklist.name }}
-</div>
-
-<div>
-  <label>description</label>
-  <input [(ngModel)]="tasklist.description" placeholder="description" />
-  {{ tasklist.description }}
-</div>
-
-<div>
-  <label>frequence type</label>
-  <input [(ngModel)]="tasklist.frequenceType" placeholder="frequence type" />
-  {{ tasklist.frequenceType }}
-</div>
-
-<button (click)="createTasklist()">create</button>
+<button
+  mat-raised-button
+  (click)="openCreateTaskItemDialog()"
+  color="primary"
+  class="tasklist-create__button"
+>
+  Create list
+</button>

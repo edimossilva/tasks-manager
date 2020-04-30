@@ -1,0 +1,7 @@
+.task-item-create__button ::ng-deep {
+  margin-top: 16px;
+}
+.task-item-create__icon {
+  font-size: 5;
+  padding: 0;
+}

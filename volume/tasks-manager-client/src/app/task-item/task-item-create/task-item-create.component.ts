@@ -11,14 +11,11 @@ import { TaskItemCreateDialogComponent } from './task-item-create-dialog/task-it
   styleUrls: ['./task-item-create.component.css'],
 })
 export class AddTaskComponent implements OnInit {
+  task: Task = new Task();
+
   constructor(private api: ApiService, public dialog: MatDialog) {}
   ngOnInit(): void {}
   @Input() tasklistId: number;
-  task: Task = new Task();
-
-  @Output('onCreateTaskItem') onCreateTaskItem: EventEmitter<
-    any
-  > = new EventEmitter();
 
   handleSuccess(response): void {
     console.log(response);
@@ -35,18 +32,9 @@ export class AddTaskComponent implements OnInit {
   }
 
   openCreateTaskItemDialog(): void {
-    const deleteDialogRef = this.dialog.open(TaskItemCreateDialogComponent, {
+    this.dialog.open(TaskItemCreateDialogComponent, {
       width: '250px',
       data: this.tasklistId,
-    });
-
-    deleteDialogRef.afterClosed().subscribe((result) => {
-      if (result?.error) {
-        console.error(result.error);
-      } else if (result?.task) {
-        this.onCreateTaskItem.emit(result.task);
-        console.log(result.task);
-      }
     });
   }
 }

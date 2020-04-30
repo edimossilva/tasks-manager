@@ -1,0 +1,24 @@
+.tasklist-list__container {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tasklist-list__panel {
+  width: 50%;
+  height: inherit;
+}
+.tasklist-list__delete-button {
+  margin-right: 8px;
+}
+@media (max-width: 600px) {
+  .tasklist-list__container {
+    margin-top: 0px;
+  }
+
+  .tasklist-list__panel {
+    width: 100%;
+  }
+}

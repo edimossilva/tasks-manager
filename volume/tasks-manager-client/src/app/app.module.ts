@@ -1,3 +1,4 @@
+import { Tasklist } from 'src/app/model/tasklist';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -23,6 +24,9 @@ import { TaskItemDeleteComponent } from './task-item/task-item-show/task-item-de
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TaskItemCreateDialogComponent } from './task-item/task-item-create/task-item-create-dialog/task-item-create-dialog.component';
+import { TasklistCreateDialogComponent } from './tasklist/tasklist-create/tasklist-create-dialog/tasklist-create-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,9 +39,14 @@ import { TaskItemCreateDialogComponent } from './task-item/task-item-create/task
     TaskItemDeleteComponent,
     TaskItemListComponent,
     TaskItemCreateDialogComponent,
+    TasklistCreateDialogComponent,
   ],
 
-  entryComponents: [TaskItemDeleteComponent, TaskItemCreateDialogComponent],
+  entryComponents: [
+    TaskItemDeleteComponent,
+    TaskItemCreateDialogComponent,
+    TasklistCreateDialogComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -52,6 +61,7 @@ import { TaskItemCreateDialogComponent } from './task-item/task-item-create/task
     MatIconModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

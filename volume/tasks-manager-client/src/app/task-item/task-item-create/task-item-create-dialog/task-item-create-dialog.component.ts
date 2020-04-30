@@ -1,7 +1,7 @@
+import { TaskitemStoreService } from './../../../shared/services/taskitem/taskitem-store.service';
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { ApiService } from 'src/app/shared/services/api/api.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TaskItem } from 'src/app/model/task_item';
 import { Task } from 'src/app/model/task';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -15,6 +15,7 @@ export class TaskItemCreateDialogComponent implements OnInit {
   constructor(
     private api: ApiService,
     public dialogRef: MatDialogRef<TaskItemCreateDialogComponent>,
+    private taskitemStoreService: TaskitemStoreService,
     @Inject(MAT_DIALOG_DATA) public data: number
   ) {}
 
@@ -33,8 +34,10 @@ export class TaskItemCreateDialogComponent implements OnInit {
   }
 
   handleSuccess(response): void {
-    console.log(response);
-    this.dialogRef.close({ task: response.data });
+    const tasklistId = this.data;
+    const taskItemJson = response.data;
+    this.taskitemStoreService.save(tasklistId, taskItemJson);
+    this.dialogRef.close();
   }
 
   handleFail(error: HttpErrorResponse): void {

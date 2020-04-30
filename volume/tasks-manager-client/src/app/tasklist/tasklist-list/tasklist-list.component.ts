@@ -1,3 +1,4 @@
+import { TasklistStoreService } from './../../shared/services/tasklist/tasklist-store.service';
 import { Tasklist } from 'src/app/model/tasklist';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/services/api/api.service';
@@ -10,12 +11,16 @@ import { TaskItem } from 'src/app/model/task_item';
   styleUrls: ['./tasklist-list.component.css'],
 })
 export class TasklistListComponent implements OnInit {
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService,
+    public tasklistStore: TasklistStoreService
+  ) {}
   tasklists: Tasklist[];
 
   handleSuccessOnTaskLists(response): void {
-    this.tasklists = response.data.map((tasklist) => new Tasklist(tasklist));
-    console.log(this.tasklists[0].frequenceType);
+    const tasklists = response.data.map((tasklist) => new Tasklist(tasklist));
+    this.tasklistStore.tasklists = tasklists;
+    this.tasklists = this.tasklistStore.tasklists;
   }
 
   handleSuccessOnTaskList(tasklist, response): void {
@@ -23,6 +28,10 @@ export class TasklistListComponent implements OnInit {
       (taskItem) => new TaskItem(taskItem, tasklist)
     );
     tasklist.taskItems = taskItems;
+  }
+
+  handleSuccessDeleteTaskList(tasklist: Tasklist) {
+    this.tasklistStore.removeTasklist(tasklist.id);
   }
 
   handleFail(error: HttpErrorResponse): void {
@@ -45,5 +54,20 @@ export class TasklistListComponent implements OnInit {
         (response) => this.handleSuccessOnTaskList(tasklist, response),
         this.handleFail
       );
+  }
+
+  deleteTaskList(tasklist: Tasklist): void {
+    this.api
+      .deleteTaskList(tasklist.id)
+      .subscribe(
+        (response) => this.handleSuccessDeleteTaskList(tasklist),
+        this.handleFail
+      );
+  }
+
+  trackByFn(index) {
+    if (this.tasklists) {
+      return this.tasklists[index].id;
+    }
   }
 }
