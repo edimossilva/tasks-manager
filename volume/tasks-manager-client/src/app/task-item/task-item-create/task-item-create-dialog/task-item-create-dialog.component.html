@@ -1,13 +1,11 @@
 <div>
   <label>name</label>
   <input [(ngModel)]="task.name" placeholder="name" />
-  {{ task.name }}
 </div>
 
 <div>
   <label>description</label>
   <input [(ngModel)]="task.description" placeholder="description" />
-  {{ task.description }}
 </div>
 <button mat-button (click)="onCancelClick()">Cancel</button>
 <button mat-button (click)="onCreateClick()">Create</button>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ApiService } from '../../shared/services/api/api.service';
 import { Task } from '../../model/task';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -15,6 +15,10 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {}
   @Input() tasklistId: number;
   task: Task = new Task();
+
+  @Output('onCreateTaskItem') onCreateTaskItem: EventEmitter<
+    any
+  > = new EventEmitter();
 
   handleSuccess(response): void {
     console.log(response);
@@ -37,10 +41,11 @@ export class AddTaskComponent implements OnInit {
     });
 
     deleteDialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        console.log(result);
-      } else if (result?.error) {
-        console.log('error');
+      if (result?.error) {
+        console.error(result.error);
+      } else if (result?.task) {
+        this.onCreateTaskItem.emit(result.task);
+        console.log(result.task);
       }
     });
   }

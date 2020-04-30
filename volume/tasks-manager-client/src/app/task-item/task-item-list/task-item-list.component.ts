@@ -21,4 +21,10 @@ export class TaskItemListComponent implements OnInit {
       console.error(`${taskItem} not found`);
     }
   }
+
+  addTaskItem(taskItemJson: any): void {
+    const taskItem = new TaskItem(taskItemJson, this.tasklist);
+
+    this.tasklist.taskItems.push(taskItem);
+  }
 }

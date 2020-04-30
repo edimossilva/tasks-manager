@@ -27,20 +27,20 @@ RSpec.describe 'TaskWithTaskLists', type: :request do
 
         it 'contains fields from params' do
           expect(json_response_data['id']).not_to be_nil
-          expect(json_response_data['user_id']).to eq(registred_user.id)
-          expect(json_response_data['name']).to eq(create_task_params[:name])
-          expect(json_response_data['description']).to eq(create_task_params[:description])
+          expect(json_response_data['task']['user_id']).to eq(registred_user.id)
+          expect(json_response_data['task']['name']).to eq(create_task_params[:name])
+          expect(json_response_data['task']['description']).to eq(create_task_params[:description])
         end
 
         it 'is associated with task_list by task_in_list' do
-          task_id = json_response_data['id']
+          task_id = json_response_data['task']['id']
 
           task_in_list = TaskInList.find_by(task_id: task_id, task_list_id: task_list.id)
           expect(task_in_list).not_to be_nil
         end
 
         it 'create a new task' do
-          task_id = json_response_data['id']
+          task_id = json_response_data['task']['id']
           expect(task_id).not_to be_nil
         end
       end
@@ -66,20 +66,20 @@ RSpec.describe 'TaskWithTaskLists', type: :request do
 
           it 'contains fields from params' do
             expect(json_response_data['id']).not_to be_nil
-            expect(json_response_data['user_id']).to eq(registred_user.id)
-            expect(json_response_data['name']).to eq(create_task_params[:name])
-            expect(json_response_data['description']).to eq(create_task_params[:description])
+            expect(json_response_data['task']['user_id']).to eq(registred_user.id)
+            expect(json_response_data['task']['name']).to eq(create_task_params[:name])
+            expect(json_response_data['task']['description']).to eq(create_task_params[:description])
           end
 
           it 'is associated with task_list by task_in_list' do
-            task_id = json_response_data['id']
+            task_id = json_response_data['task']['id']
 
             task_in_list = TaskInList.find_by(task_id: task_id, task_list_id: task_list.id)
             expect(task_in_list).not_to be_nil
           end
 
           it 'associate to a existing task' do
-            task_id = json_response_data['id']
+            task_id = json_response_data['task']['id']
             expect(task_id).to eq(task.id)
           end
         end

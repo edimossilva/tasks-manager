@@ -4,8 +4,8 @@ class TaskWithTaskListController < ApplicationController
 
     task = Task.find_by(find_task_params) || Task.create!(create_params)
     # binding.pry
-    TaskInList.create!(task: task, task_list: task_list)
-    render_created(task)
+    task_in_list = TaskInList.create!(task: task, task_list: task_list)
+    render_created(TaskInListSerializer.new(task_in_list))
   end
 
   private

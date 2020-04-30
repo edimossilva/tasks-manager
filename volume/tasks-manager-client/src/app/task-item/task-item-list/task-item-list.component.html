@@ -5,5 +5,8 @@
   ></app-task-item-show>
 </div>
 <div *ngIf="tasklist">
-  <app-task-item-create [tasklistId]="tasklist.id"></app-task-item-create>
+  <app-task-item-create
+    [tasklistId]="tasklist.id"
+    (onCreateTaskItem)="addTaskItem($event)"
+  ></app-task-item-create>
 </div>
