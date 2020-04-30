@@ -25,6 +25,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TaskItemCreateDialogComponent } from './task-item/task-item-create/task-item-create-dialog/task-item-create-dialog.component';
 import { TasklistCreateDialogComponent } from './tasklist/tasklist-create/tasklist-create-dialog/tasklist-create-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +61,7 @@ import { TasklistCreateDialogComponent } from './tasklist/tasklist-create/taskli
     MatIconModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -13,7 +13,7 @@ import { TaskItem } from 'src/app/model/task_item';
 export class TasklistListComponent implements OnInit {
   constructor(
     private api: ApiService,
-    private tasklistStore: TasklistStoreService
+    public tasklistStore: TasklistStoreService
   ) {}
   tasklists: Tasklist[];
 
