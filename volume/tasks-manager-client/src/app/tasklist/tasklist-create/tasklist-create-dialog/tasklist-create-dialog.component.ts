@@ -35,7 +35,6 @@ export class TasklistCreateDialogComponent implements OnInit {
   }
 
   handleSuccess(response): void {
-    console.log(response);
     const tasklist = new Tasklist(response.data);
     this.tasklistStore.addTasklist(tasklist);
   }

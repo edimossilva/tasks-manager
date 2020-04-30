@@ -16,20 +16,6 @@ export class TasklistCreateComponent implements OnInit {
   constructor(private api: ApiService, public dialog: MatDialog) {}
   ngOnInit(): void {}
 
-  handleSuccess(response): void {
-    console.log(response);
-  }
-
-  handleFail(error: HttpErrorResponse): void {
-    console.log(error.error.error_message);
-  }
-
-  createTasklist(): void {
-    this.api
-      .createTaskList(this.tasklist)
-      .subscribe((response) => this.handleSuccess(response), this.handleFail);
-  }
-
   openCreateTaskItemDialog(): void {
     this.dialog.open(TasklistCreateDialogComponent, {
       width: '250px',
