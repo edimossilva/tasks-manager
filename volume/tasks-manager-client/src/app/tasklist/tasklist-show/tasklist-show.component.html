@@ -6,7 +6,7 @@
     <label> Frequence type: {{ tasklist.frequenceType }} </label>
   </div>
 
-  <app-task-item-list [taskItems]="tasklist.taskItems"></app-task-item-list>
+  <app-task-item-list [tasklist]="tasklist"></app-task-item-list>
 
   <app-task-item-create [tasklistId]="tasklist.id"></app-task-item-create>
 </div>

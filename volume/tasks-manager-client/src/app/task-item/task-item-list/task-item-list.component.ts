@@ -1,3 +1,4 @@
+import { Tasklist } from 'src/app/model/tasklist';
 import { TaskItem } from '../../model/task_item';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -9,13 +10,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TaskItemListComponent implements OnInit {
   constructor() {}
 
-  @Input() taskItems: TaskItem[];
+  @Input() tasklist: Tasklist;
   ngOnInit(): void {}
 
   removeTaskItem(taskItem: TaskItem): void {
-    const index = this.taskItems.indexOf(taskItem, 0);
+    const index = this.tasklist.taskItems.indexOf(taskItem, 0);
     if (index > -1) {
-      this.taskItems.splice(index, 1);
+      this.tasklist.taskItems.splice(index, 1);
     } else {
       console.error(`${taskItem} not found`);
     }
