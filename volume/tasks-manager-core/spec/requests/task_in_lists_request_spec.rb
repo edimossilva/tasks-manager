@@ -36,7 +36,7 @@ RSpec.describe 'TaskInLists', type: :request do
 
     describe 'When data is NOT valid' do
       before do
-        post('/tasks',
+        post('/task_in_lists',
              params: {
                task_id: -1,
                task_list_id: -1

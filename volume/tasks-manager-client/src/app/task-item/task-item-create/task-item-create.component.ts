@@ -14,7 +14,7 @@ export class AddTaskComponent implements OnInit {
   constructor(private api: ApiService, public dialog: MatDialog) {}
   ngOnInit(): void {}
   @Input() tasklistId: number;
-  task: Task = {} as Task;
+  task: Task = new Task();
 
   handleSuccess(response): void {
     console.log(response);
@@ -37,8 +37,8 @@ export class AddTaskComponent implements OnInit {
     });
 
     deleteDialogRef.afterClosed().subscribe((result) => {
-      if (result?.delete) {
-        console.log('delete');
+      if (result) {
+        console.log(result);
       } else if (result?.error) {
         console.log('error');
       }

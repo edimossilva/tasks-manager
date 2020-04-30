@@ -46,7 +46,8 @@ class TaskInListsController < ApplicationController
   private
 
   def create_params
-    params.permit(:task_id, :task_list_id, :checked)
+    params.require(%i[task_id task_list_id])
+    params.permit(%i[task_id task_list_id checked])
   end
 
   def update_params

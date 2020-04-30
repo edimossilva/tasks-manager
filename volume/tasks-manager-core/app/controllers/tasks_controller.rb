@@ -47,7 +47,8 @@ class TasksController < ApplicationController
   private
 
   def create_params
-    params.permit(:name, :description)
+    params.require(%i[name description])
+    params.permit(%i[name description])
           .merge(user_id: current_user.id)
   end
 

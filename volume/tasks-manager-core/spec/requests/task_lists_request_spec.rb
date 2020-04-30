@@ -46,7 +46,7 @@ RSpec.describe 'TaskLists', type: :request do
         it { expect(response).to have_http_status(:unprocessable_entity) }
 
         it 'contains error response' do
-          expect(json_response_error).to eq("Validation failed: Name can't be blank, Frequence type can't be blank")
+          expect(json_response_error).to eq('param is missing or the value is empty: name')
         end
       end
 

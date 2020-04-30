@@ -41,7 +41,7 @@ RSpec.describe 'TaskLists', type: :request do
              headers: registred_headers)
       end
 
-      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to have_http_status(:bad_request) }
     end
   end
 
