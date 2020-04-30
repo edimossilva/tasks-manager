@@ -15,4 +15,9 @@
   <input [(ngModel)]="tasklist.frequenceType" placeholder="frequence type" />
   {{ tasklist.frequenceType }}
 </div>
-<button (click)="onCreateClick()">create</button>
+
+<button mat-raised-button color="primary" (click)="onCreateClick()">
+  create
+</button>
+
+<button mat-raised-button (click)="onCancelClick()">cancel</button>

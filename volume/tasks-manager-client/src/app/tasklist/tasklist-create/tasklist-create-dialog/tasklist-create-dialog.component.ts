@@ -1,3 +1,4 @@
+import { TasklistStoreService } from './../../../shared/services/tasklist/tasklist-store.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { Tasklist } from 'src/app/model/tasklist';
 import { ApiService } from 'src/app/shared/services/api/api.service';
@@ -15,6 +16,7 @@ export class TasklistCreateDialogComponent implements OnInit {
   constructor(
     private api: ApiService,
     public dialogRef: MatDialogRef<TasklistCreateDialogComponent>,
+    private tasklistStore: TasklistStoreService,
     @Inject(MAT_DIALOG_DATA) public data: Tasklist
   ) {}
 
@@ -25,16 +27,17 @@ export class TasklistCreateDialogComponent implements OnInit {
   }
 
   onCreateClick(): void {
-    const taskListId = this.data;
     this.api.createTaskList(this.tasklist).subscribe(
       (response) => this.handleSuccess(response),
       (error) => this.handleFail(error)
     );
+    this.dialogRef.close();
   }
+
   handleSuccess(response): void {
     console.log(response);
-
-    debugger;
+    const tasklist = new Tasklist(response.data);
+    this.tasklistStore.addTasklist(tasklist);
   }
 
   handleFail(error: HttpErrorResponse): void {

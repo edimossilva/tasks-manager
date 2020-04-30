@@ -1,3 +1,4 @@
+import { TasklistStoreService } from './../../shared/services/tasklist/tasklist-store.service';
 import { Tasklist } from 'src/app/model/tasklist';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/services/api/api.service';
@@ -10,12 +11,16 @@ import { TaskItem } from 'src/app/model/task_item';
   styleUrls: ['./tasklist-list.component.css'],
 })
 export class TasklistListComponent implements OnInit {
-  constructor(private api: ApiService) {}
+  constructor(
+    private api: ApiService,
+    private tasklistStore: TasklistStoreService
+  ) {}
   tasklists: Tasklist[];
 
   handleSuccessOnTaskLists(response): void {
-    this.tasklists = response.data.map((tasklist) => new Tasklist(tasklist));
-    console.log(this.tasklists[0].frequenceType);
+    const tasklists = response.data.map((tasklist) => new Tasklist(tasklist));
+    this.tasklistStore.tasklists = tasklists;
+    this.tasklists = this.tasklistStore.tasklists;
   }
 
   handleSuccessOnTaskList(tasklist, response): void {
@@ -26,12 +31,7 @@ export class TasklistListComponent implements OnInit {
   }
 
   handleSuccessDeleteTaskList(tasklist: Tasklist) {
-    const index = this.tasklists.indexOf(tasklist, 0);
-    if (index > -1) {
-      this.tasklists.splice(index, 1);
-    } else {
-      console.error(`${tasklist} not found`);
-    }
+    this.tasklistStore.removeTasklist(tasklist.id);
   }
 
   handleFail(error: HttpErrorResponse): void {

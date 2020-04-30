@@ -1,6 +1,9 @@
 <div class="tasklist-list__container">
   <mat-expansion-panel
-    *ngFor="let tasklist of tasklists; trackBy: trackByFn"
+    *ngFor="
+      let tasklist of tasklistStore.tasklists$ | async;
+      trackBy: trackByFn
+    "
     class="tasklist-list__panel"
   >
     <mat-expansion-panel-header (click)="loadTaskItems(tasklist)">
