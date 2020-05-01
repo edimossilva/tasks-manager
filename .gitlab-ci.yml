@@ -88,32 +88,32 @@ deploy heroku:
     - heroku container:release web
     - heroku run rails db:migrate db:seed --app $HEROKU_APP_STAGING
 
-  test deploy heroku:
-    image: curlimages/curl
-    only:
-      - master
-      - external_pull_requests
-    stage: test deploy
-    script:
-      - curl -s "https://edimossilva-task-manager.herokuapp.com/apipie" | grep -q "half minute and a half"
+test deploy heroku:
+  image: curlimages/curl
+  only:
+    - master
+    - external_pull_requests
+  stage: test deploy
+  script:
+    - curl -s "https://edimossilva-task-manager.herokuapp.com/apipie" | grep -q "half minute and a half"
 
-  test cypress:
-    stage: integration
-    only:
-      - master
-      - external_pull_requests
-    services:
-      - docker:dind
-    before_script:
-      - apk add --no-cache docker-compose
-      - docker-compose build web_client
-      - docker-compose up -d web_client
-    script:
-      - docker-compose up cypress
-    artifacts:
-      paths:
-        - "volume/tasks-manager-client/mochawesome-report"
-      name: "Pipeline tasks-manager-client $CI_PIPELINE_ID Coverage Report"
+test cypress:
+  stage: integration test
+  only:
+    - master
+    - external_pull_requests
+  services:
+    - docker:dind
+  before_script:
+    - apk add --no-cache docker-compose
+    - docker-compose build web_client
+    - docker-compose up -d web_client
+  script:
+    - docker-compose up cypress
+  artifacts:
+    paths:
+      - "volume/tasks-manager-client/mochawesome-report"
+    name: "Pipeline tasks-manager-client $CI_PIPELINE_ID Coverage Report"
 
 pages:
   stage: deploy
