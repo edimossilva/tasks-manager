@@ -93,7 +93,7 @@ services:
     volumes:
       - ./volume/tasks-manager-client:/app
     working_dir: /app
-    entrypoint: ./node_modules/.bin/cypress run --reporter mochawesome
+    entrypoint: cypress run --reporter mochawesome
 # docker-compose build
 # docker-compose up -d
 # docker-compose exec tasks_manager_core rake db:create db:migrate db:seed
