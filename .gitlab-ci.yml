@@ -104,11 +104,10 @@ test cypress:
     - external_pull_requests
   services:
     - docker:dind
-  before_script:
+  script:
     - apk add --no-cache docker-compose
     - docker-compose build web_client
     - docker-compose up -d web_client
-  script:
     - docker-compose up cypress
   artifacts:
     paths:
