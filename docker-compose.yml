@@ -83,9 +83,17 @@ services:
     container_name: web_client
     ports:
       - "4200:4200"
-    command: ng serve --host 0.0.0.0 --port 4200
+    command: ng serve --host 0.0.0.0 --disable-host-check
     volumes:
       - ./volume/tasks-manager-client:/app
+
+  cypress:
+    image: "cypress/included:4.5.0"
+    container_name: cypress
+    volumes:
+      - ./volume/tasks-manager-client:/app
+    working_dir: /app
+    entrypoint: ./node_modules/.bin/cypress run --reporter mochawesome
 # docker-compose build
 # docker-compose up -d
 # docker-compose exec tasks_manager_core rake db:create db:migrate db:seed

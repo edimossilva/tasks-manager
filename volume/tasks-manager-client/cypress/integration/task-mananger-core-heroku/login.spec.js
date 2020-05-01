@@ -3,10 +3,10 @@
 context("Login", () => {
   const invalidUsername = "invalid username";
   const invalidPassword = "invalid password";
-
+  const base_url = "http://web_client:4200/";
   beforeEach(() => {
     localStorage.clear();
-    cy.visit("http://localhost:4200");
+    cy.visit(base_url);
     cy.get(".login__input-username").clear();
     cy.get(".login__input-password").clear();
   });
@@ -26,7 +26,7 @@ context("Login", () => {
       // // wait login request
       cy.wait(2000);
       cy.url().then((currentUrl) =>
-        expect(currentUrl).to.equal("http://localhost:4200/login")
+        expect(currentUrl).to.equal(`${base_url}login`)
       );
     });
   });
@@ -48,7 +48,7 @@ context("Login", () => {
       cy.wait(1000);
 
       cy.url().then((currentUrl) =>
-        expect(currentUrl).to.equal("http://localhost:4200/tasklists")
+        expect(currentUrl).to.equal(`${base_url}tasklists`)
       );
     });
   });
