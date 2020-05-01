@@ -33,8 +33,6 @@ context("Login", () => {
 
   describe("When use correct credentials", () => {
     it("login works and redirect to homepage", () => {
-      // cy.server();
-
       // fill username
       cy.get(".login__input-username")
         .type("registered_user1")
