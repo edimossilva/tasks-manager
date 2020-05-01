@@ -1,12 +1,12 @@
 <div>
   <label>
     name:
-    <input [(ngModel)]="username" placeholder="name" />
+    <input [(ngModel)]="username" class="login__input-username" />
   </label>
   <label>
     password:
-    <input [(ngModel)]="password" placeholder="name" />
+    <input [(ngModel)]="password" class="login__input-password" />
   </label>
 </div>
 
-<button (click)="login()">Log in</button>
+<button (click)="login()" class="login__button-login">Log in</button>
