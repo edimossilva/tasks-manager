@@ -5,7 +5,7 @@ stages:
   - deploy
   - test deploy
   - integration test
-
+  - generate reports
 variables:
   # use the overlay storage driver
   # https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#using-the-overlayfs-driver
@@ -116,7 +116,7 @@ test cypress:
     name: "Pipeline tasks-manager-client $CI_PIPELINE_ID Coverage Report"
 
 pages:
-  stage: deploy
+  stage: generate reports
   only:
     - master
     - external_pull_requests
