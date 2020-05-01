@@ -67,7 +67,6 @@ services:
     build:
       context: "./volume/api-gateway"
       dockerfile: "Dockerfile_api_gateway"
-    image: "ruby:2.7.0"
     container_name: api_gateway
     ports:
       - "3002:9393"
@@ -76,6 +75,17 @@ services:
       - config/environment/shared_environment.env
     volumes:
       - ./volume/api-gateway:/app
+
+  web_client:
+    build:
+      context: "./volume/tasks-manager-client"
+      dockerfile: "Dockerfile_tasks_manager_client"
+    container_name: web_client
+    ports:
+      - "4200:4200"
+    command: ng serve --host 0.0.0.0 --port 4200
+    volumes:
+      - ./volume/tasks-manager-client:/app
 # docker-compose build
 # docker-compose up -d
 # docker-compose exec tasks_manager_core rake db:create db:migrate db:seed
