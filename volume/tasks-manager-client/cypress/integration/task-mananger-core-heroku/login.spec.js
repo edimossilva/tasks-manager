@@ -3,7 +3,7 @@
 context("Login", () => {
   const invalidUsername = "invalid username";
   const invalidPassword = "invalid password";
-  const base_url = "http://web_client:4200/";
+  const base_url = "http://localhost:4200/";
   beforeEach(() => {
     localStorage.clear();
     cy.visit(base_url);

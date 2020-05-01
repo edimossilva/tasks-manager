@@ -86,14 +86,13 @@ services:
     command: ng serve --host 0.0.0.0 --disable-host-check
     volumes:
       - ./volume/tasks-manager-client:/app
-
-  cypress:
-    image: "cypress/included:4.5.0"
-    container_name: cypress
-    volumes:
-      - ./volume/tasks-manager-client:/app
-    working_dir: /app
-    entrypoint: cypress run --reporter mochawesome
+  # cypress:
+  #   image: "cypress/included:4.5.0"
+  #   container_name: cypress
+  #   volumes:
+  #     - ./volume/tasks-manager-client:/app
+  #   working_dir: /app
+  #   entrypoint: cypress run --reporter mochawesome
 # docker-compose build
 # docker-compose up -d
 # docker-compose exec tasks_manager_core rake db:create db:migrate db:seed
