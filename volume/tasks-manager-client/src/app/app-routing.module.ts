@@ -23,7 +23,7 @@ const routes: Routes = [
     component: TasklistShowComponent,
     canActivate: [AuthService],
   },
-  { path: '**', redirectTo: 'login' },
+  { path: '**', redirectTo: 'tasklists' },
 ];
 
 @NgModule({
