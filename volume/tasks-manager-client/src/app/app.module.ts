@@ -26,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { TaskItemCreateDialogComponent } from './task-item/task-item-create/task-item-create-dialog/task-item-create-dialog.component';
 import { TasklistCreateDialogComponent } from './tasklist/tasklist-create/tasklist-create-dialog/tasklist-create-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatSelectModule,
   ],
-  providers: [],
+  providers: [
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

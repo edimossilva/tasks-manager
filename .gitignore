@@ -8,3 +8,5 @@ volume/auth-provider/coverage/.resultset.json
 volume/auth-provider/coverage/index.html
 volume/tasks-manager-client/build
 volume/tasks-manager-client/node_modules
+volume/tasks-manager-client/cypress/videos/*
+volume/tasks-manager-client/mochawesome-report/*

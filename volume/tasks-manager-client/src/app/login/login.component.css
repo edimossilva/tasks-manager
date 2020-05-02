@@ -1,0 +1,21 @@
+.login__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 16px;
+}
+
+button {
+  min-width: 160px;
+}
+
+@media (max-width: 600px) {
+  button {
+    width: 100%;
+  }
+
+  .tasklist-list__panel {
+    width: 100%;
+  }
+}

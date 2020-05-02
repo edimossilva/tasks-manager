@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/services/api/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from '../shared/services/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,11 @@ import { UserService } from '../shared/services/user/user.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private api: ApiService, private userService: UserService) {}
+  constructor(
+    private api: ApiService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   username: string;
   password: string;
@@ -23,9 +28,14 @@ export class LoginComponent implements OnInit {
     console.log(error.error.error_message);
   }
 
+  handleSuccess(data) {
+    this.userService.setUser(data);
+    this.router.navigate(['tasklists']);
+  }
+
   login(): void {
     this.api
       .doLogin(this.username, this.password)
-      .subscribe((data) => this.userService.setUser(data), this.handleFail);
+      .subscribe((data) => this.handleSuccess(data), this.handleFail);
   }
 }
