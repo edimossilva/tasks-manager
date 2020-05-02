@@ -28,13 +28,17 @@
 1. CI/CD (gitlab + heroku):
    [pipeline](https://gitlab.com/edimossilva/tasks-manager/pipelines/latest)
 
-1. current coverage
+1. Unit coverage
 
-   1. [simplecov tasks-manager-core(Rails)](https://edimossilva.gitlab.io/tasks-manager/tasks_manager_core_coverage)
+   1. [simplecov tasks-manager-core (Rails)](https://edimossilva.gitlab.io/tasks-manager/tasks_manager_core_coverage)
 
-   1. [simplecov auth-provider(Rails)](https://edimossilva.gitlab.io/tasks-manager/auth_provider_coverage)
+   1. [simplecov auth-provider (Rails)](https://edimossilva.gitlab.io/tasks-manager/auth_provider_coverage)
 
-   1. [simplecov api-gateway(Sinatra)](https://edimossilva.gitlab.io/tasks-manager/api_gateway_coverage)
+   1. [simplecov api-gateway (Sinatra)](https://edimossilva.gitlab.io/tasks-manager/api_gateway_coverage)
+
+1. System Coverage
+
+   1. [cypress](https://edimossilva.gitlab.io/tasks-manager/integration)
 
 1. Custom Gems:
    [rabbitmq_pub_sub](https://github.com/edimossilva/rabbitmq_pub_sub)

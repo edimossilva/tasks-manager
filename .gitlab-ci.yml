@@ -120,6 +120,9 @@ pages:
     - master
     - external_pull_requests
   dependencies:
+    - tasks_manager_core test
+    - auth_provider test
+    - api_gateway test
     - test cypress
   script:
     - ls public
