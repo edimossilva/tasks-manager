@@ -1,23 +1,39 @@
 <mat-form-field appearance="fill">
   <mat-label>Name</mat-label>
-  <input matInput [(ngModel)]="tasklist.name" />
+  <input
+    matInput
+    [(ngModel)]="tasklist.name"
+    class="tasklist-create-dialog__input-name"
+  />
 </mat-form-field>
 
 <mat-form-field appearance="fill">
   <mat-label>Description</mat-label>
-  <input matInput [(ngModel)]="tasklist.description" />
+  <input
+    matInput
+    [(ngModel)]="tasklist.description"
+    class="tasklist-create-dialog__input-description"
+  />
 </mat-form-field>
 
 <mat-form-field appearance="fill">
   <mat-label>Frequence type</mat-label>
-  <mat-select [(ngModel)]="tasklist.frequenceType">
+  <mat-select
+    [(ngModel)]="tasklist.frequenceType"
+    class="tasklist-create-dialog__select-frequencetype"
+  >
     <mat-option value="daily">Daily</mat-option>
     <mat-option value="monthly">Monthly</mat-option>
     <mat-option value="yearly">Yearly</mat-option>
   </mat-select>
 </mat-form-field>
 
-<button mat-raised-button color="primary" (click)="onCreateClick()">
+<button
+  mat-raised-button
+  color="primary"
+  (click)="onCreateClick()"
+  class="tasklist-create-dialog__button-create"
+>
   create
 </button>
 

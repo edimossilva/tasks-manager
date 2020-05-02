@@ -1,15 +1,25 @@
-<mat-form-field appearance="fill">
-  <mat-label>Name</mat-label>
-  <input matInput [(ngModel)]="task.name" />
-</mat-form-field>
+<div class="task-item-create-dialog__container">
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input
+      matInput
+      [(ngModel)]="task.name"
+      class="task-item-create-dialog__input-name"
+    />
+  </mat-form-field>
 
-<mat-form-field appearance="fill">
-  <mat-label>Description</mat-label>
-  <input matInput [(ngModel)]="task.description" />
-</mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Description</mat-label>
+    <input
+      matInput
+      [(ngModel)]="task.description"
+      class="task-item-create-dialog__input-description"
+    />
+  </mat-form-field>
 
-<button mat-raised-button color="primary" (click)="onCreateClick()">
-  create
-</button>
+  <button mat-raised-button color="primary" (click)="onCreateClick()">
+    create
+  </button>
 
-<button mat-raised-button (click)="onCancelClick()">cancel</button>
+  <button mat-raised-button (click)="onCancelClick()">cancel</button>
+</div>

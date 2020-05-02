@@ -108,7 +108,7 @@ test cypress:
   script:
     - apk add --no-cache docker-compose
     - docker-compose up -d web_client
-    - docker-compose exec -T web_client cypress run --reporter mochawesome
+    - docker-compose exec -T web_client npm run test
   artifacts:
     paths:
       - "volume/tasks-manager-client/mochawesome-report"
