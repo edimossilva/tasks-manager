@@ -118,7 +118,7 @@ pages:
     - master
     - external_pull_requests
   dependencies:
-    - integration test
+    - test cypress
   script:
     - ls public
     # - mv volume/tasks-manager-core/coverage/* public
