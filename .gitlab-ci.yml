@@ -127,7 +127,7 @@ pages:
     # - cp volume/api-gateway/coverage/index.html public/api_gateway_coverage.html
     - mv volume/tasks-manager-client/mochawesome-report/* public
     - cp public/mochawesome.html public/integration.html
-    - cp pages/mochawesome.html public/index.html
+    - cp public/integration.html public/index.html
     # - cp pages/index.html public/index.html
   artifacts:
     paths:
