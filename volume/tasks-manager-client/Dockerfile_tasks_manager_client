@@ -11,6 +11,8 @@ WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
+RUN npm install cypress --save-dev
+
 # install and cache app dependencies
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
@@ -22,7 +24,7 @@ COPY . /app
 
 # Need Cypress itself
 # RUN npm set progress=false
-# RUN npm i -g cypress-cli@0.11.1
+# RUN npm i cypress
 # ARG CYPRESS_VERSION
 # ENV CYPRESS_VERSION ${CYPRESS_VERSION:-0.16.4}
 # RUN echo Cypress version to install $CYPRESS_VERSION
