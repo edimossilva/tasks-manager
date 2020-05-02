@@ -14,18 +14,19 @@
         {{ tasklist.description || "no description =z" }}
       </mat-panel-description>
     </mat-expansion-panel-header>
-
-    <app-task-item-list [tasklist]="tasklist"></app-task-item-list>
-    <mat-action-row>
-      <button
-        mat-raised-button
-        (click)="deleteTaskList(tasklist)"
-        color="warn"
-        class="tasklist-list__delete-button"
-      >
-        Delete list
-      </button>
-    </mat-action-row>
+    <ng-template matExpansionPanelContent>
+      <app-task-item-list [tasklist]="tasklist"></app-task-item-list>
+      <mat-action-row>
+        <button
+          mat-raised-button
+          (click)="deleteTaskList(tasklist)"
+          color="warn"
+          class="tasklist-list__delete-button"
+        >
+          Delete list
+        </button>
+      </mat-action-row>
+    </ng-template>
   </mat-expansion-panel>
   <app-tasklist-create></app-tasklist-create>
 </div>

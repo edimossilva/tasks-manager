@@ -1,25 +1,21 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add("login", () => {
+  cy.visit("/");
+  cy.get(".login__input-username").clear();
+  cy.get(".login__input-password").clear();
+  cy.get(".login__input-username").type("registered_user2");
+  cy.get(".login__input-password").type("222");
+  cy.get(".login__button-login").click();
+});
+
+Cypress.Commands.add("createTaskList", (name) => {
+  // cy.visit("/tasklists");
+  cy.get(".tasklist-create__button").click();
+  cy.get(".tasklist-create-dialog__input-name").type(name);
+  cy.get(".tasklist-create-dialog__input-description").type(
+    `description ${name}`
+  );
+  cy.get(".tasklist-create-dialog__select-frequencetype").click();
+  cy.get(".mat-option-ripple").then((response) => response[0].click());
+
+  cy.get(".tasklist-create-dialog__button-create").click();
+});
