@@ -5,7 +5,7 @@ stages:
   # - deploy
   # - test deploy
   - integration test
-  # - generate reports
+  - generate reports
 variables:
   # use the overlay storage driver
   # https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#using-the-overlayfs-driver
@@ -112,25 +112,26 @@ test cypress:
     paths:
       - "volume/tasks-manager-client/mochawesome-report"
     name: "Pipeline tasks-manager-client $CI_PIPELINE_ID Coverage Report"
-# pages:
-#   stage: generate reports
-#   only:
-#     - master
-#     - external_pull_requests
-#   dependencies:
-#     - tasks_manager_core test
-#     - auth_provider test
-#     - api_gateway test
-#   script:
-#     - ls public
-#     - mv volume/tasks-manager-core/coverage/* public
-#     - cp public/index.html public/tasks_manager_core_coverage.html
-#     - cp volume/auth-provider/coverage/index.html public/auth_provider_coverage.html
-#     - cp volume/api-gateway/coverage/index.html public/api_gateway_coverage.html
-#     - mv volume/tasks-manager-client/mochawesome-report/* public
-#     - cp public/mochawesome.html public/integration.html
-#     - cp pages/index.html public/index.html
-#   artifacts:
-#     paths:
-#       - public
-#     expire_in: 100 days
+pages:
+  stage: generate reports
+  only:
+    - master
+    - external_pull_requests
+  dependencies:
+    - tasks_manager_core test
+    - auth_provider test
+    - api_gateway test
+  script:
+    - ls public
+    # - mv volume/tasks-manager-core/coverage/* public
+    # - cp public/index.html public/tasks_manager_core_coverage.html
+    # - cp volume/auth-provider/coverage/index.html public/auth_provider_coverage.html
+    # - cp volume/api-gateway/coverage/index.html public/api_gateway_coverage.html
+    - mv volume/tasks-manager-client/mochawesome-report/* public
+    - cp public/mochawesome.html public/integration.html
+    - cp pages/mochawesome.html public/index.html
+    # - cp pages/index.html public/index.html
+  artifacts:
+    paths:
+      - public
+    expire_in: 100 days
