@@ -6,7 +6,7 @@ context("Login", () => {
   const base_url = "http://localhost:4200/";
   beforeEach(() => {
     localStorage.clear();
-    cy.visit(base_url);
+    cy.visit("/");
     cy.get(".login__input-username").clear();
     cy.get(".login__input-password").clear();
   });
@@ -24,7 +24,7 @@ context("Login", () => {
       // // click login
       cy.get(".login__button-login").click();
       // // wait login request
-      cy.wait(2000);
+      // cy.wait(1000);
       cy.url().then((currentUrl) =>
         expect(currentUrl).to.equal(`${base_url}login`)
       );

@@ -1,29 +1,18 @@
 /// <reference types="cypress" />
 
 context("Create TaskList", () => {
-  const name = `name ${Date.now()}`;
-  const description = `description ${Date.now()}`;
-  const base_url = "http://localhost:4200/";
-  const tasklistsUrl = "http://localhost:4200/tasklists";
+  const date = Date.now();
+  const name = `name ${date}`;
+  const description = `description ${date}`;
 
   beforeEach(() => {
-    // localStorage.clear();
-    cy.visit(base_url);
-    cy.get(".login__input-username").clear();
-    cy.get(".login__input-password").clear();
-    cy.get(".login__input-username").type("registered_user2");
-    cy.get(".login__input-password").type("222");
-    cy.get(".login__button-login").click();
-
-    // cy.wait(2000);
+    cy.login();
   });
 
   describe("When data is valid", () => {
     it("creates TaskList ", () => {
-      cy.get(".tasklist-create__button").click();
-      // cy.visit(tasklistsUrl);
-      console.log(cy.get(".tasklist-create__button"));
       // click to open create task dialog
+      cy.get(".tasklist-create__button").click();
       // fill data
       cy.get(".tasklist-create-dialog__input-name").type(name);
       cy.get(".tasklist-create-dialog__input-description").type(description);
@@ -41,10 +30,8 @@ context("Create TaskList", () => {
   describe("When data is invalid (frequencetype not selected)", () => {
     it("creates TaskList ", () => {
       const errorName = "errorName";
-      cy.get(".tasklist-create__button").click();
-      // cy.visit(tasklistsUrl);
-      console.log(cy.get(".tasklist-create__button"));
       // click to open create task dialog
+      cy.get(".tasklist-create__button").click();
       // fill data
       cy.get(".tasklist-create-dialog__input-name").type(errorName);
       cy.get(".tasklist-create-dialog__input-description").type(description);
