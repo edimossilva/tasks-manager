@@ -130,7 +130,9 @@ pages:
     - cp public/index.html public/tasks_manager_core_coverage.html
     - cp volume/auth-provider/coverage/index.html public/auth_provider_coverage.html
     - cp volume/api-gateway/coverage/index.html public/api_gateway_coverage.html
+    - mv public/assets public/assets2
     - mv volume/tasks-manager-client/mochawesome-report/* public
+    - mv public/assets2/* public/assets
     - cp public/mochawesome.html public/integration.html
     - cp pages/index.html public/index.html
   artifacts:
