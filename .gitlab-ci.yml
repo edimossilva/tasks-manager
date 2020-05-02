@@ -106,7 +106,6 @@ test cypress:
     - docker:dind
   script:
     - apk add --no-cache docker-compose
-    - docker-compose build web_client
     - docker-compose up -d web_client
     - docker-compose exec -T web_client cypress run --reporter mochawesome
   artifacts:

@@ -86,6 +86,7 @@ services:
     command: ng serve --host 0.0.0.0 --disable-host-check
     volumes:
       - ./volume/tasks-manager-client:/app
+      - /app/node_modules
   # cypress:
   #   image: "cypress/included:4.5.0"
   #   container_name: cypress
