@@ -33,13 +33,17 @@ context("Login", () => {
 
   describe("When use correct credentials", () => {
     it("login works and redirect to homepage", () => {
+      const userName = "test_user";
+      const password = "111";
       // fill username
       cy.get(".login__input-username")
-        .type("registered_user1")
-        .should("have.value", "registered_user1");
+        .type(userName)
+        .should("have.value", userName);
 
       // fill password
-      cy.get(".login__input-password").type("111").should("have.value", "111");
+      cy.get(".login__input-password")
+        .type(password)
+        .should("have.value", password);
 
       // click login
       cy.get(".login__button-login").click();

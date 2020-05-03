@@ -28,6 +28,9 @@
 1. Message Broker:
    [RabbitMq](https://www.rabbitmq.com/)
 
+1. Background jobs
+   [Sidekiq](https://sidekiq.org/)
+
 1. Cache
    [Redis](https://redis.io/)
 
