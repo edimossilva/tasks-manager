@@ -3,11 +3,13 @@ Cypress.Commands.add("clickButton", (identifier) => {
 });
 
 Cypress.Commands.add("login", () => {
+  const userName = "test_user";
+  const password = "111";
   cy.visit("/");
   cy.get(".login__input-username").clear();
   cy.get(".login__input-password").clear();
-  cy.get(".login__input-username").type("registered_user2");
-  cy.get(".login__input-password").type("222");
+  cy.get(".login__input-username").type(userName);
+  cy.get(".login__input-password").type(password);
   cy.get(".login__button-login").click();
 });
 
