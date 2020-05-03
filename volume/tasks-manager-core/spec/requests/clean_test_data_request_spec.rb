@@ -8,8 +8,11 @@ RSpec.describe 'CleanTestData', type: :request do
       let!(:task) { create_list(:task, 5, user: test_user) }
 
       before do
-        DeleteTestDataWorker.new.perform
+        allow(DeleteTestDataWorker).to receive(:perform_async).and_return(DeleteTestDataWorker.new.perform)
+        get('/clean_test_data')
       end
+
+      it { expect(response).to have_http_status(:no_content) }
 
       it 'delete all tasklists' do
         expect(TaskList.where(user: test_user).length).to eq(0)
