@@ -12,6 +12,10 @@ variables:
   # https://docs.gitlab.com/ce/ci/docker/using_docker_build.html#using-the-overlayfs-driver
   DOCKER_DRIVER: overlay2
 
+except:
+  changes:
+    - "*.md"
+
 tasks_manager_core test:
   stage: unit test
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
