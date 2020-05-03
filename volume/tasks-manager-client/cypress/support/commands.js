@@ -1,3 +1,7 @@
+Cypress.Commands.add("clickButton", (identifier) => {
+  cy.get(identifier).then((response) => response[0].click());
+});
+
 Cypress.Commands.add("login", () => {
   cy.visit("/");
   cy.get(".login__input-username").clear();
@@ -15,7 +19,7 @@ Cypress.Commands.add("createTaskList", (name) => {
     `description ${name}`
   );
   cy.get(".tasklist-create-dialog__select-frequencetype").click();
-  cy.get(".mat-option-ripple").then((response) => response[0].click());
+  cy.clickButton(".mat-option-ripple");
 
   cy.get(".tasklist-create-dialog__button-create").click();
 });
@@ -25,13 +29,11 @@ Cypress.Commands.add("createTaskitem", (tasklistName, taskItemName) => {
   cy.contains(tasklistName).then((response) => response[0].click());
 
   // click on create button to open task item dialog
-  cy.get(".task-item-create__button").then((response) => response[0].click());
+  cy.clickButton(".task-item-create__button");
 
   // fill data
   cy.get(".task-item-create-dialog__input-name").type(taskItemName);
 
   // click create button on dialog to create taskitem
-  cy.get(".task-item-create-dialog__button-create").then((response) =>
-    response[0].click()
-  );
+  cy.clickButton(".task-item-create-dialog__button-create");
 });

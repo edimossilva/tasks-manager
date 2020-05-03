@@ -13,9 +13,7 @@ context("Delete TaskList", () => {
       // click to open create task dialog
       cy.contains(name).then((response) => response[0].click());
 
-      cy.get(".tasklist-list__delete-button").then((response) =>
-        response[0].click()
-      );
+      cy.clickButton(".tasklist-list__delete-button");
 
       cy.wait(2000);
 
@@ -24,7 +22,7 @@ context("Delete TaskList", () => {
   });
 
   describe("When user click title again", () => {
-    it("delete TaskList ", () => {
+    it("does not delete TaskList ", () => {
       const name = `name2 delete TaskList${Date.now()}`;
       cy.createTaskList(name);
 

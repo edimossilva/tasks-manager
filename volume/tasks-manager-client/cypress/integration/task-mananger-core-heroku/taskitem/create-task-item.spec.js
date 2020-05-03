@@ -21,17 +21,13 @@ context("Create TaskItem", () => {
         cy.contains(taskListName).then((response) => response[0].click());
 
         // click on create button to open task item dialog
-        cy.get(".task-item-create__button").then((response) =>
-          response[0].click()
-        );
+        cy.clickButton(".task-item-create__button");
 
         // fill data
         cy.get(".task-item-create-dialog__input-name").type(taskItemName);
 
         // click create button on dialog to create taskitem
-        cy.get(".task-item-create-dialog__button-create").then((response) =>
-          response[0].click()
-        );
+        cy.clickButton(".task-item-create-dialog__button-create");
 
         // check if taskitem is present
         cy.get(".task-item-show__checkbox-checked").should(
@@ -53,17 +49,13 @@ context("Create TaskItem", () => {
         cy.contains(taskListName).then((response) => response[0].click());
 
         // click on create button to open task item dialog
-        cy.get(".task-item-create__button").then((response) =>
-          response[0].click()
-        );
+        cy.clickButton(".task-item-create__button");
 
         // fill data
         cy.get(".task-item-create-dialog__input-name").type(taskItemName);
 
         // click cancel button on dialog to create taskitem
-        cy.get(".task-item-create-dialog__button-cancel").then((response) =>
-          response[0].click()
-        );
+        cy.clickButton(".task-item-create-dialog__button-cancel");
 
         // check if taskitem is not present
         cy.get(".task-item-show__checkbox-checked").should(
