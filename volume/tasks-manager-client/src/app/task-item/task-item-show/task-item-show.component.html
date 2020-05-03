@@ -1,9 +1,12 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      <mat-checkbox (change)="update()" [(ngModel)]="taskItem.isChecked">{{
-        taskItem.name()
-      }}</mat-checkbox>
+      <mat-checkbox
+        (change)="update()"
+        [(ngModel)]="taskItem.isChecked"
+        class="task-item-show__checkbox-checked"
+        >{{ taskItem.name() }}</mat-checkbox
+      >
     </mat-card-title>
     <mat-card-subtitle>{{ taskItem.description() }}</mat-card-subtitle>
     <div class="task-item-show__button_container">
