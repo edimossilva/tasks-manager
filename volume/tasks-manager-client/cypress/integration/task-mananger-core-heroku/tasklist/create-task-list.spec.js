@@ -28,7 +28,7 @@ context("Create TaskList", () => {
   });
 
   describe("When data is invalid (frequencetype not selected)", () => {
-    it("creates TaskList ", () => {
+    it("does not create TaskList ", () => {
       const errorName = "errorName";
       // click to open create task dialog
       cy.get(".tasklist-create__button").click();
