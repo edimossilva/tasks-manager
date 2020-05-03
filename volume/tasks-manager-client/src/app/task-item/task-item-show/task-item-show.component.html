@@ -10,7 +10,12 @@
     </mat-card-title>
     <mat-card-subtitle>{{ taskItem.description() }}</mat-card-subtitle>
     <div class="task-item-show__button_container">
-      <button mat-raised-button (click)="openDialog()" color="warn">
+      <button
+        mat-raised-button
+        (click)="openDialog()"
+        color="warn"
+        class="task-item-show__button_delete"
+      >
         Delete task
       </button>
     </div>

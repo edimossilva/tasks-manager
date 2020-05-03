@@ -8,7 +8,7 @@ context("Create TaskItem", () => {
     cy.login();
   });
 
-  describe("When name is valid click create", () => {
+  describe("When name is valid", () => {
     describe("when click create", () => {
       it("creates TaskItem", () => {
         const date = Date.now();
