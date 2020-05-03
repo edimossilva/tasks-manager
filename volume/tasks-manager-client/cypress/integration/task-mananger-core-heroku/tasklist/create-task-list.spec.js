@@ -17,7 +17,7 @@ context("Create TaskList", () => {
       cy.get(".tasklist-create-dialog__input-name").type(name);
       cy.get(".tasklist-create-dialog__input-description").type(description);
       cy.get(".tasklist-create-dialog__select-frequencetype").click();
-      cy.get(".mat-option-ripple").then((response) => response[0].click()); // Select first option (daily)
+      cy.clickButton(".mat-option-ripple"); // Select first option (daily)
 
       // submit tasklist
       cy.get(".tasklist-create-dialog__button-create").click();
@@ -28,10 +28,10 @@ context("Create TaskList", () => {
   });
 
   describe("When data is invalid (frequencetype not selected)", () => {
-    it("creates TaskList ", () => {
+    it("does not create TaskList ", () => {
       const errorName = "errorName";
       // click to open create task dialog
-      cy.get(".tasklist-create__button").click();
+      cy.clickButton(".tasklist-create__button");
       // fill data
       cy.get(".tasklist-create-dialog__input-name").type(errorName);
       cy.get(".tasklist-create-dialog__input-description").type(description);
