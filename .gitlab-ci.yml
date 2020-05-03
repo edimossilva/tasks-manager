@@ -2,10 +2,10 @@ image: docker/compose
 
 stages:
   - unit test
-  - deploy
-  - test deploy
-  - integration test
-  - generate reports
+  # - deploy
+  # - test deploy
+  # - integration test
+  # - generate reports
 
 variables:
   # use the overlay storage driver
@@ -17,10 +17,8 @@ tasks_manager_core test:
   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
   only:
     - master
-    - external_pull_requests
-  except:
-    changes:
-      - "*.md"
+    refs:
+      - merge_requests
   services:
     - docker:dind
   before_script:
@@ -33,126 +31,107 @@ tasks_manager_core test:
     paths:
       - "volume/tasks-manager-core/coverage/"
     name: "Pipeline tasks_manager_core $CI_PIPELINE_ID Coverage Report"
+# auth_provider test:
+#   stage: unit test
+#   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
+#   only:
+#     - master
+#     - external_pull_requests
+#   services:
+#     - docker:dind
+#   before_script:
+#     - docker-compose build auth_provider
+#     - docker-compose up -d auth_provider
+#     - docker-compose exec -T auth_provider rake db:create db:migrate
+#   script:
+#     - docker-compose exec -T auth_provider rspec
 
-auth_provider test:
-  stage: unit test
-  coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
-  only:
-    - master
-    - external_pull_requests
-  except:
-    changes:
-      - "*.md"
-  services:
-    - docker:dind
-  before_script:
-    - docker-compose build auth_provider
-    - docker-compose up -d auth_provider
-    - docker-compose exec -T auth_provider rake db:create db:migrate
-  script:
-    - docker-compose exec -T auth_provider rspec
+#   artifacts:
+#     paths:
+#       - "volume/auth-provider/coverage/"
+#     name: "Pipeline auth_provider $CI_PIPELINE_ID Coverage Report"
 
-  artifacts:
-    paths:
-      - "volume/auth-provider/coverage/"
-    name: "Pipeline auth_provider $CI_PIPELINE_ID Coverage Report"
+# api_gateway test:
+#   stage: unit test
+#   coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
+#   only:
+#     - master
+#     - external_pull_requests
+#   services:
+#     - docker:dind
+#   before_script:
+#     - docker-compose build api_gateway
+#   script:
+#     - docker-compose run -T api_gateway rspec
+#   artifacts:
+#     paths:
+#       - "volume/api-gateway/coverage/"
+#     name: "Pipeline api_gateway $CI_PIPELINE_ID Coverage Report"
 
-api_gateway test:
-  stage: unit test
-  coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
-  only:
-    - master
-    - external_pull_requests
-  except:
-    changes:
-      - "*.md"
-  services:
-    - docker:dind
-  before_script:
-    - docker-compose build api_gateway
-  script:
-    - docker-compose run -T api_gateway rspec
-  artifacts:
-    paths:
-      - "volume/api-gateway/coverage/"
-    name: "Pipeline api_gateway $CI_PIPELINE_ID Coverage Report"
+# deploy heroku:
+#   stage: deploy
+#   only:
+#     - master
+#     - external_pull_requests
+#   services:
+#     - docker:dind
+#   before_script:
+#     - apk add curl nodejs bash git
+#     -  curl https://cli-assets.heroku.com/install.sh | sh
+#     - docker build .
+#   script:
+#     - heroku container:login
+#     - heroku git:remote -a $HEROKU_APP_STAGING
+#     - heroku container:push web
+#     - heroku container:release web
+#     - heroku run rails db:migrate db:seed --app $HEROKU_APP_STAGING
 
-deploy heroku:
-  stage: deploy
-  only:
-    - master
-    - external_pull_requests
-  except:
-    changes:
-      - "*.md"
-  services:
-    - docker:dind
-  before_script:
-    - apk add curl nodejs bash git
-    -  curl https://cli-assets.heroku.com/install.sh | sh
-    - docker build .
-  script:
-    - heroku container:login
-    - heroku git:remote -a $HEROKU_APP_STAGING
-    - heroku container:push web
-    - heroku container:release web
-    - heroku run rails db:migrate db:seed --app $HEROKU_APP_STAGING
+# test deploy heroku:
+#   image: curlimages/curl
+#   only:
+#     - master
+#     - external_pull_requests
+#   stage: test deploy
+#   script:
+#     - curl -s "https://edimossilva-task-manager.herokuapp.com/apipie" | grep -q "half minute and a half"
 
-test deploy heroku:
-  image: curlimages/curl
-  only:
-    - master
-    - external_pull_requests
-  except:
-    changes:
-      - "*.md"
-  stage: test deploy
-  script:
-    - curl -s "https://edimossilva-task-manager.herokuapp.com/apipie" | grep -q "half minute and a half"
+# test cypress:
+#   stage: integration test
+#   only:
+#     - master
+#     - external_pull_requests
+#   services:
+#     - docker:dind
+#   script:
+#     - docker-compose up -d web_client
+#     - docker-compose exec -T web_client npm run test
+#   artifacts:
+#     paths:
+#       - "volume/tasks-manager-client/mochawesome-report"
+#     name: "Pipeline tasks-manager-client $CI_PIPELINE_ID Coverage Report"
 
-test cypress:
-  stage: integration test
-  only:
-    - master
-    - external_pull_requests
-  except:
-    changes:
-      - "*.md"
-  services:
-    - docker:dind
-  script:
-    - docker-compose up -d web_client
-    - docker-compose exec -T web_client npm run test
-  artifacts:
-    paths:
-      - "volume/tasks-manager-client/mochawesome-report"
-    name: "Pipeline tasks-manager-client $CI_PIPELINE_ID Coverage Report"
-
-pages:
-  stage: generate reports
-  only:
-    - master
-    - external_pull_requests
-  except:
-    changes:
-      - "*.md"
-  dependencies:
-    - tasks_manager_core test
-    - auth_provider test
-    - api_gateway test
-    - test cypress
-  script:
-    - ls public
-    - mv volume/tasks-manager-core/coverage/* public
-    - cp public/index.html public/tasks_manager_core_coverage.html
-    - cp volume/auth-provider/coverage/index.html public/auth_provider_coverage.html
-    - cp volume/api-gateway/coverage/index.html public/api_gateway_coverage.html
-    - mv public/assets public/assets2
-    - mv volume/tasks-manager-client/mochawesome-report/* public
-    - mv public/assets2/* public/assets
-    - cp public/mochawesome.html public/integration.html
-    - cp pages/index.html public/index.html
-  artifacts:
-    paths:
-      - public
-    expire_in: 100 days
+# pages:
+#   stage: generate reports
+#   only:
+#     - master
+#     - external_pull_requests
+#   dependencies:
+#     - tasks_manager_core test
+#     - auth_provider test
+#     - api_gateway test
+#     - test cypress
+#   script:
+#     - ls public
+#     - mv volume/tasks-manager-core/coverage/* public
+#     - cp public/index.html public/tasks_manager_core_coverage.html
+#     - cp volume/auth-provider/coverage/index.html public/auth_provider_coverage.html
+#     - cp volume/api-gateway/coverage/index.html public/api_gateway_coverage.html
+#     - mv public/assets public/assets2
+#     - mv volume/tasks-manager-client/mochawesome-report/* public
+#     - mv public/assets2/* public/assets
+#     - cp public/mochawesome.html public/integration.html
+#     - cp pages/index.html public/index.html
+#   artifacts:
+#     paths:
+#       - public
+#     expire_in: 100 days
