@@ -1,6 +1,7 @@
 {
   "projectId": "eprguz",
   "reporter": "mochawesome",
+  "video": false,
   "reporterOptions": {
     "overwrite": false,
     "html": false,
