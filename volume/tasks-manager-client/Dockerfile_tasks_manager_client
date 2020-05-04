@@ -1,5 +1,5 @@
 # base image
-FROM edimossilva/node-angular-cypress:slim
+FROM edimossilva/node-angular-cypress:web_client
 
 # install and cache app dependencies
 COPY package.json /app/package.json
