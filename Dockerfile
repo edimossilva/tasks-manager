@@ -1,7 +1,4 @@
-FROM edimossilva/rails6:latest
-
-# config home environment
-WORKDIR /app
+FROM edimossilva/rails6:tasks_manager_core
 
 COPY ./volume/tasks-manager-core/Gemfile /app/Gemfile
 COPY ./volume/tasks-manager-core/Gemfile.lock /app/Gemfile.lock
