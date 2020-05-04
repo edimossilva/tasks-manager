@@ -82,6 +82,7 @@ deploy heroku:
   script:
     - heroku container:login
     - heroku git:remote -a $HEROKU_APP_STAGING
+    - heroku stop web.1
     - heroku container:push web
     - heroku container:release web
     - heroku run rails db:migrate db:seed --app $HEROKU_APP_STAGING
