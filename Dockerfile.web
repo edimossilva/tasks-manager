@@ -1,0 +1,9 @@
+FROM edimossilva/rails6:tasks_manager_core
+
+COPY ./volume/tasks-manager-core/Gemfile /app/Gemfile
+COPY ./volume/tasks-manager-core/Gemfile.lock /app/Gemfile.lock
+RUN bundle install
+
+# only for heroku
+COPY ./volume/tasks-manager-core/ .
+CMD ["bundle exec puma -t 3:3 -p ${PORT:-3000} -e ${RACK_ENV:-development}"]
