@@ -1,3 +1,3 @@
 web: bundle exec puma -t 3:3 -p ${PORT:-3000} -e ${RACK_ENV:-development}
 
-tasks_manager_core_worker: bundle exec sidekiq -c 2
+worker: bundle exec sidekiq -c 2
