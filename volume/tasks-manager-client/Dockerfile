@@ -1,0 +1,17 @@
+# base image
+FROM edimossilva/node-angular-cypress:web_client
+
+# install and cache app dependencies
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+RUN npm install
+
+
+# add app
+COPY . /app
+
+# start app
+CMD ng serve
+
+# docker build -f Dockerfile . -t edimossilva/node-angular-cypress:aws
+# docker push edimossilva/node-angular-cypress:aws

@@ -6,4 +6,6 @@ RUN bundle install
 
 # only for heroku
 COPY ./volume/tasks-manager-core/ .
-CMD ["puma"]
+
+
+CMD bundle exec sidekiq -c 2

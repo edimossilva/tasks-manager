@@ -1,0 +1,11 @@
+FROM edimossilva/rails6:tasks_manager_core
+
+COPY ./volume/tasks-manager-core/Gemfile /app/Gemfile
+COPY ./volume/tasks-manager-core/Gemfile.lock /app/Gemfile.lock
+RUN bundle install
+
+# only for heroku
+COPY ./volume/tasks-manager-core/ .
+
+
+CMD bundle exec puma -C config/puma.rb
