@@ -6,4 +6,6 @@ RUN bundle install
 
 # only for heroku
 COPY ./volume/tasks-manager-core/ .
-CMD ["bundle exec sidekiq -c 2"]
+
+
+CMD bundle exec sidekiq -c 2

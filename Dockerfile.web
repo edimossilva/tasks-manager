@@ -6,4 +6,6 @@ RUN bundle install
 
 # only for heroku
 COPY ./volume/tasks-manager-core/ .
-CMD ["bundle exec puma -t 3:3 -p ${PORT:-3000} -e ${RACK_ENV:-development}"]
+
+
+CMD bundle exec puma -C config/puma.rb
