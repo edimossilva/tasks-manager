@@ -78,13 +78,11 @@ deploy heroku:
   before_script:
     - apk add curl nodejs bash git
     -  curl https://cli-assets.heroku.com/install.sh | sh
-    - docker build .
   script:
     - heroku container:login
     - heroku git:remote -a $HEROKU_APP_STAGING
-    - heroku stop web.1
-    - heroku container:push web
-    - heroku container:release web
+    - heroku container:push --recursive
+    - heroku container:release web worker
     - heroku run rails db:migrate db:seed --app $HEROKU_APP_STAGING
 
 test deploy heroku:
